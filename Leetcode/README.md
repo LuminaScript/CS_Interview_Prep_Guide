@@ -148,36 +148,47 @@ The following list includes frequently asked algorithm and data structure topics
 - Leetcode 1004 Max Consecutive Ones III
 - Leetcode 1658 Minimum Operations to Reduce X to Zero
 
-## Breadth-First Search (BFS)
+## Breadth-First Search (BFS) Topics and Questions
 
-**Basic Knowledge:**
-- Common use cases of BFS: finding the shortest path length in simple graphs (directed or undirected), topological sorting, and traversing a graph or tree.
+### Basic Knowledge
+- Common use cases of BFS include:
+  - Finding the shortest path length in simple graphs (directed or undirected).
+  - Topological sorting.
+  - Traversing a graph or tree.
 - BFS basic template (with or without recording levels).
 - Time and space complexity: O(N + M), where N is the number of nodes, and M is the number of edges.
-- Tree-based BFS: Does not require a separate set to track visited nodes.
-- Leetcode 102 Binary Tree Level Order Traversal
-- Leetcode 103 Binary Tree Zigzag Level Order Traversal
-- Leetcode 297 Serialize and Deserialize Binary Tree (combines BFS and two-pointer approach)
-- Leetcode 314 Binary Tree Vertical Order Traversal
-- Graph-based BFS: Typically requires a set to track visited nodes.
-- Leetcode 200. Number of Islands
-- Leetcode 133. Clone Graph
-- Leetcode 127. Word Ladder
-- Leetcode 490. The Maze
-- Leetcode 323. Connected Component in Undirected Graph
-- Leetcode 130. Surrounded Regions
-- Leetcode 752. Open the Lock
-- Leetcode 815. Bus Routes
-- Leetcode 1091. Shortest Path in Binary Matrix
-- Leetcode 542. 01 Matrix
-- Leetcode 1293. Shortest Path in a Grid with Obstacles Elimination
-- Leetcode 417. Pacific Atlantic Water Flow
-- Topological Sorting: https://en.wikipedia.org/wiki/Topological_sorting
-- Leetcode 207 Course Schedule (I, II)
-- Leetcode 444 Sequence Reconstruction
-- Leetcode 269 Alien Dictionary
-- Leetcode 310 Minimum Height Trees
-- Leetcode 366 Find Leaves of Binary Tree
+- Tree-based BFS does not require a separate set to track visited nodes.
+- Graph-based BFS typically requires a set to track visited nodes.
+- Topological Sorting: [Topological Sorting on Wikipedia](https://en.wikipedia.org/wiki/Topological_sorting)
+
+### Tree-Based BFS Questions
+- [Leetcode 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+- [Leetcode 103: Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+- [Leetcode 297: Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) (combines BFS and two-pointer approach)
+- [Leetcode 314: Binary Tree Vertical Order Traversal](https://leetcode.com/problems/binary-tree-vertical-order-traversal/)
+
+### Graph-Based BFS Questions
+- [Leetcode 200: Number of Islands](https://leetcode.com/problems/number-of-islands/)
+- [Leetcode 133: Clone Graph](https://leetcode.com/problems/clone-graph/)
+- [Leetcode 127: Word Ladder](https://leetcode.com/problems/word-ladder/)
+- [Leetcode 490: The Maze](https://leetcode.com/problems/the-maze/)
+- [Leetcode 323: Connected Component in Undirected Graph](https://leetcode.com/problems/connected-component-in-undirected-graph/)
+- [Leetcode 130: Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
+- [Leetcode 752: Open the Lock](https://leetcode.com/problems/open-the-lock/)
+- [Leetcode 815: Bus Routes](https://leetcode.com/problems/bus-routes/)
+- [Leetcode 1091: Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/)
+- [Leetcode 542: 01 Matrix](https://leetcode.com/problems/01-matrix/)
+- [Leetcode 1293: Shortest Path in a Grid with Obstacles Elimination](https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/)
+- [Leetcode 417: Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)
+
+### Topological Sorting Questions
+- [Leetcode 207: Course Schedule (I, II)](https://leetcode.com/problems/course-schedule/)
+- [Leetcode 444: Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/)
+- [Leetcode 269: Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)
+- [Leetcode 310: Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/)
+- [Leetcode 366: Find Leaves of Binary Tree](https://leetcode.com/problems/find-leaves-of-binary-tree/)
+
+
 
 
 ## Depth-First Search (DFS)
