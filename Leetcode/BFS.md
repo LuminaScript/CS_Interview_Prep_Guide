@@ -39,6 +39,30 @@
        ```
 
 - [Leetcode 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+  
+  _Time Complexity: O(N) + Space Comexity: O(N)_
+
+  ```cpp
+  vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root) return {};
+        vector<vector<int>> ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int n = q.size();
+            vector<int> level;
+            while(n--){
+                TreeNode *nd = q.front();q.pop();
+                level.push_back(nd->val);
+                if(nd->left) q.push(nd->left);
+                if(nd->right) q.push(nd->right);
+            }
+            ans.push_back(level);
+        }
+        return ans;
+  }
+
+  ```
 - [Leetcode 103: Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
   > Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
   
