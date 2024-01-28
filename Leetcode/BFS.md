@@ -4,42 +4,71 @@
   >
   > If two nodes are in the same row and column, the order should be from left to right.
 
-   1. **BFS + Sort**
-      - **Time complexity**: O(N) [BFS] + O(NlogN) [Sort] = O(NlogN)
-      - **Space Complexity**: O(N)
-       ```cpp
-       vector<vector<int>> verticalOrder(TreeNode* root) {
-           map<int, vector<int>> verticalMap;
-           queue<pair<TreeNode*, int>> q;
-       
-           if (root) {
-               q.push({root, 0});
-           }
-       
-           while (!q.empty()) {
-               TreeNode *cur = q.front().first; 
-               int cur_pos = q.front().second;
-               q.pop();
-               verticalMap[cur_pos].push_back(cur->val);
-       
-               if (cur->left) {
-                   q.push({cur->left, cur_pos - 1});
-               }
-               if (cur->right) {
-                   q.push({cur->right, cur_pos + 1});
-               }
-           }
-       
-           vector<vector<int>> res;
-           for (const auto& entry : verticalMap) {
-               res.push_back(entry.second);
-           }
-           return res;
+  **Solution One: BFS + Sort**
+  
+  _Time Complexity: O(NlogN) + Space Complexity: O(N)_
+   ```cpp
+   vector<vector<int>> verticalOrder(TreeNode* root) {
+       map<int, vector<int>> verticalMap;
+       queue<pair<TreeNode*, int>> q;
+   
+       if (root) {
+           q.push({root, 0});
        }
+   
+       while (!q.empty()) {
+           TreeNode *cur = q.front().first; 
+           int cur_pos = q.front().second;
+           q.pop();
+           verticalMap[cur_pos].push_back(cur->val);
+   
+           if (cur->left) {
+               q.push({cur->left, cur_pos - 1});
+           }
+           if (cur->right) {
+               q.push({cur->right, cur_pos + 1});
+           }
+       }
+   
+       vector<vector<int>> res;
+       for (const auto& entry : verticalMap) {
+           res.push_back(entry.second);
+       }
+       return res;
+   }
        ```
 
 - [Leetcode 102: Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 - [Leetcode 103: Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+  > Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
+  
+  _Time Complexity: O(N) + Space Comexity: O(N)_
+  ```cpp
+  vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+      vector<vector<int>> res;
+      if(!root) return res;
+      queue<TreeNode*> q;
+      q.push(root);
+      bool leftToRight = true;
+      
+      while(!q.empty()){
+          int n = q.size();
+          vector<int> level(n);
+          for(int i = 0; i < n; i++){
+              TreeNode *node = q.front(); q.pop();
+              // fill level array with zigzag order
+              int index = leftToRight ? i : (n - i - 1);
+              level[index] = node->val;
+
+              if(node->left) q.push(node->left);
+              if(node->right) q.push(node->right);
+          }
+          leftToRight = !leftToRight;
+          res.push_back(level);
+      }
+      return res;
+  }
+  ```
 - [Leetcode 297: Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) (combines BFS and two-pointer approach)
 
 
