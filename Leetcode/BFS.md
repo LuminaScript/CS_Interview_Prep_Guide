@@ -98,6 +98,50 @@
 
 ### Graph-Based BFS Questions
 - [Leetcode 200: Number of Islands](https://leetcode.com/problems/number-of-islands/)
+
+  Time Complexity : O(N * M) + Space Complexity : O(min(N, M))
+  
+  ```cpp
+  int numIslands(vector<vector<char>>& grid) {
+      int nr = grid.size();
+      if(!nr) return 0;
+      int nc = grid[0].size();
+      int num_islands = 0;
+      for(int r = 0; r < nr; r++){
+          for(int c = 0; c < nc; c++){
+              if(grid[r][c] == '1'){
+                  num_islands++;
+                  grid[r][c] = '0';
+                  queue<pair<int, int>> nbs; // neighbors
+                  nbs.push({r, c});
+                  while(!nbs.empty()){
+                      auto rc = nbs.front(); nbs.pop();
+                      int row = rc.first, col = rc.second;
+                      if(row - 1 >= 0 && grid[row - 1][col] == '1'){ // up
+                          grid[row - 1][col] = '0';
+                          nbs.push({row - 1, col});
+                      }
+                      if(row + 1 < nr && grid[row + 1][col] == '1'){ // down
+                          grid[row + 1][col] = '0';
+                          nbs.push({row + 1, col});
+                      }
+                      if(col - 1 >= 0 && grid[row][col - 1] == '1'){ // left
+                          grid[row][col - 1] = '0';
+                          nbs.push({row, col - 1});
+                      }
+                      if(col + 1 < nc && grid[row][col + 1] == '1'){ // right
+                          grid[row][col + 1] = '0';
+                          nbs.push({row, col + 1});
+                      }
+
+                  }
+
+              }
+          }
+      }
+        return num_islands;
+    }
+  ```
 - [Leetcode 133: Clone Graph](https://leetcode.com/problems/clone-graph/)
 - [Leetcode 127: Word Ladder](https://leetcode.com/problems/word-ladder/)
 - [Leetcode 490: The Maze](https://leetcode.com/problems/the-maze/)
