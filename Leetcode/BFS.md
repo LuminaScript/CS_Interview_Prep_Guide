@@ -143,6 +143,40 @@
     }
   ```
 - [Leetcode 133: Clone Graph](https://leetcode.com/problems/clone-graph/)
+
+  Time Complexity: O(N + M) + Space Complexity: O(N)
+
+  * _Space Complexity: This space is occupied by the visited hash map and in addition to that, space would also be occupied by the recursion stack since we      are adopting a recursive approach here. The space occupied by the queue would be equal to O(H) where HHH is the height of the graph. Overall, the space       complexity would be O(N)_
+
+
+
+
+  ```cpp
+   Node* cloneGraph(Node* node) {
+        if(!node) return NULL;
+        
+        map<int, Node*> mp; // store the visited node
+        queue<Node*> q; // store the to-be copy node in old graph
+        Node *nd = new Node(node->val);
+        mp[node->val] = nd;
+        q.push(node);
+
+        while(!q.empty()){
+            Node *old_nd = q.front(); q.pop();
+            for(Node* nb : old_nd->neighbors){
+                if(mp.find(nb->val) == mp.end()){ // enqueue unvisited neighbors
+                    mp[nb->val] = new Node(nb->val); // make deep copy of neighbors
+                    q.push(nb);
+                }
+                mp[old_nd->val]->neighbors.push_back(mp[nb->val]);
+            }  
+        }
+        
+        return mp[node->val];
+    }
+
+  ```
+
 - [Leetcode 127: Word Ladder](https://leetcode.com/problems/word-ladder/)
 - [Leetcode 490: The Maze](https://leetcode.com/problems/the-maze/)
 - [Leetcode 323: Connected Component in Undirected Graph](https://leetcode.com/problems/connected-component-in-undirected-graph/)
