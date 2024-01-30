@@ -215,6 +215,44 @@
   ```
 
 - [Leetcode 490: The Maze](https://leetcode.com/problems/the-maze/)
+
+  ```cpp
+
+  bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) 
+  {
+      int m = maze.size();
+      int n = maze[0].size();
+      vector<vector<bool>> visited(m, vector<bool>(n, false));
+      vector<int> dirX{0, 1, 0, -1};
+      vector<int> dirY{-1, 0, 1, 0};
+
+      queue<vector<int>> q;
+      q.push(start);
+      visited[start[0]][start[1]] = true;
+
+      while(!q.empty()){
+          vector<int> cur = q.front(); q.pop();
+          if(cur[0] == destination[0] && cur[1] == destination[1]) return true;
+
+          for(int i = 0; i < 4; i++){
+              int r = cur[0];
+              int c = cur[1];
+              while (r >= 0 && r < m && c >= 0 && c < n && maze[r][c] == 0) {
+                  r += dirX[i];
+                  c += dirY[i];
+              }
+              r -= dirX[i];
+              c -= dirY[i];
+              if (!visited[r][c]) {
+                  q.push({r, c});
+                  visited[r][c] = true;
+              }
+          }
+      }        
+      return false;
+  }
+
+  ```
 - [Leetcode 323: Connected Component in Undirected Graph](https://leetcode.com/problems/connected-component-in-undirected-graph/)
 - [Leetcode 130: Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
 - [Leetcode 752: Open the Lock](https://leetcode.com/problems/open-the-lock/)
