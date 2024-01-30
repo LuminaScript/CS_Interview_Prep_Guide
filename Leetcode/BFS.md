@@ -148,9 +148,6 @@
 
   * _Space Complexity: This space is occupied by the visited hash map and in addition to that, space would also be occupied by the recursion stack since we      are adopting a recursive approach here. The space occupied by the queue would be equal to O(H) where HHH is the height of the graph. Overall, the space       complexity would be O(N)_
 
-
-
-
   ```cpp
    Node* cloneGraph(Node* node) {
         if(!node) return NULL;
@@ -178,6 +175,45 @@
   ```
 
 - [Leetcode 127: Word Ladder](https://leetcode.com/problems/word-ladder/)
+
+  Time Complexity: O(N * M) + Space Complexity: O(N)
+
+  ```cpp
+  int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+      unordered_set<string> notVisited(wordList.begin(), wordList.end());
+  
+      // Early exit
+      if (notVisited.find(endWord) == notVisited.end()) return 0;
+  
+      queue<string> q;
+      int len = 1;
+      q.push(beginWord);
+  
+      while (!q.empty()) {
+          int levelSize = q.size(); // number of elements at the current level
+          for (int i = 0; i < levelSize; i++) {
+              string word = q.front(); q.pop();
+              if (word == endWord) return len;
+  
+              // bfs search
+              for(int j = 0; j < word.size(); j++){
+                  for(char k = 'a'; k <= 'z'; k++){
+                      string w = word;
+                      w[j] = k;
+                      if(notVisited.find(w) != notVisited.end()){
+                          q.push(w);
+                          notVisited.erase(w);
+                      }
+                  }
+              }
+          }
+          len++;  // Increment length after processing all nodes at the current level
+      }
+      return 0;
+  }
+
+  ```
+
 - [Leetcode 490: The Maze](https://leetcode.com/problems/the-maze/)
 - [Leetcode 323: Connected Component in Undirected Graph](https://leetcode.com/problems/connected-component-in-undirected-graph/)
 - [Leetcode 130: Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
