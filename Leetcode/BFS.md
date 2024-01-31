@@ -1,4 +1,4 @@
-## Tree-Based BFS Questions
+s## Tree-Based BFS Questions
 - [**Leetcode 314: Binary Tree Vertical Order Traversal**](https://leetcode.com/problems/binary-tree-vertical-order-traversal/)
   > Given the root of a binary tree, return the vertical order traversal of its nodes' values. 
   >
@@ -292,6 +292,52 @@
   ```
 
 - [Leetcode 130: Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
+  
+  _Solution Source: https://leetcode.com/problems/surrounded-regions/solutions/4408885/bfs-faster-than-97-c_
+
+  _Time Complexity: O(NM) + Space Complexity: O(NM)_
+
+  ```cpp
+  void solve(vector<vector<char>>& board) {
+      int n=board.size(),m=board[0].size();
+      vector<vector<int>> visited(n,vector<int>(m,0));
+      vector<vector<int>> dir = {{0,1},{0,-1},{1,0},{-1,0}};
+      queue<pair<int,int>> q;
+
+      for(int i=0;i<n;i++){
+          for(int j=0;j<m;j++){
+              if(i>0 && i<n-1 && j>0 && j<m-1){continue;}
+              if(board[i][j]=='O'){
+                  q.push({i,j});
+                  visited[i][j]=1;
+              }
+          }
+      }
+
+      while(!q.empty()){
+          auto [x,y]=q.front();
+          q.pop();
+          for(auto d:dir){
+              int row=x+d[0];
+              int col=y+d[1];
+
+              if(row>=0 && row<n && col>=0 && col<m && board[row][col]=='O' && visited[row][col]==0){
+                  visited[row][col]=1;
+                  q.push({row,col});
+              }
+          }
+      }
+
+      for(int i=0;i<n;i++){
+          for(int j=0;j<m;j++){
+              if(visited[i][j]==0 && board[i][j]=='O'){
+                  board[i][j]='X';
+              }
+          }
+      }
+  }
+  ```
+
 - [Leetcode 752: Open the Lock](https://leetcode.com/problems/open-the-lock/)
 - [Leetcode 815: Bus Routes](https://leetcode.com/problems/bus-routes/)
 - [Leetcode 1091: Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/)
