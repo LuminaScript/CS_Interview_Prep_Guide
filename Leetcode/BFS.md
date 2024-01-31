@@ -253,7 +253,44 @@
   }
 
   ```
-- [Leetcode 323: Connected Component in Undirected Graph](https://leetcode.com/problems/connected-component-in-undirected-graph/)
+- [Leetcode 323: Connected Component in Undirected Graph](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/description/)
+
+  Time Complexity: O(N*2) + Space Complexity: O(N + E)
+  
+  ```cpp
+  int countComponents(int n, vector<vector<int>>& edges) {
+      if (n == 1) return 1;
+      vector<vector<int>> g(n); // O(E)
+      for(vector<int> e : edges){
+          int par = e[0];
+          int chd = e[1];
+          g[chd].push_back(par);
+          g[par].push_back(chd);
+      }
+
+      unordered_set<int> visited; // O(N)
+      int cnt = 0;
+      for(int i = 0; i < n; i++){ // O(N)
+          if(visited.find(i) == visited.end()){ // new unvisited node = start of a new cc
+              cnt++; 
+              queue<int> q; // O(N)
+              q.push(i);
+              visited.insert(i);
+              while(!q.empty()){ // O(N) : bfs on unvisited node -> visit all one in this cc
+                  int curr = q.front(); q.pop();
+                  for(int nb : g[curr]){
+                      if(visited.find(nb) == visited.end()){
+                          q.push(nb);
+                          visited.insert(nb);
+                      }
+                  }
+              }
+          }
+      }
+      return cnt;
+  }
+  ```
+
 - [Leetcode 130: Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
 - [Leetcode 752: Open the Lock](https://leetcode.com/problems/open-the-lock/)
 - [Leetcode 815: Bus Routes](https://leetcode.com/problems/bus-routes/)
