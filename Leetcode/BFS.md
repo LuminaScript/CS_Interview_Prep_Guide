@@ -1,4 +1,4 @@
-s## Tree-Based BFS Questions
+## Tree-Based BFS Questions
 - [**Leetcode 314: Binary Tree Vertical Order Traversal**](https://leetcode.com/problems/binary-tree-vertical-order-traversal/)
   > Given the root of a binary tree, return the vertical order traversal of its nodes' values. 
   >
@@ -340,6 +340,52 @@ s## Tree-Based BFS Questions
 
 - [Leetcode 752: Open the Lock](https://leetcode.com/problems/open-the-lock/)
 - [Leetcode 815: Bus Routes](https://leetcode.com/problems/bus-routes/)
+  ```cpp
+  class Solution {
+  public:
+      int numBusesToDestination(vector<vector<int>>& routes, int s, int t) {
+          if(s == t) return 0;
+  
+          unordered_map<int, vector<int>> adjList;
+          for(int route = 0; route < routes.size(); route++){
+            for(auto stop: routes[route]){
+                adjList[stop].push_back(route);
+            }
+          }
+  
+          queue<int> q;
+          unordered_set<int> vis;
+          for(auto route : adjList[s]){
+              q.push(route);
+              vis.insert(route);
+          }
+  
+          int busCnt = 1;
+          while(!q.empty()){
+              int size = q.size();
+              for(int i = 0; i < size; i++){
+                  int route = q.front(); q.pop();
+  
+                  for(int stop : routes[route]){
+                      if(stop == t){
+                          return busCnt;
+                      }
+                      for(int nextRoute : adjList[stop]){
+                          if(vis.count(nextRoute) == 0){
+                              vis.insert(nextRoute);
+                              q.push(nextRoute);
+                          }
+                      }
+                  }
+              }
+              busCnt++;
+          }
+          return -1;
+      }
+  };
+
+  ```
+
 - [Leetcode 1091: Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/)
 - [Leetcode 542: 01 Matrix](https://leetcode.com/problems/01-matrix/)
 - [Leetcode 1293: Shortest Path in a Grid with Obstacles Elimination](https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/)
