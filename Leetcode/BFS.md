@@ -393,6 +393,37 @@
 
 ### Topological Sorting Questions
 - [Leetcode 207: Course Schedule (I, II)](https://leetcode.com/problems/course-schedule/)
+
+  Time Complexity : O(M + N) + Space Complexity : O(M + N)
+
+  ```cpp
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> indegree(numCourses);
+        vector<vector<int>> adj(numCourses);
+        for(auto preq : prerequisites){
+            adj[preq[1]].push_back(preq[0]);
+            indegree[preq[0]]++;
+        }
+
+        queue<int> q;
+        for(int i = 0; i < numCourses; i++){
+            if(indegree[i] == 0) q.push(i);
+        }
+
+        int nodesVisited = 0;
+        while(!q.empty()){
+            int node = q.front(); q.pop();
+            nodesVisited++;
+
+            for(int nbs : adj[node]){
+                if(--indegree[nbs] == 0) q.push(nbs);
+            }
+        }
+        return nodesVisited == numCourses;
+    }
+
+  ```
+
 - [Leetcode 444: Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/)
 - [Leetcode 269: Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)
 - [Leetcode 310: Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/)
