@@ -60,6 +60,20 @@
   ```
 
 - [101 Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
+
+ Time Complexity: O(N) + Space Complexity: O(N)
+  ```cpp
+  bool isMirror(TreeNode* n1, TreeNode* n2){
+      if(!n1 && !n2) return true;
+      if(!n1 || !n2) return false;
+      return (n1->val == n2->val) && isMirror(n1->left, n2->right) && isMirror(n1->right, n2->left);
+  }
+  bool isSymmetric(TreeNode* root) {
+      return isMirror(root->left, root->right);
+  }
+
+  ```
+
 - [951 Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/)
 - [236 Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 - [105 Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
