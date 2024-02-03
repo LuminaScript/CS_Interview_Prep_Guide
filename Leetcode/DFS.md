@@ -1,7 +1,7 @@
 
 ## Depth-First Search (DFS)
 ### Tree-based DFS:
-- [543 Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)<br>
+- [543 Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)[EASY]<br>
   DFS + In-order Traversal<br>
   Time Complexity: O(N) + Space Complexity: O(N)<br>
   ```cpp
@@ -21,13 +21,25 @@
       return diameter;
   }
   ```
+- [124 Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) [HARD] <br>
+  Time Complexity: O(N) + Space Complexity: O(N)<br>
+  ```cpp
+  int max_sum = INT_MIN;
+  int maxPath(TreeNode* node){
+      if(!node) return 0;
+      
+      int leftMax = max(maxPath(node->left), 0); 
+      int rightMax = max(maxPath(node->right), 0); 
+      max_sum = max(max_sum, leftMax + rightMax + node->val); 
 
+      return max(leftMax, rightMax) + node->val;
+  }
+  int maxPathSum(TreeNode* root) {
+      maxPath(root);
+      return max_sum;
+  }
+  ```
 
-
-
-
-
-- [124 Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 - [226 Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
 - [101 Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
 - [951 Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/)
