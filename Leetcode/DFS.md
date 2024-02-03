@@ -61,7 +61,7 @@
 
 - [101 Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
 
- Time Complexity: O(N) + Space Complexity: O(N)
+  Time Complexity: O(N) + Space Complexity: O(N)
   ```cpp
   bool isMirror(TreeNode* n1, TreeNode* n2){
       if(!n1 && !n2) return true;
@@ -75,6 +75,21 @@
   ```
 
 - [951 Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/)
+
+  The time complexity: O(min(N1, N2)), where N1 and N2 are the lengths of `root1` and `root2`.
+  
+  The space complexity: O(min(H1, H2)), where H1 and H2 are the heights of the trees of `root1` and `root2`.
+
+  ```cpp
+  bool flipEquiv(TreeNode* r1, TreeNode* r2) {
+      if(!r1 && !r2) return true;
+      if(!r1 || !r2 || r1->val != r2->val) return false;
+      
+      return flipEquiv(r1->left, r2->left) && flipEquiv(r1->right, r2->right)
+          || flipEquiv(r1->left, r2->right) && flipEquiv(r1->right, r2->left);
+  }
+  ```
+
 - [236 Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 - [105 Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 - [104 Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
