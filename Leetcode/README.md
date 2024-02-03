@@ -166,6 +166,7 @@ The following list includes frequently asked algorithm and data structure topics
 - [Leetcode 103: Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
 - [Leetcode 297: Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) (combines BFS and two-pointer approach)
 - [Leetcode 314: Binary Tree Vertical Order Traversal](https://leetcode.com/problems/binary-tree-vertical-order-traversal/)
+- [Leetcode 559: Maximum Depth of N-ary Tree](https://leetcode.com/problems/maximum-depth-of-n-ary-tree/description/)
 
 ### Graph-Based BFS Questions
 - [Leetcode 200: Number of Islands](https://leetcode.com/problems/number-of-islands/)
