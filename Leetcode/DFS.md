@@ -43,6 +43,22 @@
   ```
 
 - [226 Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
+
+  Time Complexity: O(N) + Space Complexity: O(N)
+  ```cpp
+  TreeNode* dfs(TreeNode* node){
+      if(!node || !node->left && !node->right) return node;
+      TreeNode* left = dfs(node->left); // left
+      TreeNode* right = dfs(node->right); //right
+      node->right = left, node->left = right; //mid
+      return node;
+  }
+  TreeNode* invertTree(TreeNode* root) {
+      return dfs(root);
+  }
+
+  ```
+
 - [101 Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
 - [951 Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/)
 - [236 Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
