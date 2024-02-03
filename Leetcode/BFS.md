@@ -94,7 +94,31 @@
   }
   ```
 - [Leetcode 297: Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) (combines BFS and two-pointer approach)
+  
+- [Leetcode 559: Maximum Depth of N-ary Tree](https://leetcode.com/problems/maximum-depth-of-n-ary-tree/description/)
 
+  Time Complexity: O(N) + Space Complexity: O(N)
+  ```cpp
+  int maxDepth(Node* root) {
+    if (!root) return 0;
+    stack<pair<Node*, int>> stk;
+    stk.push(make_pair(root, 1));
+    int depth = 0;
+    while(!stk.empty()){
+        auto cur = stk.top(); stk.pop();
+        root = cur.first;
+        int cur_dep = cur.second;
+        if(root){
+            depth = std::max(depth, cur_dep);
+            for(auto c : root->children){
+                stk.push({c, cur_dep + 1});
+            }
+
+        }
+    }
+    return depth;
+}
+  ```
 
 ### Graph-Based BFS Questions
 - [Leetcode 200: Number of Islands](https://leetcode.com/problems/number-of-islands/)
@@ -427,4 +451,45 @@
 - [Leetcode 444: Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/)
 - [Leetcode 269: Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)
 - [Leetcode 310: Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/)
+
+  Time Complexity: O(|V|) + Space Complexity: O(|V|)
+  
+  ```cpp
+  vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+      if(n == 1) return {0};
+      vector<vector<int>> graph(n);
+      vector<int> indegree(n, 0), ans; //vector<int> indegree keeps count of the number of nodes approaching a node
+      
+      for(auto &e : edges){   //Creating an adjacency matrix for the given graph
+          graph[e[0]].push_back(e[1]);
+          graph[e[1]].push_back(e[0]);
+          indegree[e[0]]++;
+          indegree[e[1]]++;
+      }
+      
+      queue<int> q;
+      for(int i=0; i<n;i++){
+          if(indegree[i]==1) q.push(i), indegree[i]--; //add all the leaf nodes to the queue
+      } 
+      
+      while(!q.empty()){
+          int s = q.size();
+          if(n <= 2) break;
+          for(int i=0; i<s;i++){
+              int curr = q.front(); q.pop();
+              n--;
+              for(auto child : graph[curr]){ 
+                  indegree[child]--;
+                  if(indegree[child]==1) q.push(child);   
+              }
+          }
+      }
+      while(!q.empty()){
+          ans.push_back(q.front()); q.pop();
+      }
+      return ans;
+      
+  }
+
+  ```
 - [Leetcode 366: Find Leaves of Binary Tree](https://leetcode.com/problems/find-leaves-of-binary-tree/)
