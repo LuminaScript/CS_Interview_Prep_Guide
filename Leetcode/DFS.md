@@ -2,8 +2,9 @@
 ## Depth-First Search (DFS)
 ### Tree-based DFS:
 - [543 Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)[EASY]<br>
+
   DFS + In-order Traversal<br>
-  Time Complexity: O(N) + Space Complexity: O(N)<br>
+  Time Complexity: O(N) + Space Complexity: O(N)
   ```cpp
   int diameter = 0;
   int longestPath(TreeNode* node){
@@ -22,7 +23,8 @@
   }
   ```
 - [124 Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) [HARD] <br>
-  Time Complexity: O(N) + Space Complexity: O(N)<br>
+
+  Time Complexity: O(N) + Space Complexity: O(N)
   ```cpp
   int max_sum = INT_MIN;
   int maxPath(TreeNode* node){
