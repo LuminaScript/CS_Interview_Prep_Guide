@@ -76,9 +76,9 @@
 
 - [951 Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/)
 
-  The time complexity: O(min(N1, N2)), where N1 and N2 are the lengths of `root1` and `root2`.
+  The time complexity: O(min(N1, N2)),  `N1` and `N2` are the total number of nodes in the input trees `root1` and `root2`.
   
-  The space complexity: O(min(H1, H2)), where H1 and H2 are the heights of the trees of `root1` and `root2`.
+  The space complexity: O(min(H1, H2)), where `H1` and `H2` are the heights of the trees of `root1` and `root2`.
 
   ```cpp
   bool flipEquiv(TreeNode* r1, TreeNode* r2) {
