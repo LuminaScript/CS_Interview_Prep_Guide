@@ -182,6 +182,25 @@
   }
   ```
 - [1485 Clone Binary Tree With Random Pointer](https://leetcode.com/problems/clone-binary-tree-with-random-pointer/)
+  ```cpp
+  map<Node*, NodeCopy*> seen;
+  NodeCopy* dfs(Node* root){
+      if(!root) return nullptr;
+      if(seen.find(root) != seen.end()) return seen[root];
+
+      NodeCopy *newRoot = new NodeCopy(root->val);
+      seen[root] = newRoot;
+
+      newRoot->left = dfs(root->left);
+      newRoot->right = dfs(root->right);
+      newRoot->random = dfs(root->random);
+      return newRoot;
+  }
+  NodeCopy* copyRandomBinaryTree(Node* root) {
+      NodeCopy *newRoot = dfs(root);
+      return newRoot;
+  }
+  ```
 - [572 Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/)
 - [863 All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/)
 - [1110 Delete Nodes And Return Forest](https://leetcode.com/problems/delete-nodes-and-return-forest/)
