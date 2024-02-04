@@ -137,7 +137,50 @@
   }
   ```
 - [104 Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+
+  Time Complexity: O(N)
+  
+  Space Complexity: O(N)
+  ```cpp
+  int maxDepth(TreeNode* root) {
+      if(!root) return 0;
+      if(!root->left && !root->right) return 1;
+      return max(maxDepth(root->left), maxDepth(root->right)) + 1; 
+  }
+  ```
 - [987 Vertical Order Traversal of a Binary Tree](https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/)
+  
+  Time Complexity : O(NlogN)
+
+  Space Complexity : O(N)
+  ```cpp
+  map<pair<int, int>, vector<int>> mp; // vertical height -> node's value
+  void dfs(TreeNode* root, int row, int col){
+      if(!root) return ;
+      mp[make_pair(row, col)].push_back(root->val);
+      dfs(root->left, row + 1, col - 1);
+      dfs(root->right, row + 1, col + 1);
+      
+  }
+  vector<vector<int>> verticalTraversal(TreeNode* root) {
+      dfs(root, 0, 0);
+      vector<vector<int>> ans;
+      map<int, vector<int>> _mp;
+      for(auto p : mp){
+          sort(p.second.begin(), p.second.end());
+          for(auto e : p.second){
+              _mp[p.first.second].push_back(e);
+          }
+      }
+
+      for(auto p: _mp){
+          ans.push_back(p.second);
+      }
+
+      return ans;
+
+  }
+  ```
 - [1485 Clone Binary Tree With Random Pointer](https://leetcode.com/problems/clone-binary-tree-with-random-pointer/)
 - [572 Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/)
 - [863 All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/)
