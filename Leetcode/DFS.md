@@ -88,10 +88,54 @@
       return flipEquiv(r1->left, r2->left) && flipEquiv(r1->right, r2->right)
           || flipEquiv(r1->left, r2->right) && flipEquiv(r1->right, r2->left);
   }
+  
   ```
-
+  
 - [236 Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+
+  Time Complexity: O(N)
+  
+  Space Complexity: O(N), where the height of skewed tree is O(N).
+  ```cpp
+  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if(!root || !q || !p) return nullptr; // root does not find neitenr p nor q
+    if (root==p || root==q) return root; // root found p or q
+
+    TreeNode *left = lowestCommonAncestor(root->left, p, q); // continue on left subtree
+    TreeNode *right = lowestCommonAncestor(root->right, p, q); // continue on right subtree
+    if (left && right) return root; // CA in both subtree 
+    else if (left == NULL && right != NULL) return right; // CA in right subtree
+    else if (left != NULL && right == NULL) return left; // CA in left subtree
+    else return NULL; // not found 
+  }
+  ```
 - [105 Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+
+  Time Complexity: O(N)
+  
+  Space Complexity: O(N)
+  ```cpp
+  int preorderIndex = 0;
+  unordered_map<int, int> inorderIndexMap; /*value -> index*/
+
+  TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+      for(int i = 0; i < inorder.size(); i++){
+          inorderIndexMap.insert({inorder[i], i});
+      }    
+      return arrayToTree(preorder, 0, preorder.size() - 1);
+  }
+  
+  TreeNode *arrayToTree(vector<int>& preorder, int left, int right){
+      if(left > right) return nullptr;
+
+      int rootValue = preorder[preorderIndex++];
+      TreeNode *root = new TreeNode(rootValue);
+
+      root->left = arrayToTree(preorder, left, inorderIndexMap[rootValue] - 1);
+      root->right = arrayToTree(preorder, inorderIndexMap[rootValue] + 1, right);
+      return root;
+  }
+  ```
 - [104 Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
 - [987 Vertical Order Traversal of a Binary Tree](https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/)
 - [1485 Clone Binary Tree With Random Pointer](https://leetcode.com/problems/clone-binary-tree-with-random-pointer/)
