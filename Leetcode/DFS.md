@@ -256,6 +256,45 @@
   }
   ```
 - [1110 Delete Nodes And Return Forest](https://leetcode.com/problems/delete-nodes-and-return-forest/)
+  
+  ```cpp
+  vector<TreeNode*> ans;
+    set<int> to_delete_set; // Using a set for faster lookups
+
+    // Helper function to handle deletion and decide whether to add a node to ans
+    void addToAnsIfNotNull(TreeNode* node) {
+        if (node != nullptr) ans.push_back(node);
+    }
+
+    TreeNode* dfs(TreeNode* node) {
+        if (!node) return nullptr;
+        
+        // Recursively delete nodes in left and right subtrees
+        node->left = dfs(node->left);
+        node->right = dfs(node->right);
+        
+        // If current node needs to be deleted
+        if (to_delete_set.count(node->val)) {
+            // Add non-null children to ans as new roots
+            addToAnsIfNotNull(node->left);
+            addToAnsIfNotNull(node->right);
+            // Return nullptr to parent, indicating this node is deleted
+            return nullptr;
+        }
+        
+        return node; // Return the possibly modified current node
+    }
+
+    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+        // Initialize to_delete_set from to_delete vector for faster lookups
+        to_delete_set = set<int>(to_delete.begin(), to_delete.end());
+        
+        // Start DFS; if root is not deleted, add it to ans
+        if (dfs(root) != nullptr) ans.push_back(root);
+        
+        return ans;
+    }
+  ```
 
 ### Binary Search Tree (BST):
 - [230 Kth Smallest element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
