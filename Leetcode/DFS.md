@@ -201,8 +201,59 @@
       return newRoot;
   }
   ```
-- [572 Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/)
+- [572 Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/) [EASY]
+  ```cpp
+  bool isIdentical(TreeNode* r1, TreeNode* r2){
+    if(!r1 && !r2) return true;
+    if(!r1 || !r2) return false;
+    return r1->val == r2->val && isIdentical(r1->left, r2->left) && isIdentical(r1->right, r2->right);
+}
+bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+    if(!root) return false;
+    if(isIdentical(root, subRoot)) return true;
+    return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+}
+  ```
 - [863 All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/)
+
+  Time Complexity : O(N)
+
+  Space Complexity : O(N + M)
+  ```cpp
+  unordered_map<int, vector<int>> adjList; // [node val][nbs nodes]
+  vector<int> ans;
+
+  void buildGraph(TreeNode* root){
+      if(!root) return ;
+      if(root->left) {
+          adjList[root->val].push_back(root->left->val);
+          adjList[root->left->val].push_back(root->val);
+          buildGraph(root->left);
+      }
+      if(root->right){
+          adjList[root->val].push_back(root->right->val);
+          adjList[root->right->val].push_back(root->val);
+          buildGraph(root->right);
+      }
+      
+  }
+
+  void dfs(int cur_val, int prev_val, int cur_dis, int k){
+      if(cur_dis == k){
+          ans.push_back(cur_val); return ;
+      }
+      for(int nxt_val : adjList[cur_val]){
+          if(prev_val != nxt_val)
+              dfs(nxt_val, cur_val, cur_dis + 1, k);
+      }
+  }
+
+  vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+      buildGraph(root);
+      dfs(target->val, -1, 0, k);
+      return ans;
+  }
+  ```
 - [1110 Delete Nodes And Return Forest](https://leetcode.com/problems/delete-nodes-and-return-forest/)
 
 ### Binary Search Tree (BST):
