@@ -207,12 +207,12 @@
     if(!r1 && !r2) return true;
     if(!r1 || !r2) return false;
     return r1->val == r2->val && isIdentical(r1->left, r2->left) && isIdentical(r1->right, r2->right);
-}
-bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-    if(!root) return false;
-    if(isIdentical(root, subRoot)) return true;
-    return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
-}
+  }
+  bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+      if(!root) return false;
+      if(isIdentical(root, subRoot)) return true;
+      return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+  }
   ```
 - [863 All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/)
 
