@@ -202,6 +202,7 @@
   }
   ```
 - [572 Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/) [EASY]
+
   ```cpp
   bool isIdentical(TreeNode* r1, TreeNode* r2){
     if(!r1 && !r2) return true;
