@@ -312,6 +312,17 @@
   }
   ```
 - [98 Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+  ```cpp
+  bool helper(TreeNode* rt, long min, long max){
+      if(rt == NULL) return true;
+      if(rt->val <= min || rt->val >= max) return false;
+      return helper(rt->left, min, std::min(max, static_cast<long>(rt->val)))
+          && helper(rt->right, std::max(static_cast<long>(rt->val), min), max);
+  }
+  bool isValidBST(TreeNode* root) {
+      return helper(root, LONG_MIN, LONG_MAX);
+  }
+  ```
 - [270 Closest Binary Search Tree Value](https://leetcode.com/problems/closest-binary-search-tree-value/)
 - [235 Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
 - [669 Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/)
