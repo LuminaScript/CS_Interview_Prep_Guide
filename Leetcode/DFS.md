@@ -324,6 +324,27 @@
   }
   ```
 - [270 Closest Binary Search Tree Value](https://leetcode.com/problems/closest-binary-search-tree-value/)
+  ```cpp
+  map<double, vector<int>> mp; // dif - value;
+  void dfs(TreeNode* root, double target) {
+      if(!root){
+          return ;
+      }
+      mp[abs(root->val - target)].push_back(root->val);
+      if(root->val < target)
+          dfs(root->right, target);
+      else
+          dfs(root->left, target);
+      
+  }
+  int closestValue(TreeNode* root, double target) {
+      dfs(root, target);
+      sort(mp.begin()->second.begin(), mp.begin()->second.end());
+      return mp.begin()->second[0];
+      
+      
+  }
+  ```
 - [235 Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
 - [669 Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/)
 - [700 Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
