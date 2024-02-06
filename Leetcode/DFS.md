@@ -298,6 +298,19 @@
 
 ### Binary Search Tree (BST):
 - [230 Kth Smallest element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
+  ```cpp
+  vector<int> inorder;
+  void postorder(TreeNode* root, int k){
+      if(!root || inorder.size() == k) return ;
+      postorder(root->left, k);
+      inorder.push_back(root->val);
+      postorder(root->right, k);
+  }
+  int kthSmallest(TreeNode* root, int k) {
+      postorder(root, k);
+      return inorder[k - 1];
+  }
+  ```
 - [98 Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 - [270 Closest Binary Search Tree Value](https://leetcode.com/problems/closest-binary-search-tree-value/)
 - [235 Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
