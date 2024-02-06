@@ -346,6 +346,18 @@
   }
   ```
 - [235 Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+  ```cpp
+  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+      while(root){
+          if((root->val > p->val) && (root->val > q->val))
+              root = root->left;
+          else if((root->val < p->val) && (root->val < q->val))
+              root = root->right;
+          else break;  
+      }
+      return root;
+  }
+  ```
 - [669 Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/)
 - [700 Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
 - [108 Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
