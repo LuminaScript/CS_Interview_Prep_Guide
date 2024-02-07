@@ -358,8 +358,20 @@
       return root;
   }
   ```
-- [669 Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/)
 - [700 Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
+
+  Time Complexity: O(LogN)  Space Compleixty:O(logN)
+  ```cpp
+  TreeNode* searchBST(TreeNode* root, int val) {
+    if (root == NULL || root->val == val) return root;
+    TreeNode* ret = NULL;
+    if (root->val > val) 
+        ret = searchBST(root->left, val);
+    else 
+        ret = searchBST(root->right, val);
+    return ret;
+  } 
+  ```
 - [108 Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
 - [333 Largest BST Subtree](https://leetcode.com/problems/largest-bst-subtree/)
 - [285 Inorder Successor in BST (I, II)](https://leetcode.com/problems/inorder-successor-in-bst/)
