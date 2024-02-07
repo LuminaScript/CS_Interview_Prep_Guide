@@ -420,8 +420,9 @@
   **Solution 1**: Utilize mutaex idea when doing in-order traversal to make sure we found the successor of p.
   > A successor of P has to satisfy below condition:
   >   1. p is already found
-  >   2. It is the first in in-order order to be found, after p is found (condition 1)
+  >   2. It is the first in in-order order to be found, after p is found (condition 1) 
   >
+  > 
   > Thus We craft two locks, **found** to keep track of condition 1, and **stop** to keep track of condition 2
 
   ```cpp
