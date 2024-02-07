@@ -417,6 +417,34 @@
   ```
 - [285 Inorder Successor in BST (I, II)](https://leetcode.com/problems/inorder-successor-in-bst/)
   
+  **Solution 1**: Utilize mutaex idea when doing in-order traversal to make sure we found the successor of p.
+  > A successor of P has to satisfy below condition:
+  >   1. p is already found
+  >   2. It is the first in in-order order to be found, after p is found (condition 1)
+  >
+  > Thus We craft two locks, **found** to keep track of condition 1, and **stop** to keep track of condition 2
+
+  ```cpp
+  bool found = false;
+  bool stop = false;
+  TreeNode *suc = nullptr;
+  void inorder(TreeNode* root, TreeNode* p) {
+      if(!root) return ;
+      inorder(root->left, p);
+      if(found && !stop){
+          suc = root;
+          stop = true;
+          return;
+      }
+      if(root->val == p->val) found = true;
+      inorder(root->right, p);
+  }
+  TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+      inorder(root, p);
+      return suc;
+  }
+  ```
+  
 ### Graph-based DFS:
 - [341 Flatten Nested List Iterator](https://leetcode.com/problems/flatten-nested-list-iterator/)
 - [394 Decode String](https://leetcode.com/problems/decode-string/)
