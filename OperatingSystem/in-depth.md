@@ -63,11 +63,127 @@ IPC enables processes to communicate and synchronize their actions, serving as a
 
 
 # Process vs Thread 
-* Resource Allocation: threads (of the same process) run in a shared memory space, while processes run in separate memory spaces.
-    * Thread: Threads within the same process share the same memory space and resources, such as file handles and open network connections. This sharing allows for faster communication and data sharing between threads but can also lead to synchronization issues.
-* Communication:
-    * Process: Inter-process communication (IPC) is required for processes to communicate with each other. IPC mechanisms include message passing, sockets, and shared memory.
-    * Thread: Threads within the same process can communicate more easily by sharing variables and data structures directly in memory. This makes thread communication faster and more efficient.
+## Intro
+- **Process**
+- **Thread**
+  - **Retaionship to process**: Thread is an execution unit that is part of a process. A process can have multiple threads, all executing at the same time. It is a unit of execution in concurrent programming.
+  - **Why Thread?**: A thread is lightweight and can be managed independently by a scheduler. It helps you to improve the application performance using parallelism.
+  - **Shared Resources between Threads**: Multiple threads share information like data, code, files, etc.
+  - **3 Implementations of Threads**:
+    - Kernel-level threads
+      ```c
+      #include <linux/module.h>
+      #include <linux/kernel.h>
+      #include <linux/kthread.h>  // for threads
+      #include <linux/sched.h>  // for task_struct
+      #include <linux/time.h>   // for using jiffies 
+      #include <linux/timer.h>
+      
+      static struct task_struct *thread1;
+      
+      
+      int thread_fn() {
+      
+      unsigned long j0,j1;
+      int delay = 60*HZ;
+      
+      printk(KERN_INFO "In thread1");
+      j0 = jiffies;
+      j1 = j0 + delay;
+      
+      while (time_before(jiffies, j1))
+              schedule();
+      
+      return 0;
+      }
+      
+      int thread_init (void) {
+         
+          char  our_thread[8]="thread1";
+          printk(KERN_INFO "in init");
+          thread1 = kthread_create(thread_fn,NULL,our_thread);
+          if((thread1))
+              {
+              printk(KERN_INFO "in if");
+              wake_up_process(thread1);
+              }
+      
+          return 0;
+      }
+      
+      
+      
+      void thread_cleanup(void) {
+       int ret;
+       ret = kthread_stop(thread1);
+       if(!ret)
+        printk(KERN_INFO "Thread stopped");
+      
+      }
+      MODULE_LICENSE("GPL");   
+      module_init(thread_init);
+      module_exit(thread_cleanup
+      ```
+      ```bash
+      $ cat Makefile
+      
+      ifneq ($(KERNELRELEASE),)
+       obj-m := threads.o
+      else
+      
+      KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+      
+      PWD := $(shell pwd)
+      
+      default:
+          $(MAKE) -C $(KERNELDIR) M=$(PWD) modules 
+      endif
+
+      $ make
+      $ sudo insmod threads.ko
+
+      $ ps -ef | grep thread
+      root      2589     2 99 12:43 ?        00:00:19 [thread1]
+
+      $ sudo rmmod threads
+      ```
+    - User-level threads
+      ```c
+      #include <stdio.h> 
+      #include <stdlib.h> 
+      #include <unistd.h>  //Header file for sleep(). man 3 sleep for details. 
+      #include <pthread.h> 
+        
+      // A normal C function that is executed as a thread  
+      // when its name is specified in pthread_create() 
+      void *myThreadFun(void *vargp) 
+      { 
+          sleep(1); 
+          printf("Printing GeeksQuiz from Thread \n"); 
+          return NULL; 
+      } 
+         
+      int main() 
+      { 
+          pthread_t thread_id; 
+          printf("Before Thread\n"); 
+          pthread_create(&thread_id, NULL, myThreadFun, NULL); 
+          pthread_join(thread_id, NULL); 
+          printf("After Thread\n"); 
+          exit(0); 
+      }
+      ```
+      
  
 
 # Concurrency: 
+
+
+
+
+# Resources:
+https://www.geeksforgeeks.org/multithreading-in-c/
+
+https://www.guru99.com/difference-between-process-and-thread.html#:~:text=Key%20Difference%20Between%20Process%20and%20Thread&text=Process%20takes%20more%20time%20for,isolated%2C%20whereas%20Threads%20share%20memory.
+
+https://tuxthink.blogspot.com/2011/02/kernel-thread-creation-1.html
