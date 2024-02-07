@@ -214,3 +214,5 @@ https://www.geeksforgeeks.org/multithreading-in-c/
 https://www.guru99.com/difference-between-process-and-thread.html#:~:text=Key%20Difference%20Between%20Process%20and%20Thread&text=Process%20takes%20more%20time%20for,isolated%2C%20whereas%20Threads%20share%20memory.
 
 https://tuxthink.blogspot.com/2011/02/kernel-thread-creation-1.html
+
+https://www.geeksforgeeks.org/signals-c-language/
