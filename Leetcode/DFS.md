@@ -372,11 +372,11 @@
     return ret;
   } 
   ```
-- [108 Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
+- [108 Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) [EASY]
 
   Time Complexity: O(N) Space Complexity: O(logN) - recursive stack is height-balanced
 
-  Strategy: always choose left middle node in preorder dfs traversal
+  > Strategy: always choose left middle node in preorder dfs traversal
   ```cpp
   TreeNode* dfs(vector<int>& nums, int left, int right){
     if(left > right) return nullptr;
@@ -391,6 +391,30 @@
   }
   ```
 - [333 Largest BST Subtree](https://leetcode.com/problems/largest-bst-subtree/)
+
+  Time: O(N) + Space: O(LogN)
+  
+  reference: https://leetcode.com/problems/largest-bst-subtree/solutions/78892/12ms-c-solution/
+  ```cpp
+  int largestBSTSubtree(TreeNode* root) {
+      int res = 0, mn = INT_MIN, mx = INT_MAX;
+      isValidBST(root, mn, mx, res);
+      return res;
+  }
+  void isValidBST(TreeNode *root, int &mn, int &mx, int &res) {
+      if (!root) return;
+      int left_n = 0, right_n = 0;
+      int left_mn = INT_MIN, right_mn = INT_MIN, left_mx = INT_MAX, right_mx = INT_MAX;
+      isValidBST(root->left, left_mn, left_mx, left_n);
+      isValidBST(root->right, right_mn, right_mx, right_n);
+      if ((!root->left || root->val > left_mx) && (!root->right || root->val < right_mn)) {
+          // current tree on root is BST
+          res = left_n + right_n + 1; // right_subtree size + left_subtree size + root(1)
+          mn = root->left ? left_mn : root->val; // set min to left_subtree 's max
+          mx = root->right ? right_mx : root->val; // set max to right_subtree 's min
+      } else res = max(left_n, right_n);
+  }
+  ```
 - [285 Inorder Successor in BST (I, II)](https://leetcode.com/problems/inorder-successor-in-bst/)
   
 ### Graph-based DFS:
