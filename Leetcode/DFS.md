@@ -445,6 +445,23 @@
       return suc;
   }
   ```
+
+  Solution 2: Leetcode Official Answer
+  ```cpp
+  TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+      TreeNode *suc = nullptr;
+
+      while(root != nullptr){
+          if(p->val >= root->val){
+              root = root->right;
+          }else{
+              suc = root;
+              root = root->left;
+          }
+      }
+      return suc;
+  }
+  ```
   
 ### Graph-based DFS:
 - [341 Flatten Nested List Iterator](https://leetcode.com/problems/flatten-nested-list-iterator/)
