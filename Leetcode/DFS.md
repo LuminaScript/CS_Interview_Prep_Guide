@@ -417,7 +417,7 @@
   ```
 - [285 Inorder Successor in BST (I, II)](https://leetcode.com/problems/inorder-successor-in-bst/)
   
-  **Solution 1**: Utilize mutaex idea when doing in-order traversal to make sure we found the successor of p.
+  **Solution 1**: Utilize mutex idea when doing in-order traversal to make sure we found the successor of p.
   > A successor of P has to satisfy below condition:
   >   1. p is already found
   >   2. It is the first in in-order order to be found, after p is found (condition 1) 
