@@ -14,38 +14,38 @@ IPC enables processes to communicate and synchronize their actions, serving as a
 - Message Passing
 <img width="460" alt="Screenshot 2024-02-07 at 3 12 58 PM" src="https://github.com/LuminaScript/CS_Interview_Prep_Guide/assets/98562104/b9ef98ee-ad08-4b35-afe0-6f8cf772b906">
 
-## 1. Memory Space 
+## prototype
+### Producer-Consumer Problem*
+> Idea: Producer process produces items & Consumer process consumes that item
+>
+> IPC: a buffer where both processes have access to
+
+- **Two Versions**
+  - V1 (Unbounded Buffer Problem): Producer can keep on producing items and there is no limit on the size of the buffer
+  - V2 (Bounded Buffer Problem)Producer can produce up to a certain number of items before it starts waiting for Consumer to consume it. 
+
+- **Algorithms**:
+  ```
+  1. Producer & Consumer share some common memory (buffer)
+  2. Two parallel Behaviors:
+      - Producer start producing item
+        - If total produced item is equal to the buffer's size, producer wait to get it consumed by the Consumer.
+        - Otherwise, produce items. 
+      - Consumer start consuming item
+        - If buffer is empty, wait till producer produced items.
+        - Otherwise, consume items. 
+  ```
+
+
+## Types
+### 1. Memory Space 
 > Memory space IPC involves direct or indirect memory access by multiple processes to facilitate communication or data sharing.
-### Categories
 - **File**: A record stored on disk, or a record synthesized on demand by a file server, which can be accessed by multiple processes.
 - **Shared memory**: Multiple processes are given access to the same block of memory, which creates a shared buffer for the processes to communicate with each other.
 - **Memory-mapped file**: a file mapped to RAM and can be modified by changing memory addresses directly instead of outputting to a stream. 
-### Question Prototype: 
-#### Producer-Consumer Problem*
-  > Idea: Producer process produces items & Consumer process consumes that item
-  >
-  > IPC: a buffer where both processes have access to
 
-  - **Two Versions**
-    - V1 (Unbounded Buffer Problem): Producer can keep on producing items and there is no limit on the size of the buffer
-    - V2 (Bounded Buffer Problem)Producer can produce up to a certain number of items before it starts waiting for Consumer to consume it. 
-  
-  - **Algorithms**:
-    ```
-    1. Producer & Consumer share some common memory (buffer)
-    2. Two parallel Behaviors:
-        - Producer start producing item
-          - If total produced item is equal to the buffer's size, producer wait to get it consumed by the Consumer.
-          - Otherwise, produce items. 
-        - Consumer start consuming item
-          - If buffer is empty, wait till producer produced items.
-          - Otherwise, consume items. 
-    ```
-
-
-## 2. Message Passing
+### 2. Message Passing
 > Memory space IPC involves direct or indirect memory access by multiple processes to facilitate communication or data sharing.
-#### Categories:
 - **Signal**: a system message sent from one process to another
 - **Socket**: data sent over a network interface (stream-oriented [tcp] | message-oriented [UDP])
 - **Unix Domain Socket**: similar to internet socket but communications occurs within the kernel
@@ -61,16 +61,6 @@ IPC enables processes to communicate and synchronize their actions, serving as a
 - **Named Pipe**:
   - A pipe that is treated like a file (write & read from a named pipe)
 
-
-#### Question Prototype:
-```
-1. Establish a communication link (if a link already exists, no need to establish it again.)
-2. Start exchanging messages using basic primitives.
-    We need at least two primitives: 
-    – send(message, destination) or send(message) 
-    – receive(message, host) or receive(message)
-
-```
 
 # Process vs Thread 
 * Resource Allocation: threads (of the same process) run in a shared memory space, while processes run in separate memory spaces.
