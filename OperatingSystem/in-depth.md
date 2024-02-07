@@ -40,32 +40,18 @@ IPC enables processes to communicate and synchronize their actions, serving as a
     ```
 
 
+## 2. Message Passing
+#### Tools
 
-#### Code in C/C++
-### 2. Message Passing
-Overview: Processes communicate without shared memory, relying on sending and receiving messages.
-Key Concepts:
-Direct and Indirect Communication: Direct involves specific process identifiers, while indirect uses shared mailboxes or ports.
-Synchronous and Asynchronous Communication: Distinguishes between blocking (synchronous) and non-blocking (asynchronous) operations.
-Implementation Considerations:
-Establishing communication links and determining their properties (capacity, directionality, etc.).
-Using primitives like send and receive to exchange messages.
-Handling multiple processes sharing a mailbox and ensuring mutual exclusion.
-Producer-Consumer Problem via Message Passing
-Highlights a solution using message passing, where the Producer and Consumer exchange messages through a mailbox to synchronize item production and consumption.
-IPC Systems Examples
-Posix: Utilizes shared memory.
-Mach: Employs message passing.
-Windows XP: Uses message passing through local procedural calls.
-Advantages and Disadvantages of IPC
-Advantages:
-Facilitates process communication and resource sharing, increasing system efficiency.
-Supports the creation of distributed systems.
-Disadvantages:
-Increases system complexity and potential for security vulnerabilities.
-Requires careful resource management to avoid performance degradation.
-Conclusion
-IPC is a critical component in operating systems, enabling processes to effectively share data and coordinate their operations through shared memory and message passing. Each method has its own use cases, advantages, and challenges, making the choice of method dependent on the specific requirements of the communication scenario.
+#### Question Prototype:
+```
+1. Establish a communication link (if a link already exists, no need to establish it again.)
+2. Start exchanging messages using basic primitives.
+    We need at least two primitives: 
+    – send(message, destination) or send(message) 
+    – receive(message, host) or receive(message)
+
+```
 
 # Process vs Thread 
 * Resource Allocation: threads (of the same process) run in a shared memory space, while processes run in separate memory spaces.
