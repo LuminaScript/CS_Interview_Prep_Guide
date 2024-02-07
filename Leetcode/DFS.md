@@ -373,6 +373,23 @@
   } 
   ```
 - [108 Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
+
+  Time Complexity: O(N) Space Complexity: O(logN) - recursive stack is height-balanced
+
+  Strategy: always choose left middle node in preorder dfs traversal
+  ```cpp
+  TreeNode* dfs(vector<int>& nums, int left, int right){
+    if(left > right) return nullptr;
+    int mid = left + (right - left) / 2;
+    TreeNode* left_subtree = dfs(nums, left, mid - 1);
+    TreeNode* right_subtree = dfs(nums, mid + 1, right);
+    return new TreeNode(nums[mid], left_subtree, right_subtree);
+
+  }
+  TreeNode* sortedArrayToBST(vector<int>& nums) {
+      return dfs(nums, 0, nums.size() - 1);
+  }
+  ```
 - [333 Largest BST Subtree](https://leetcode.com/problems/largest-bst-subtree/)
 - [285 Inorder Successor in BST (I, II)](https://leetcode.com/problems/inorder-successor-in-bst/)
   
