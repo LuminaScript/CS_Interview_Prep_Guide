@@ -15,6 +15,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
 <img width="460" alt="Screenshot 2024-02-07 at 3 12 58 PM" src="https://github.com/LuminaScript/CS_Interview_Prep_Guide/assets/98562104/b9ef98ee-ad08-4b35-afe0-6f8cf772b906">
 
 ## 1. Memory Space 
+> Memory space IPC involves direct or indirect memory access by multiple processes to facilitate communication or data sharing.
 ### Categories
 - **File**: A record stored on disk, or a record synthesized on demand by a file server, which can be accessed by multiple processes.
 - **Shared memory**: Multiple processes are given access to the same block of memory, which creates a shared buffer for the processes to communicate with each other.
@@ -43,6 +44,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
 
 
 ## 2. Message Passing
+> Memory space IPC involves direct or indirect memory access by multiple processes to facilitate communication or data sharing.
 #### Categories:
 - **Signal**: a system message sent from one process to another
 - **Socket**: data sent over a network interface (stream-oriented [tcp] | message-oriented [UDP])
@@ -58,7 +60,6 @@ IPC enables processes to communicate and synchronize their actions, serving as a
     - Two-way communication: using 2 pipes in opposite directions
 - **Named Pipe**:
   - A pipe that is treated like a file (write & read from a named pipe)
-- **Message Passing**: message-queue or/and non-OS managed channels. (Concurrency models)
 
 
 #### Question Prototype:
