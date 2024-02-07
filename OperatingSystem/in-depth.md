@@ -65,6 +65,33 @@ IPC enables processes to communicate and synchronize their actions, serving as a
 # Process vs Thread 
 ## Intro
 - **Process**
+  ```c
+  $ cat multiproc.c
+  #include<stdio.h> 
+  #include<signal.h> 
+  #include<wait.h> 
+  int val = 10; 
+  void handler(int sig) 
+  { 
+      val += 5; 
+  } 
+  int main() 
+  { 
+      pid_t pid; 
+      signal(SIGCHLD, handler); 
+      if ((pid = fork()) == 0) 
+      { 
+          val -= 3; 
+          exit(0); 
+      } 
+      waitpid(pid, NULL, 0); 
+      printf("val = %d\n", val); 
+      exit(0); 
+  }
+
+  $ make && ./multiproc
+  val = 15 
+  ```
 - **Thread**
   - **Retaionship to process**: Thread is an execution unit that is part of a process. A process can have multiple threads, all executing at the same time. It is a unit of execution in concurrent programming.
   - **Why Thread?**: A thread is lightweight and can be managed independently by a scheduler. It helps you to improve the application performance using parallelism.
