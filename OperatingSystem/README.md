@@ -44,11 +44,11 @@
     - Microkernels separate core functionalities in kernel space from other services in user space
 7. **Describe the process of process creation and termination.**
     - **Process Creation:**
-        1. When a new process is created, the operating system assigns it a unique Process Identifier (PID) and adds an entry to the process table.
-        2. Memory space is allocated for the program, data, stack, and Process Control Block (PCB). PCB is initialized with PID, parent's PID, register values, process state ('New'), and optional priority.
-        3. The process is linked to the scheduling queue, and its state changes to 'Ready,' making it eligible for CPU execution.
+        - When a new process is created, the operating system assigns it a unique Process Identifier (PID) and adds an entry to the process table.
+        - Memory space is allocated for the program, data, stack, and Process Control Block (PCB). PCB is initialized with PID, parent's PID, register values, process state ('New'), and optional priority.
+        - The process is linked to the scheduling queue, and its state changes to 'Ready,' making it eligible for CPU execution.
     
-    **Process Deletion:**
+   - **Process Deletion:**
     
     - Processes can terminate in two ways:
         - Self-termination: A process finishes executing its last statement and uses the **`exit()`** system call. It returns an exit code (typically 0 for success).
