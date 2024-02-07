@@ -74,22 +74,65 @@
 
 ### Process Management:
 
-1. Process State (Five)
+1. **Process State (Five)**
     - **New** - The process is in the stage of being created.
     - **Ready** The process has all the resources available that it needs to run, but the CPU is not currently working on this process's instructions.
     - **Running** The CPU is working on this process's instructions.
     - **Waiting** - The process cannot run at the moment, because it is waiting for some resource to become available or for some event to occur. For example the process may be waiting for keyboard input, disk access request, inter-process messages, a timer to go off, or a child process to finish.
     - **Terminated -** The process has completed
-2. Describe the process of process scheduling.
-3. What are the different scheduling algorithms used in operating systems?
-4. Explain the differences between preemptive and non-preemptive scheduling.
-5. What is a context switch, and how does it affect the performance of a system?
-6. Describe the process of process synchronization using semaphores.
-7. Explain the dining philosophers' problem and how it can be solved.
-8. What is a critical section, and how is it protected in concurrent programming?
-9. Explain the reader-writer problem and how it can be solved.
-10. Describe the process of process communication using inter-process communication (IPC).
-11. What are the different IPC mechanisms available in operating systems?
+      
+2. **Process Scheduling**
+
+Process scheduling is crucial for managing how processes are assigned to the CPU. It involves selecting a process from the ready queue and allocating the CPU to it, based on a particular scheduling algorithm. The aim is to optimize system performance metrics like CPU utilization and process turnaround time.
+
+3. **Scheduling Algorithms**
+
+The main scheduling algorithms include:
+
+- First-Come, First-Served (FCFS)
+- Shortest Job First (SJF)
+- Priority Scheduling
+- Round Robin (RR)
+- Multilevel Queue Scheduling
+- Multilevel Feedback Queue Scheduling
+
+4. **Preemptive vs. Non-Preemptive Scheduling**
+
+- **Preemptive Scheduling**: Allows the OS to interrupt a running process and reallocate the CPU to another process.
+- **Non-Preemptive Scheduling**: A process runs until it completes or blocks, without being preempted by other processes.
+
+5. **Context Switch**
+
+A context switch is the operation of saving and restoring the state of the CPU, so that multiple processes can share a single CPU resource. While necessary for multitasking, frequent context switches can negatively impact system performance.
+
+6. **Process Synchronization with Semaphores**
+
+Process synchronization ensures that multiple processes can operate concurrently without conflicts. Semaphores are a synchronization mechanism that use atomic wait (P) and signal (V) operations to manage access to shared resources, ensuring mutual exclusion and deadlock prevention.
+
+7. **The Dining Philosophers Problem**
+
+This problem illustrates synchronization challenges in concurrent programming. Solutions involve strategies to prevent deadlock and ensure fairness, such as semaphore-based chopstick control or ordering rules for resource acquisition.
+
+8. **Critical Section Protection**
+
+A critical section is a code segment that accesses shared variables and must be executed by only one process or thread at a time. Protection mechanisms include locks, semaphores, and monitors, which enforce mutual exclusion.
+
+9. **The Reader-Writer Problem**
+
+This problem addresses managing access to a shared database among readers and writers. Solutions typically involve read-write locks or semaphores, balancing the need for concurrent read access with exclusive write access.
+
+10. **Inter-Process Communication (IPC)**
+
+IPC mechanisms enable processes to exchange data and synchronize their actions. Common IPC techniques include:
+
+- Pipes (named and unnamed)
+- Message Queues
+- Semaphores
+- Shared Memory
+- Sockets
+- Signals
+
+These mechanisms support various forms of data exchange and coordination among processes, facilitating complex inter-process interactions in modern operating systems.
 
 ### Memory Management:
 
