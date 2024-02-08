@@ -88,7 +88,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
       printf("val = %d\n", val); 
       exit(0); 
   }
-
+  
   $ make && ./multiproc
   val = 15 
   ```
@@ -165,13 +165,13 @@ IPC enables processes to communicate and synchronize their actions, serving as a
       default:
           $(MAKE) -C $(KERNELDIR) M=$(PWD) modules 
       endif
-
+      
       $ make
       $ sudo insmod threads.ko
-
+      
       $ ps -ef | grep thread
       root      2589     2 99 12:43 ?        00:00:19 [thread1]
-
+      
       $ sudo rmmod threads
       ```
     - User-level threads
@@ -201,7 +201,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
       }
       ```
       
- 
+
 
 # Concurrency: 
 ### I. Multi-threading Use Cases
@@ -221,6 +221,10 @@ IPC enables processes to communicate and synchronize their actions, serving as a
 2. **Fault Isolation and Reliability for Critical Applications**
   - **Scenario**: A critical application that requires high reliability and fault tolerance, such as a system monitoring tool or a service that performs multiple independent tasks where the failure of one task should not affect the others.
   - **Why Multi-processing**: Multi-processing provides a strong isolation level between processes. If one process crashes, it does not directly affect the others, making the overall system more robust and reliable. This isolation also simplifies debugging and recovery, as each process can be monitored, restarted, or replaced independently without impacting other components of the application. This model is particularly useful for services that require compartmentalization for security, stability, or resource management reasons.
+
+
+
+
 
 
 
