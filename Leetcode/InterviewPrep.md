@@ -57,6 +57,35 @@
   ```
 - [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
 
+  Time Complexity: Queue Insertion O(KLogK) * O(N) = O(NlogK) ```k Lists``` ```N Nodes```
+
+  Space Complexity: O(k) ```stores one Node from each list```
+  ```cpp
+  class Compare {
+  public:
+      bool operator() (ListNode *A, ListNode *B){
+          return A->val > B->val;
+      }
+  };
+  class Solution {
+  public:
+      ListNode* mergeKLists(vector<ListNode*>& lists) {
+          priority_queue<ListNode*, vector<ListNode*>, Compare> pq;
+          ListNode *dummy = new ListNode(-1);
+          ListNode *prev = dummy;
+          for(auto n: lists)
+              if(n) pq.push(n);
+          while(!pq.empty()){
+              ListNode *nd = pq.top(); pq.pop();
+              prev->next = nd;
+              prev = nd;
+              if(nd->next) pq.push(nd->next);
+          }
+          return dummy->next;
+      }
+  };
+  ```
+
 ## Trees and Graphs
 - [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
 - [Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
