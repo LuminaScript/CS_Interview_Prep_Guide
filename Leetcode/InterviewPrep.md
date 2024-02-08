@@ -32,7 +32,7 @@
     }
     slow->next = slow->next->next;
     return dummy->next;
-}
+  }  
   ```
 - [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
 - [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
