@@ -62,37 +62,37 @@
         node = node->left;
     }
     return node;
-}
-TreeNode* deleteNode(TreeNode* root, int key) {
-    if (!root) return nullptr;
-
-    TreeNode *cur = root, *par = nullptr;
-
-    while(cur && cur->val != key){
-        par = cur;
-        if(cur->val > key) cur = cur->left;
-        else cur = cur->right;
-    } 
-    if(!cur) return root;
-
-    if(cur->left && cur->right){
-        TreeNode* suc = findSucc(cur->right);
-        cur->val = suc->val;
-        cur->right = deleteNode(cur->right, suc->val);
-    }else{
-        TreeNode* chd = cur->left ? cur->left : cur->right;
-        if(!par){
-            root = chd;
-        }else if(par->left == cur){ // cur is suc for it is smallest child
-            par->left = chd;
-        }else{ // either no children or only right -> nullptr or right child
-            par->right = chd; 
-        }
-        delete cur;
-
-    }
-    return root;
-}
+  }
+  TreeNode* deleteNode(TreeNode* root, int key) {
+      if (!root) return nullptr;
+  
+      TreeNode *cur = root, *par = nullptr;
+  
+      while(cur && cur->val != key){
+          par = cur;
+          if(cur->val > key) cur = cur->left;
+          else cur = cur->right;
+      } 
+      if(!cur) return root;
+  
+      if(cur->left && cur->right){
+          TreeNode* suc = findSucc(cur->right);
+          cur->val = suc->val;
+          cur->right = deleteNode(cur->right, suc->val);
+      }else{
+          TreeNode* chd = cur->left ? cur->left : cur->right;
+          if(!par){
+              root = chd;
+          }else if(par->left == cur){ // cur is suc for it is smallest child
+              par->left = chd;
+          }else{ // either no children or only right -> nullptr or right child
+              par->right = chd; 
+          }
+          delete cur;
+  
+      }
+      return root;
+  }
   ```
 
 ## Dynamic Programming
