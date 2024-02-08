@@ -35,6 +35,8 @@
   }  
   ```
 - [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
+  
+  O(N) + O(1)
   ```cpp
   ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
     ListNode *dummy = new ListNode();
