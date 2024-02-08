@@ -1,28 +1,25 @@
-### Relational Database Management Systems (RDBMS) and Database Management Systems (DBMS)
+## RDBMS and DBMS
 
-> - **Concepts and Definitions**: Questions such as the definition of a database, DBMS, and RDBMS fall into this category. These questions explore foundational concepts and differentiate between DBMS and RDBMS.
-> - **Advantages and Roles**: Discussing the advantages of DBMS and the roles of RDBMS in managing relational data.
-
-- **Basic Definitions:** 
-  - <u>Databases</u>: an organized collection of related data where data is stored and organized to serve some specific purpose
-  - <u>DBMS (Database Management System)</u>: a collection of applicaton programs which allow the user to organize, restore and retrieve information about data efficiency and as effectively as possible (e.g. MySql, Oracle, Sybase, etc)
-  - <u>RDBMS (Relational Database Management System)</u>: based on a relational model of dtaa that is stored in database in separate table & related to the use of a common column. Data easily accessed using SQL (Structural Query Language)
-- **Data & Databases**:
-  - <u>Data Redundancy</u>: duplication of data, causing (1) wastage of storage space; and (2) destruction of the database integrity
-  - <u>Types of Relationship in Database</u>:
+### Basic Definitions:
+  - **Databases**: an organized collection of related data where data is stored and organized to serve some specific purpose
+  - **DBMS (Database Management System)**: a collection of applicaton programs which allow the user to organize, restore and retrieve information about data efficiency and as effectively as possible (e.g. MySql, Oracle, Sybase, etc)
+  - **RDBMS (Relational Database Management System)**: based on a relational model of dtaa that is stored in database in separate table & related to the use of a common column. Data easily accessed using SQL (Structural Query Language)
+### Data & Databases:
+  - **Data Redundancy**: duplication of data, causing (1) wastage of storage space; and (2) destruction of the database integrity
+  - **Types of Relationship in Database**:
     - **One-to-one**: A one-to-one relationship exists when each record in one table corresponds to exactly one record in another table.
     - **One-to-many**: A one-to-many relationship occurs when a single record in one table can be associated with one or multiple records in another table.
     - **Many-to-many**: In a many-to-many relationship, any record in one table can be related to one or more records in another table and vice versa.
 - **Terminologies**:
-  - <u>Record</u>: Record is a collection of values or fields of a specific entity. **For Example,** An employee, Salary account, etc.
-  - <u>Field</u>: A field refers to an area within a record that is reserved for specific data. 
-    **For Example,** Employee ID.
-  - <u>Table</u>: Table is the collection of records of specific types. 
-    **For Example,** the Employee table is a collection of records related to all the employees.
+  - **Record**: Record is a collection of values or fields of a specific entity. **For Example,** An employee, Salary account, etc.
+  - **Field**: A field refers to an area within a record that is reserved for specific data. 
+    - **For Example,** Employee ID.
+  - **Table**: Table is the collection of records of specific types. 
+    - **For Example,** the Employee table is a collection of records related to all the employees.
 
 
 
-### SQL (Structured Query Language)
+## SQL (Structured Query Language)
 
 > - **SQL Basics and Commands**: Covers SQL's role, DDL (Data Definition Language), DML (Data Manipulation Language), and DCL (Data Control Language) commands, including their definitions and purposes.
 > - **Query Optimization**: Questions related to index hunting and improving query performance delve into the efficiency of data retrieval and manipulation.
@@ -50,7 +47,7 @@
       - SAVEPOINT to save temporarily.
     - **DDL Interpreter**: (1) interprets the DDL statements (2) records the generated statemenets in the table containing metadata
 
-### Database Design and Normalization
+## Database Design and Normalization
 
 - **Definition of Normalization & De-normalization**:
   - **<u>Normalization</u>**: removing redundant data from teh database by splitting the table in a well-defined manner in order to maintain data integrity
@@ -63,7 +60,7 @@
 - **Normalization Forms**: Discusses various normalization forms (1NF, 2NF, 3NF, BCNF) and their significance in reducing redundancy and improving database design.
 - **Conceptual Design**: Questions on E-R models, entity, entity types, and relationships focus on the conceptual design of databases.
 
-### Data Integrity and Transactions
+## Data Integrity and Transactions
 
 > - **Atomicity, Consistency, Isolation, Durability (ACID) Properties**: Includes atomicity and its significance in transaction management.
 > - **Database Transactions**: Examines the definition, importance, and characteristics of database transactions.
@@ -86,17 +83,17 @@
       - The view becomes irrelevant if we drop a table related to that view.
       - Much memory space is occupied when the view is created for large tables.
 
-### Advanced Database Concepts
+## Advanced Database Concepts
 
 - **Data Warehousing**: Explores the concept, advantages, and importance of data warehousing in analytical processing and decision-making.
 - **Database Partitioning**: Discusses the process and significance of database partitioning for performance improvement and manageability.
 
-### Database Security and Administration
+## Database Security and Administration
 
 - **Database Locks**: Different types of database locks and their roles in concurrency control.
 - **Backup and Recovery**: Checkpoints and their importance in database recovery and maintenance.
 
-### Miscellaneous
+## Miscellaneous
 
 keys (candiate, primary, second, forigen )
 
