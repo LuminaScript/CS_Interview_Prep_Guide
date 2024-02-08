@@ -16,6 +16,24 @@
 
 ## Linked Lists
 - [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+  ```cpp
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode *dummy = new ListNode(-1);
+    dummy->next = head;
+    ListNode *fast = dummy, *slow = dummy;
+
+    // advanced fast to make fast & slow n nodes apart
+    for(int i = 0; i <= n; i++)  fast = fast->next; 
+    
+    // move fast to end(nullptr), maintain the gap
+    while(fast){
+        fast = fast->next; 
+        slow = slow->next;
+    }
+    slow->next = slow->next->next;
+    return dummy->next;
+}
+  ```
 - [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
 - [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
 
