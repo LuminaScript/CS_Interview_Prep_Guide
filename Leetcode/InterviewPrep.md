@@ -22,6 +22,36 @@
 ## Trees and Graphs
 - [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
 - [Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+  
+  O(N) + O(N)
+  ```cpp
+  vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    if(!root) return {};
+
+    queue<TreeNode*> q;
+    q.push(root);
+    
+    vector<vector<int>> res;
+    bool leftStart = true;
+
+    while(!q.empty()){
+        int n = q.size();
+        vector<int> level(n);
+        for(int i = 0; i < n; i++){
+            TreeNode *cur = q.front(); q.pop();
+            int idx = leftStart ? i : (n - i - 1);
+            level[idx] = cur->val;
+            if(cur->left) q.push(cur->left);
+            if(cur->right) q.push(cur->right);
+            
+        }
+        leftStart = !leftStart;
+        res.push_back(level);
+    }
+    return res;
+
+}
+  ```
 - [Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/)
 
 ## Dynamic Programming
