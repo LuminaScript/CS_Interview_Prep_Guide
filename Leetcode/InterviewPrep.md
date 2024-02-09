@@ -13,6 +13,32 @@
 - [Move Zeroes](https://leetcode.com/problems/move-zeroes/)
 - [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
 - [Backspace String Compare](https://leetcode.com/problems/backspace-string-compare/)
+  ```cpp
+  bool backspaceCompare(string s, string t) {
+    int i = s.size() - 1, j = t.size() - 1;
+    while (i >= 0 || j >= 0) {
+        int backspaceCount = 0;
+        while (i >= 0 && (backspaceCount > 0 || s[i] == '#')) {
+            backspaceCount += s[i] == '#' ? 1 : -1;
+            i--;
+        }
+        backspaceCount = 0;
+        while (j >= 0 && (backspaceCount > 0 || t[j] == '#')) {
+            backspaceCount += t[j] == '#' ? 1 : -1;
+            j--;
+        }
+        if (i >= 0 && j >= 0 && s[i] != t[j]) {
+            return false; // Characters do not match.
+        }
+        if ((i >= 0) != (j >= 0)) {
+            return false; // One string ended but the other did not.
+        }
+        i--;
+        j--;
+    }
+    return true; // Successfully compared all characters.
+  }
+  ```
 
 ## Linked Lists
 - [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
