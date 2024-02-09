@@ -11,7 +11,37 @@
 - [Sort Colors](https://leetcode.com/problems/sort-colors/)
 - [Word Search](https://leetcode.com/problems/word-search/)
 - [Move Zeroes](https://leetcode.com/problems/move-zeroes/)
+
+  O(N) Time + O(1) Space
+  ```cpp
+  void moveZeroes(vector<int>& nums) {
+    int lastNonZero = 0;
+    for(int i = 0; i < nums.size(); i++){
+        if(nums[i] != 0){
+            nums[lastNonZero++] = nums[i];
+        }
+    }
+    for(int i = lastNonZero; i < nums.size(); i++){
+        nums[i] = 0;
+    }
+  }
+  ```
 - [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
+
+  O(N) Time + O(1) Space
+  ```cpp
+  int subarraySum(vector<int>& nums, int k) {
+    unordered_map<int, int> mp;
+    int sum = 0, res = 0;
+    mp[sum] = 1;
+    for(auto n : nums){
+        sum += n;
+        res += mp[sum - k];
+        mp[sum]++;
+    }
+    return res;
+  }
+  ```
 - [Backspace String Compare](https://leetcode.com/problems/backspace-string-compare/)
   ```cpp
   bool backspaceCompare(string s, string t) {
