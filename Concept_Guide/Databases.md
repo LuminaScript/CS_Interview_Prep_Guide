@@ -5,11 +5,11 @@
   - **DBMS (Database Management System)**: a collection of applicaton programs which allow the user to organize, restore and retrieve information about data efficiency and as effectively as possible (e.g. MySql, Oracle, Sybase, etc)
   - **RDBMS (Relational Database Management System)**: based on a relational model of dtaa that is stored in database in separate table & related to the use of a common column. Data easily accessed using SQL (Structural Query Language)
 ### Data & Databases:
-  - **Data Redundancy**: duplication of data, causing (1) wastage of storage space; and (2) destruction of the database integrity
+  - **Data Redundancy**: <u>duplication of data</u>, causing (1) wastage of storage space; and (2) destruction of the database integrity
   - **Types of Relationship in Database**:
     - **One-to-one**: A one-to-one relationship exists when each record in one table corresponds to exactly one record in another table.
     - **One-to-many**: A one-to-many relationship occurs when a single record in one table can be associated with one or multiple records in another table.
-    - **Many-to-many**: In a many-to-many relationship, any record in one table can be related to one or more records in another table and vice versa.
+    - **Many-to-many**: In a many-to-many relationship, any record in one table can be related to one or more records in another table and <u>vice versa</u>.
 - **Terminologies**:
   - **Record**: Record is a collection of values or fields of a specific entity. **For Example,** An employee, Salary account, etc.
   - **Field**: A field refers to an area within a record that is reserved for specific data. 
@@ -86,16 +86,37 @@
 ## Advanced Database Concepts
 
 - **Data Warehousing**: Explores the concept, advantages, and importance of data warehousing in analytical processing and decision-making.
+
 - **Database Partitioning**: Discusses the process and significance of database partitioning for performance improvement and manageability.
+
+- **Join**: the process of deriving the relationship between different tables by combining columns from one or more tables having common values in each. When a table joins with itself, it is known as Self Join.
+
+- **Index hunting**: the process of boosting the collection of indexes which helps in improving the query performance as well as the speed of the database.
+
+  - **improve query performance using Index hunting?**
+
+    - Using a query optimizer to coordinate queries with the workload.
+
+    - Observing the performance and effect of index and query distribution.
+
+- ‘**Cluster**’ vs ‘**Non-cluste**r’ index.
+
+  - Clustered index alters the table and re-order the way in which the records are stored in the table. Data retrieval is made faster by using the clustered index.
+
+  - A Non-clustered index does alter the records that are stored in the table but creates a completely different object within the table.
+
+- **disadvantages of a Query**
+
+  - Indexes are not present.
+  - Stored procedures are excessively compiled.
+  - Difficulty in interfacing.
+
+- **Fragmentation**
+
+  a feature that controls the logical data units, also known as fragments that are stored at different sites of a distributed database system.
 
 ## Database Security and Administration
 
 - **Database Locks**: Different types of database locks and their roles in concurrency control.
 - **Backup and Recovery**: Checkpoints and their importance in database recovery and maintenance.
 
-## Miscellaneous
-
-keys (candiate, primary, second, forigen )
-
-- **Views, Indexes, and Joins**: Covers the creation and use of views, the difference between clustered and non-clustered indexes, and various join types in SQL queries.
-- **Special Topics**: Addresses specific topics like data dictionary, triggers, stored procedures, B-Trees, and the distinction between DELETE, TRUNCATE, and DROP commands.
