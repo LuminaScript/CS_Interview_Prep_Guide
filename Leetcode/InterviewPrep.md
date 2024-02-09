@@ -10,6 +10,32 @@
 - [Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 - [Sort Colors](https://leetcode.com/problems/sort-colors/)
 - [Word Search](https://leetcode.com/problems/word-search/)
+  ```cpp
+  vector<vector<char>> bd;
+  int rn, cn;
+  bool dfs(int i, int j, string word) {
+      if(word.size() == 0) return true;
+      if(i < 0 || i >= rn || j < 0 || j >= cn || bd[i][j] != word[0]) return false;
+      char c = bd[i][j];
+      bd[i][j] = '*';
+      word = word.substr(1);
+      bool ret = dfs(i + 1, j, word) || dfs(i - 1, j, word) || dfs(i, j + 1, word) || dfs(i, j - 1, word);
+      bd[i][j] = c;
+      return ret;
+
+  }
+  bool exist(vector<vector<char>>& board, string word) {
+      bd = board;
+      rn = board.size();
+      cn = board[0].size();
+      for(int i = 0; i < rn; i++){
+          for(int j = 0; j < cn; j++){
+              if(dfs(i , j, word)) return true;
+          }
+      }
+      return false;
+  }
+  ```
 - [Move Zeroes](https://leetcode.com/problems/move-zeroes/)
 
   O(N) Time + O(1) Space
