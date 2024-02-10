@@ -1,6 +1,53 @@
 ## Arrays and Strings
 - [Two Sum](https://leetcode.com/problems/two-sum/)
+  
+  Time O(N), Space O(N)
+  ```cpp
+  vector<int> twoSum(vector<int>& nums, int target) {
+      unordered_map<int, int> mp;
+      for(int i = 0; i < nums.size(); i++){
+          if(mp.find(target - nums[i]) == mp.end())
+              mp[nums[i]] = i;
+          else
+              return{mp[target - nums[i]], i};
+      }
+      return {-1, -1};  
+  }
+  ```
 - [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
+  ```cpp
+  int expand(int i, int j, string s){
+      int left = i, right = j;
+      
+      while(left >= 0 && right < s.length() && s[left] == s[right]){
+          left--;
+          right++;
+      }
+      return right - left - 1;
+  }
+  string longestPalindrome(string s) {
+      int n = s.size();
+      vector<int> ans{2, 0};
+
+      for(int i = 0; i < n; i++){
+       int oddLength = expand(i, i, s);
+          if (oddLength > ans[1] - ans[0] + 1) {
+              int dist = oddLength / 2;
+              ans[0] = i - dist;
+              ans[1] = i + dist;
+          }
+          
+          int evenLength = expand(i, i + 1, s);
+          if (evenLength > ans[1] - ans[0] + 1) {
+              int dist = (evenLength / 2) - 1;
+              ans[0] = i - dist;
+              ans[1] = i + 1 + dist;
+          }
+      }
+      int i = ans[0], j = ans[1];
+      return s.substr(i, j - i + 1);
+  }
+  ```
 - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
   
   : )
