@@ -8,6 +8,17 @@
 - [Jump Game](https://leetcode.com/problems/jump-game/)
 - [Jump Game II](https://leetcode.com/problems/jump-game-ii/)
 - [Merge Intervals](https://leetcode.com/problems/merge-intervals/)
+  ```cpp
+  vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    sort(intervals.begin(), intervals.end());
+    vector<vector<int>> res;
+    for(auto d : intervals){
+        if(res.empty() || res.back()[1] < d[0]) res.push_back(d); // push d into interval if no overlap
+        else res.back()[1] = max(res.back()[1], d[1]); // push the one with bigger right bound
+    }
+    return res;
+  }
+  ```
 - [Sort Colors](https://leetcode.com/problems/sort-colors/)
   ```cpp
   void swap(int *i, int *j){
