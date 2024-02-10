@@ -4,6 +4,33 @@
 - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 - [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
 - [Group Anagrams](https://leetcode.com/problems/group-anagrams/)
+
+  Time O(NK), Space O(NK)
+  ```cpp
+  vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> mp; 
+        vector<vector<string>> res; 
+
+        for(string w : strs) {
+            vector<int> count(26, 0); 
+            for(char c : w) {
+                count[c - 'a']++; 
+            }
+            
+            string key = "";
+            for(int i = 0; i < 26; ++i) {
+                key += string(count[i], 'a' + i);
+            }
+            mp[key].push_back(w); 
+        }
+
+        for(auto p : mp) {
+            res.push_back(p.second);
+        }
+        
+        return res;
+  }
+  ```
 - [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
   ```cpp
   int trap(vector<int>& height) {
