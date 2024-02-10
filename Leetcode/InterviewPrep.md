@@ -6,6 +6,16 @@
 - [Group Anagrams](https://leetcode.com/problems/group-anagrams/)
 - [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 - [Jump Game](https://leetcode.com/problems/jump-game/)
+  ```cpp
+  bool canJump(vector<int>& nums) {
+    int furthestIndex = 0, n = nums.size();
+    for(int i = 0; i < n; i++){
+        if(furthestIndex >= i) furthestIndex = max(furthestIndex, i + nums[i]);
+        if(furthestIndex >= n - 1) return true;
+    }
+    return false;
+  }
+  ```
 - [Jump Game II](https://leetcode.com/problems/jump-game-ii/)
 - [Merge Intervals](https://leetcode.com/problems/merge-intervals/)
   ```cpp
