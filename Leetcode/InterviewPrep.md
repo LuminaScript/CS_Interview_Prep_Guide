@@ -2,6 +2,10 @@
 - [Two Sum](https://leetcode.com/problems/two-sum/)
 - [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+  
+  : )
+  
+  Time O(N), Space O(1)
   ```cpp
   int maxArea(vector<int>& height) {
     int left = 0;
