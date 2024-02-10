@@ -9,6 +9,27 @@
 - [Jump Game II](https://leetcode.com/problems/jump-game-ii/)
 - [Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 - [Sort Colors](https://leetcode.com/problems/sort-colors/)
+  ```cpp
+  void swap(int *i, int *j){
+    int temp = *i;
+    *i = *j;
+    *j = temp;
+  }
+  void sortColors(vector<int>& nums) {
+    int p0 = 0;
+    int p2 = nums.size() - 1;
+    for(int i = 0; i <= p2;){
+        if(nums[i] == 0){
+            swap(&nums[i++], &nums[p0++]);
+        }
+        else if(nums[i] == 2){
+            swap(&nums[i], &nums[p2--]);
+        }else{
+            i++;
+        }
+    }
+  } 
+  ```
 - [Word Search](https://leetcode.com/problems/word-search/)
   ```cpp
   vector<vector<char>> bd;
