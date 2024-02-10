@@ -2,6 +2,23 @@
 - [Two Sum](https://leetcode.com/problems/two-sum/)
 - [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+  ```cpp
+  int maxArea(vector<int>& height) {
+    int left = 0;
+    int right = height.size() - 1;
+    int max_area = -1;
+    while(left < right){
+        int h_left = height[left];
+        int h_right = height[right];
+        max_area = max(max_area, (right - left) * min(h_left, h_right));
+        if(h_left < h_right)
+            left++;
+        else
+            right--;
+    }
+    return max_area;
+  }
+  ```
 - [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
 
   Time O(N), Space O(N)
