@@ -17,6 +17,25 @@
   }
   ```
 - [Jump Game II](https://leetcode.com/problems/jump-game-ii/)
+  Greedy Algorithm (OPTIMAL):
+  ```cpp
+  ```
+
+  Dynamic Programming:
+  ```cpp
+  int jump(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> dp(n, INT_MAX);
+    dp[0] = 0; 
+    for(int i = 0; i < n; i++){
+        int jumps = nums[i];
+        for(int j = 0; i + j < n && j <= jumps; j++){
+            dp[i + j] = min(dp[i] + 1, dp[i + j]);
+        }    
+    }
+    return dp[n - 1];
+  }
+  ```
 - [Merge Intervals](https://leetcode.com/problems/merge-intervals/)
   ```cpp
   vector<vector<int>> merge(vector<vector<int>>& intervals) {
