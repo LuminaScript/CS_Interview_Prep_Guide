@@ -3,6 +3,25 @@
 - [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 - [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+
+  Time O(N), Space O(N)
+  ```cpp
+  bool isValid(string s) {
+      stack<char> stack;
+      for(auto c: s){
+          if(c == '(' || c == '[' || c == '{')
+              stack.push(c);
+          else{
+              if(stack.empty()) return false;
+              char top = stack.top();
+              if(top == '(' && c != ')' || (top == '{' && c != '}')|| (top == '[' && c != ']')) 
+                  return false;
+              stack.pop();
+          }
+      }
+      return stack.empty();
+  }
+  ```
 - [Group Anagrams](https://leetcode.com/problems/group-anagrams/)
 
   Time O(NK), Space O(NK)
