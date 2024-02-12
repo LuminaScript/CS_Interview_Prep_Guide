@@ -296,7 +296,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
     
         return 0;
     }
-
+   
    ```
 ### Semaphores
 - Definition: an integer value that we can manipulate with 2 routines (sem_wait() & sem_post())
@@ -346,7 +346,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
     
         return 0;
     }
-
+    
     ```
   - Sempaphores for Produce & Consumer (Bounded Buffer)
     ```c
@@ -399,7 +399,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
     
         return 0;
     }
-
+    
     ```
   - Reader & Writer Lock
     ```c
@@ -452,7 +452,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
     
         return 0;
     }
-
+    
     ```
   - Dining Philosophers 
     ```c
@@ -527,9 +527,151 @@ IPC enables processes to communicate and synchronize their actions, serving as a
           printf("Philosopher %d is %s.\n", philosopher_number, action);
           // Sleep or perform action for a while...
       }
-
+    
     ```
+
+
+
+### Common Concurrency Problem
+
+#### Non-Deadlock Bugs
+
+1. **<u>Atomicity Violation Bugs</u>**
+
+   ```text
+   Thread 1::
+   if (thd->proc_info) {
+   	...
+   	fputs (thd->proc_info, ...);
+   	... 
+   }
+   Thread 2::
+   thd->proc_info = NULL;
+   ```
+
+   **Problem**:
+
+   In the example, two different threads access the field proc info in the structure thd. The first thread checks if the value is non-NULL and then prints its value; the second thread sets it to NULL. Clearly, if the first thread performs the check but then is interrupted before the call to fputs, the second thread could run in-between, thus setting the pointer to NULL; when the first thread resumes, it will crash, as a NULL pointer will be dereferenced by fputs.
+
+   **Solution**:
+
+   ```text
+   pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+   
+   Thread 1::
+   pthread_mutex_lock (§lock);
+   if (thd->proc_info) {
+     	fputs (thd->proc_info, ...);
+   }
+   pthread_mutex_unlock (§lock);
+   
+   Thread 2::
+   pthread_mutex_lock (§lock);
+   thd->proc_info = NULL;
+   pthread_mutex_unlock (§lock);
+   ```
+
+2. **<u>Order-Violation Bugs</u>**
+
+   ```text
+   Thread 1::
+   void init () {	
+   	...
+   	mThread = PR_CreateThread (mMain, ...);
+   	...
+   }
+   
+   Thread 2::
+   void mMain (...) {
+   	...
+   	mState = mIhread-›State;
+   	...
+   }
+   ```
+
+   **Problem**:
+   Thread 2 assumes that the variable mThread has already been initialized (and is not NULL); however, if Thread 1 does not happen to run first, we are out of luck, and Thread 2 will likely crash with a NULL pointer dereference.
+
+   Solution:
+   ```text
+   pthread_mutex_t mtLock = PTHREAD_MUTEX_INITIALIZER;
+   pthread_cond_t mtCond  = PTHREAD_COND_INITIALIZER;
+   int mtInit						 = 0;
+   
+   Thread 1::
+   void init () {
+   	...
+     mIhread = PR_CreateThread (mMain, ...);
+    
+    	// signal that the thread has been created...
+     pthread_mutex_lock (&mtLock);
+     mtInit = 1;
+     pthread_cond_signal (&mtCond);
+     pthread_mutex_unlock (&mtLock);
+     ...
+   }
+   
+   Thread 2::
+   void mMain (...) {
+     // wait for the thread to be initialized... 		
+     pthread_mutex_lock (&mtLock);
+     
+     while (mtInit == 0)
+     	pthread_cond_wait (&mtCond, &mtLock);
+     pthread_mutex_unlock (&mtLock);
+     
+     mState = mThread->State;
+     ...
+   }
+   ```
+
+   
+
+#### Deadlock Bugs
+
+**Conditions for Deadlock**
+
+Four conditions need to hold for a deadlock to occur [C+71]:
+
+- **Mutualexclusion:**Threadsclaimexclusivecontrolofresourcesthat they require (e.g., a thread grabs a lock).
+- **Hold-and-wait:**Threadsholdresourcesallocatedtothem(e.g.,locks that they have already acquired) while waiting for additional re- sources (e.g., locks that they wish to acquire).
+- **No preemption:** Resources (e.g., locks) cannot be forcibly removed from threads that are holding them.
+- **Circular wait:** There exists a circular chain of threads such that each thread holds one more resources (e.g., locks) that are being requested by the next thread in the chain.
+
+
+
+##### Prevention
+
+- **Circular Wait**
+
+  Probably the most practical prevention technique (and certainly one that is used frequently) is to write your locking code such that you never in- duce a circular wait. The way to do that is to provide a **total ordering** on lock acquisition.
+
+- Hold-and-wait
+
+  ```text
+  lock (prevention);
+  lock (L1);
+  lock (L2);
+  unlock (prevention);
+  ```
+
+- No Preemption
+
+  ```text
+  top:
+    lock (Ll);
+    if (trylock (I2) == -1) {
+      unlock (L1);
+      goto top;
+  	}
+  ```
+
+- Mutual exclusion 
+
+- Scheduling 
+
 ## Case Studies
+
 ### I. Multi-threading Use Cases
 1. **Web Server Handling Multiple Client Requests**
   - **Scenario**: A web server needs to handle multiple incoming HTTP requests concurrently. Each request is relatively lightweight and requires accessing shared resources, like memory caches or file descriptors.
@@ -541,6 +683,7 @@ IPC enables processes to communicate and synchronize their actions, serving as a
 
 ### II. Multi-processing Use Cases
 1.**CPU-Intensive Data Processing**
+
   - **Scenario**: An application needs to perform heavy data processing, utilizing multiple CPU cores to its maximum capacity. The tasks are CPU-bound, such as video encoding, complex calculations in scientific simulations, or large dataset processing.
   - **Why Multi-processing**: Multi-processing allows each process to run on a separate CPU core, enabling true parallelism. Processes do not share memory by default, which eliminates the risks of concurrency issues (like race conditions) without the need for complex synchronization mechanisms. This model maximizes CPU utilization and is beneficial in scenarios where tasks are independent and require isolation from each other to prevent mutual interference.
 
