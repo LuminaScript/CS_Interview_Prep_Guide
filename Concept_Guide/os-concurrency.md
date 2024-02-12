@@ -216,9 +216,8 @@ IPC enables processes to communicate and synchronize their actions, serving as a
     balance++;
     pthread_mutex_unlock(&lock);
     ```
-- Implementation of Lock:
-  - Test & Set
-  - Compare & Swap
+- **Implementation of Lock** (Hardware Level Pseudo-code)
+  - **Test & Set**
     Peterson's Algorithm:
     ```c
     int flag[2];
@@ -242,13 +241,75 @@ IPC enables processes to communicate and synchronize their actions, serving as a
         flag[self] = 0;
     }
     ```
-    
+    - multi-core CPU or single-core CPU with preemptive algorithms
+  - **Compare & Swap**
+    // To-do
 
-## Mutex
-## IPC:
-### Mutex
+
+- **Lock With Queues** (Sleep instead of spinning)
+
 ### Conditional Variable
-### Lock
+1. Parent Waiting for a Child
+2. The Producer/Consumer (Bounded Buffer) Problem
+   ```c
+    #include <stdio.h>
+    #include <semaphore.h>
+    #include <pthread.h>
+    
+    sem_t empty;
+    sem_t full;
+    
+    void put(int value) {
+        // Placeholder for put function
+    }
+    
+    int get() {
+        // Placeholder for get function
+        return 0; // This should be replaced with actual retrieval logic
+    }
+    
+    void *producer(void *arg) {
+        int i;
+        for (i = 0; i < loops; i++) {
+            sem_wait(&empty); // line P1
+            put(i);           // line P2
+            sem_post(&full);  // line P3
+        }
+    }
+    
+    void *consumer(void *arg) {
+        int i, tmp = 0;
+        while (tmp != -1) {
+            sem_wait(&full);     // line C1
+            tmp = get();         // line C2
+            sem_post(&empty);    // line C3
+            printf("%d\n", tmp); // line C4
+        }
+    }
+    
+    int main(int argc, char *argv[]) {
+        // Initialize semaphores
+        sem_init(&empty, 0, MAX); // Assuming MAX is defined somewhere
+        sem_init(&full, 0, 0);
+    
+        // ... (rest of your main function logic for creating threads and starting producer and consumer)
+    
+        return 0;
+    }
+
+   ```
+### Semaphores
+- Definition: an integer value that we can manipulate with 2 routines (sem_wait() & sem_post())
+  ```c
+  int sem_wait (sem_t *s) {
+    // decrement the value of semaphore s by one
+    // wait if value of semaphore s is negative
+  }
+  int sem post (sem t *s) {
+    // increment the value of semaphore s by one
+    // if there are one or more threads waiting, wake one
+  }
+  ```
 
 ## Case Studies
 ### I. Multi-threading Use Cases
