@@ -207,6 +207,43 @@ IPC enables processes to communicate and synchronize their actions, serving as a
       
 
 ## Lock
+- A lock is just a variable & Exactly one thread holds the lock in the critical section
+- Pthread Lock:
+  - MUTEX = POSIX Library lock
+    ```c
+    pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+    pthread_mutex_lock(&lock);
+    balance++;
+    pthread_mutex_unlock(&lock);
+    ```
+- Implementation of Lock:
+  - Test & Set
+  - Compare & Swap
+    Peterson's Algorithm:
+    ```c
+    int flag[2];
+    int turn;
+    
+    void init() {
+        flag[0] = flag[1] = 0;
+        turn = 0;
+    }
+    
+    void lock(int self) {
+        int other = 1 - self;
+        flag[self] = 1;
+        turn = other;
+        while (flag[other] == 1 && turn == other) {
+            // Spin Wait
+        }
+    }
+    
+    void unlock(int self) {
+        flag[self] = 0;
+    }
+    ```
+    
+
 ## Mutex
 ## IPC:
 ### Mutex
