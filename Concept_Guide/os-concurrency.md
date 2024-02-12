@@ -92,6 +92,10 @@ IPC enables processes to communicate and synchronize their actions, serving as a
   $ make && ./multiproc
   val = 15 
   ```
+
+
+# Concurrency: 
+## Threads
 - **Thread**
   - **Retaionship to process**: Thread is an execution unit that is part of a process. A process can have multiple threads, all executing at the same time. It is a unit of execution in concurrent programming.
   - **Why Thread?**: A thread is lightweight and can be managed independently by a scheduler. It helps you to improve the application performance using parallelism.
@@ -202,8 +206,14 @@ IPC enables processes to communicate and synchronize their actions, serving as a
       ```
       
 
+## Lock
+## Mutex
+## IPC:
+### Mutex
+### Conditional Variable
+### Lock
 
-# Concurrency: 
+## Case Studies
 ### I. Multi-threading Use Cases
 1. **Web Server Handling Multiple Client Requests**
   - **Scenario**: A web server needs to handle multiple incoming HTTP requests concurrently. Each request is relatively lightweight and requires accessing shared resources, like memory caches or file descriptors.
