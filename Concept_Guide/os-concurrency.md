@@ -310,7 +310,225 @@ IPC enables processes to communicate and synchronize their actions, serving as a
     // if there are one or more threads waiting, wake one
   }
   ```
+- Scenaiors:
+  - Semaphores for Ordering
+    ensures that Thread A executes before Thread B:
+    ```c
+    #include <stdio.h>
+    #include <pthread.h>
+    #include <semaphore.h>
+    
+    sem_t order;
+    
+    void* threadA(void *arg) {
+        printf("Thread A\n");
+        sem_post(&order);  // Signal Thread B to proceed
+        return NULL;
+    }
+    
+    void* threadB(void *arg) {
+        sem_wait(&order);  // Wait for signal from Thread A
+        printf("Thread B\n");
+        return NULL;
+    }
+    
+    int main() {
+        pthread_t ta, tb;
+        sem_init(&order, 0, 0);  // Semaphore is initially locked
+    
+        pthread_create(&ta, NULL, threadA, NULL);
+        pthread_create(&tb, NULL, threadB, NULL);
+    
+        pthread_join(ta, NULL);
+        pthread_join(tb, NULL);
+    
+        sem_destroy(&order);
+    
+        return 0;
+    }
 
+    ```
+  - Sempaphores for Produce & Consumer (Bounded Buffer)
+    ```c
+    #include <stdio.h>
+    #include <pthread.h>
+    #include <semaphore.h>
+    
+    #define BUFFER_SIZE 10
+    
+    sem_t full;
+    sem_t empty;
+    int buffer[BUFFER_SIZE];
+    int in = 0;
+    int out = 0;
+    
+    void* producer(void *arg) {
+        for (int i = 0; i < 20; i++) {
+            sem_wait(&empty);
+            buffer[in] = i;
+            in = (in + 1) % BUFFER_SIZE;
+            sem_post(&full);
+        }
+        return NULL;
+    }
+    
+    void* consumer(void *arg) {
+        for (int i = 0; i < 20; i++) {
+            sem_wait(&full);
+            int item = buffer[out];
+            out = (out + 1) % BUFFER_SIZE;
+            printf("Consume item: %d\n", item);
+            sem_post(&empty);
+        }
+        return NULL;
+    }
+    
+    int main() {
+        pthread_t prod, cons;
+        sem_init(&full, 0, 0);
+        sem_init(&empty, 0, BUFFER_SIZE);
+    
+        pthread_create(&prod, NULL, producer, NULL);
+        pthread_create(&cons, NULL, consumer, NULL);
+    
+        pthread_join(prod, NULL);
+        pthread_join(cons, NULL);
+    
+        sem_destroy(&full);
+        sem_destroy(&empty);
+    
+        return 0;
+    }
+
+    ```
+  - Reader & Writer Lock
+    ```c
+    #include <stdio.h>
+    #include <pthread.h>
+    #include <semaphore.h>
+    
+    sem_t resource;
+    sem_t readCountAccess;
+    int readCount = 0;
+    
+    void* reader(void *arg) {
+        sem_wait(&readCountAccess);
+        readCount++;
+        if (readCount == 1) sem_wait(&resource); // First reader locks the resource
+        sem_post(&readCountAccess);
+    
+        printf("Read the resource\n");
+    
+        sem_wait(&readCountAccess);
+        readCount--;
+        if (readCount == 0) sem_post(&resource); // Last reader unlocks the resource
+        sem_post(&readCountAccess);
+    
+        return NULL;
+    }
+    
+    void* writer(void *arg) {
+        sem_wait(&resource);  // Lock the resource for writing
+        printf("Write to the resource\n");
+        sem_post(&resource);  // Unlock the resource
+        return NULL;
+    }
+    
+    int main() {
+        pthread_t r1, r2, w;
+        sem_init(&resource, 0, 1);
+        sem_init(&readCountAccess, 0, 1);
+    
+        pthread_create(&r1, NULL, reader, NULL);
+        pthread_create(&r2, NULL, reader, NULL);
+        pthread_create(&w, NULL, writer, NULL);
+    
+        pthread_join(r1, NULL);
+        pthread_join(r2, NULL);
+        pthread_join(w, NULL);
+    
+        sem_destroy(&resource);
+        sem_destroy(&readCountAccess);
+    
+        return 0;
+    }
+
+    ```
+  - Dining Philosophers 
+    ```c
+    #include <pthread.h>
+    #include <semaphore.h>
+    #include <stdio.h>
+    
+    #define NUM_PHILOSOPHERS 5
+    
+    // Semaphore array for the forks
+    sem_t forks[NUM_PHILOSOPHERS];
+    
+    // Function for the philosopher's actions
+    void* philosopher(void* num);
+    
+    // Helper function to simulate thinking and eating
+    void think_or_eat(char* action, int philosopher_number);
+    
+    int main() {
+        pthread_t philosophers[NUM_PHILOSOPHERS];
+        int philosopher_numbers[NUM_PHILOSOPHERS];
+    
+        // Initialize the semaphores
+        for (int i = 0; i < NUM_PHILOSOPHERS; ++i) {
+            sem_init(&forks[i], 0, 1);
+        }
+    
+        // Create philosopher threads
+        for (int i = 0; i < NUM_PHILOSOPHERS; ++i) {
+            philosopher_numbers[i] = i;
+            pthread_create(&philosophers[i], NULL, philosopher, &philosopher_numbers[i]);
+        }
+    
+        // Join philosopher threads
+        for (int i = 0; i < NUM_PHILOSOPHERS; ++i) {
+            pthread_join(philosophers[i], NULL);
+        }
+    
+        // Clean up semaphores
+        for (int i = 0; i < NUM_PHILOSOPHERS; ++i) {
+            sem_destroy(&forks[i]);
+        }
+    
+        return 0;
+    }
+    
+    void* philosopher(void* num) {
+        int philosopher_number = *(int*)num;
+    
+        while (1) {
+            think_or_eat("thinking", philosopher_number);
+    
+            if (philosopher_number == NUM_PHILOSOPHERS - 1) {
+                // The last philosopher picks up the right fork before the left fork
+                sem_wait(&forks[(philosopher_number + 1) % NUM_PHILOSOPHERS]);
+                sem_wait(&forks[philosopher_number]);
+            } else {
+                // All other philosophers pick up the left fork before the right fork
+                sem_wait(&forks[philosopher_number]);
+                sem_wait(&forks[(philosopher_number + 1) % NUM_PHILOSOPHERS]);
+            }
+    
+            think_or_eat("eating", philosopher_number);
+    
+            // Put down both forks after eating
+            sem_post(&forks[philosopher_number]);
+            sem_post(&forks[(philosopher_number + 1) % NUM_PHILOSOPHERS]);
+        }
+      }
+      
+      void think_or_eat(char* action, int philosopher_number) {
+          printf("Philosopher %d is %s.\n", philosopher_number, action);
+          // Sleep or perform action for a while...
+      }
+
+    ```
 ## Case Studies
 ### I. Multi-threading Use Cases
 1. **Web Server Handling Multiple Client Requests**
