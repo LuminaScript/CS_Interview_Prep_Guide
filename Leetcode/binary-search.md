@@ -168,6 +168,17 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
 
 
 - [Leetcode 278. First Bad Version](https://leetcode.com/problems/first-bad-version/)
+  ```cpp
+  int firstBadVersion(int n) {
+      int left = 1, right = n;
+      while(left <= right){
+          int mid = left + (right - left) / 2;
+          if(!isBadVersion(mid)) left = mid + 1;
+          else right = mid - 1;
+      }
+      return left;
+  }
+  ```
 - [Leetcode 74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
 - [Leetcode 240. Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)
 
