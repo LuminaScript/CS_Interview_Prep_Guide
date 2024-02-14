@@ -180,6 +180,29 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
   }
   ```
 - [Leetcode 74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
+  ```cpp
+  bool searchMatrix(vector<vector<int>>& matrix, int target) {
+      if (matrix.empty() || matrix[0].empty()) return false;
+
+      int row = 0;
+      int col = matrix[0].size() - 1;
+
+      while (row < matrix.size() && col >= 0) {
+          if (matrix[row][col] == target) {
+              return true;
+          } else if (matrix[row][col] > target) {
+              // Move left
+              col--;
+          } else {
+              // Move down
+              row++;
+          }
+      }
+
+      return false;
+  }
+
+  ```
 - [Leetcode 240. Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)
 
 ## Implicit Binary Search:
