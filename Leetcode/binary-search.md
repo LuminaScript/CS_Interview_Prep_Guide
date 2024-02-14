@@ -5,6 +5,63 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
 ## Explicit Binary Search:
 
 - [Leetcode 34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+  ```cpp
+  int lowerBound(vector<int>& nums, int target){
+      int n = nums.size();
+      int left = 0, right = n - 1;
+      while(left <= right){
+          int mid = left + (right - left) / 2;
+          int mid_val = nums[mid];
+          if(mid_val == target){
+              if(mid == 0 || (mid - 1 >= 0 && nums[mid - 1] < target)){
+                  return mid;
+              }else{
+                  right = mid - 1;
+              }
+          }
+          else if(mid_val < target){
+              left = mid + 1;
+          }else{
+              right = mid - 1;
+          }
+      }
+      return -1;
+  }
+
+  int upperBound(vector<int>& nums, int target){
+      int n = nums.size();
+      int left = 0, right = n - 1;
+      while(left <= right){
+          int mid = left + (right - left) / 2;
+          int mid_val = nums[mid];
+          if(mid_val == target){
+              if(mid == n - 1 || (mid + 1 < n && nums[mid + 1] > target)){
+                  return mid;
+              }else{
+                  left = mid + 1;
+              }
+          }
+          else if(mid_val < target){
+              left = mid + 1;
+          }else{
+              right = mid - 1;
+          }
+      }
+      return -1;
+  }
+  vector<int> searchRange(vector<int>& nums, int target) {
+      vector<int> res(2, -1);
+      int n = nums.size();
+      if(n == 0) return res;
+      res[0] = lowerBound(nums, target);
+      res[1] = upperBound(nums, target);
+      return res;
+
+
+
+  }
+
+  ```
 - [Leetcode 33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 - [Leetcode 1095. Find in Mountain Array](https://leetcode.com/problems/find-in-mountain-array/)
 - [Leetcode 162. Find Peak Element](https://leetcode.com/problems/find-peak-element/)
