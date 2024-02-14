@@ -46,7 +46,84 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
   }
   ```
 - [Leetcode 33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+  ```cpp
+  int search(vector<int>& nums, int target) {
+    int left = 0, right = nums.size() - 1;
+    while(left <= right){
+        int mid = left + (right - left) / 2;
+        if(nums[mid] == target) return mid;
+        if(nums[left] <= nums[mid]){ // left is sorted
+            if(target < nums[mid] && target >= nums[left])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }else{ // right is sorted
+            if (target > nums[mid] && target <= nums[right])
+                left = mid + 1;
+            else
+                right = mid -1 ;
+        }
+    }
+    return -1;
+  }
+  ```
 - [Leetcode 1095. Find in Mountain Array](https://leetcode.com/problems/find-in-mountain-array/)
+  ```cpp
+  int findInMountainArray(int target, MountainArray &mountainArr) {
+      int peak = findPeak(mountainArr);
+      int index = binarySearchAsc(mountainArr, 0, peak, target);
+      if (index != -1) {
+          return index;
+      }
+      return binarySearchDesc(mountainArr, peak + 1, mountainArr.length() - 1, target);
+  }
+
+  int findPeak(MountainArray &mountainArr) {
+      int left = 0, right = mountainArr.length() - 1;
+      while (left < right) {
+          int mid = left + (right - left) / 2;
+          if (mountainArr.get(mid) < mountainArr.get(mid + 1)) {
+              // Ascending part
+              left = mid + 1;
+          } else {
+              // Descending part
+              right = mid;
+          }
+      }
+      return left;
+  }
+
+  int binarySearchAsc(MountainArray &mountainArr, int left, int right, int target) {
+      while (left <= right) {
+          int mid = left + (right - left) / 2;
+          int midVal = mountainArr.get(mid);
+          if (midVal == target) {
+              return mid;
+          } else if (midVal < target) {
+              left = mid + 1;
+          } else {
+              right = mid - 1;
+          }
+      }
+      return -1;
+  }
+
+  int binarySearchDesc(MountainArray &mountainArr, int left, int right, int target) {
+      while (left <= right) {
+          int mid = left + (right - left) / 2;
+          int midVal = mountainArr.get(mid);
+          if (midVal == target) {
+              return mid;
+          } else if (midVal > target) {
+              left = mid + 1;
+          } else {
+              right = mid - 1;
+          }
+      }
+      return -1;
+  }
+
+  ```
 - [Leetcode 162. Find Peak Element](https://leetcode.com/problems/find-peak-element/)
 - [Leetcode 278. First Bad Version](https://leetcode.com/problems/first-bad-version/)
 - [Leetcode 74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
