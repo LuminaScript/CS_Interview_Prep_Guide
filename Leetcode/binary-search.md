@@ -49,6 +49,7 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
       }
       return -1;
   }
+  
   vector<int> searchRange(vector<int>& nums, int target) {
       vector<int> res(2, -1);
       int n = nums.size();
@@ -56,9 +57,6 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
       res[0] = lowerBound(nums, target);
       res[1] = upperBound(nums, target);
       return res;
-
-
-
   }
 
   ```
