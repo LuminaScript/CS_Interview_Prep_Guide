@@ -125,6 +125,48 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
 
   ```
 - [Leetcode 162. Find Peak Element](https://leetcode.com/problems/find-peak-element/)
+
+  **Solution 1(Smartest)**
+  ```cpp
+  int findPeakElement(vector<int>& nums) {
+    int n = nums.size();
+    int left = 0, right = n - 1;
+    while(left < right){
+        int mid = left + (right - left) / 2;
+        if(nums[mid] < nums[mid + 1]) left = mid + 1;
+        else right = mid;
+    }
+    return left;
+  }
+  ```
+
+  **Solution 2**
+  ```cpp
+  int findPeakElement(vector<int>& nums) {
+      int n = nums.size(); 
+      int left = 0, right = n - 1;
+      while(left < right){
+          int mid = left + (right - left) / 2;
+          int mid_val = nums[mid];
+          if((mid == 0 || mid_val >= nums[mid - 1]) && (mid >= n - 1 || (mid_val >= nums[mid + 1]))){
+              return mid;
+          }
+          if(mid == 0 || mid == n - 1){
+              mid == 0 ? left = 1 : right = n - 2;
+              continue;
+          }
+  
+          else if(mid_val <= nums[mid - 1]){
+              right = mid - 1;
+          }else{
+              left = mid + 1;
+          }
+      }
+      return left;
+  }
+  ```
+
+
 - [Leetcode 278. First Bad Version](https://leetcode.com/problems/first-bad-version/)
 - [Leetcode 74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
 - [Leetcode 240. Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)
