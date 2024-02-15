@@ -224,6 +224,20 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
 ## Implicit Binary Search:
 
 - [Leetcode 69. Sqrt(x)](https://leetcode.com/problems/sqrtx/)
+  ```cpp
+  int mySqrt(int x) {
+    if(x < 2) return x;
+    int left = 2, right = x / 2;
+    while(left <= right){
+        int mid = (left + right) / 2;
+        long y = (long)mid * mid;
+        if(y < x) left = mid + 1;
+        else if( y > x) right = mid - 1;
+        else return mid;
+    }
+    return right;
+  }
+  ```
 - [Leetcode 540. Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
 - [Leetcode 644. Maximum Average Subarray II](https://leetcode.com/problems/maximum-average-subarray-ii/)
 - [Leetcode 528. Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/)
