@@ -239,6 +239,19 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
   }
   ```
 - [Leetcode 540. Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+  ```cpp
+  int singleNonDuplicate(vector<int>& nums) {
+      int left = 0, right = nums.size() - 1;
+      while(left < right){
+          int mid = (left + right) / 2;
+          if(mid % 2 == 1) mid--;
+          if(nums[mid] != nums[mid+1]) right = mid;
+          else left = mid + 2;
+      }
+      return nums[left];
+      
+  }
+  ```
 - [Leetcode 644. Maximum Average Subarray II](https://leetcode.com/problems/maximum-average-subarray-ii/)
 - [Leetcode 528. Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/)
 - [Leetcode 1300. Sum of Mutated Array Closest to Target](https://leetcode.com/problems/sum-of-mutated-array-closest-to-target/)
