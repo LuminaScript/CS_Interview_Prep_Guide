@@ -253,6 +253,41 @@ Binary search is a fundamental technique with a time complexity of O(logN). Comm
   }
   ```
 - [Leetcode 644. Maximum Average Subarray II](https://leetcode.com/problems/maximum-average-subarray-ii/)
+
+  Detailed Solution Explanation: https://leetcode.com/problems/maximum-average-subarray-ii/solutions/4732642/c-bs-great-detailed-explanation
+
+  ```cpp
+  bool check(vector<int>& nums, double mid, int k){
+      double sum = 0, prev = 0, min_sum = 0;
+      for(int i = 0; i < k; i++){
+          sum += nums[i] - mid;
+      }
+      if(sum >= 0) return true;
+      for(int i = k; i < nums.size(); i++){
+          sum += nums[i] - mid;
+          prev += nums[i - k] - mid;
+          min_sum = min(prev, min_sum);
+          if(sum >= min_sum) return true;
+      }
+      return false;
+  }
+  double findMaxAverage(vector<int>& nums, int k) {
+      double max_val = INT_MIN, min_val = INT_MAX;
+      for(auto n : nums){
+          max_val = max_val > n ? max_val : n;
+          min_val = min_val < n ? min_val : n;
+      }
+      double prev_mid = max_val, error = INT_MAX;
+      while(error > 0.00001){
+          double mid = (max_val + min_val) * 0.5;
+          if(check(nums, mid, k)) min_val = mid;
+          else max_val = mid;
+          error = abs(prev_mid - mid);
+          prev_mid = mid;
+      }
+      return min_val;
+  }
+  ```
 - [Leetcode 528. Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/)
 - [Leetcode 1300. Sum of Mutated Array Closest to Target](https://leetcode.com/problems/sum-of-mutated-array-closest-to-target/)
 - [Leetcode 1060. Missing Element in Sorted Array](https://leetcode.com/problems/missing-element-in-sorted-array/)
