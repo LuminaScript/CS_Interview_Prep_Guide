@@ -461,7 +461,36 @@
 
 ## Dynamic Programming
 - [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+  ```cpp
+  int climbStairs(int n) {
+    if(n <= 2) return n;
+    vector<int> dp(n + 1, 1);
+    dp[2] = 2;
+    for(int i = 3; i <= n; i++){
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+  }
+  ```
 - [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+  ```cpp
+  int lengthOfLIS(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> dp(n + 1, 1);
+    for(int i = 1; i < n; i++){
+        int max = 1;
+        for(int j = 0; j < i; j++){
+            if(nums[i] > nums[j]) max = std::max(max, dp[j] + 1);
+        }
+        dp[i] = max;
+    }
+
+    int longest = 0;
+    for(auto n : dp) longest = max(longest, n);
+
+    return longest;
+  }
+  ```
 - [Word Break](https://leetcode.com/problems/word-break/)
 - [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
 
