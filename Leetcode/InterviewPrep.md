@@ -584,6 +584,19 @@
   }
   ```
 - [Excel Sheet Column Title](https://leetcode.com/problems/excel-sheet-column-title/)
+  
+  Time Complexity: O(logn), Space Complexity: O(1)
+  ```cpp
+  string convertToTitle(int columnNumber) {
+    string ans;
+    while (columnNumber) {
+        columnNumber--;
+        ans = (char)((columnNumber) % 26 + 'A') + ans;
+        columnNumber = (columnNumber) / 26;
+    }
+    return ans;
+  }
+  ```
 
 ## Search and Sort
 - [Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)
