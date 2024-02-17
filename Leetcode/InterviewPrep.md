@@ -514,6 +514,17 @@
 
   ```
 - [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+  ```cpp
+  int longestCommonSubsequence(string X, string Y) {
+    int m = X.size(), n = Y.size();
+    vector<std::vector<int>> A(m + 1, std::vector<int>(n + 1, 0));
+    for (int i = 1; i <= m; i++)
+        for(int j = 1; j <= n; j++)
+            A[i][j] = X[i - 1] == Y[j - 1] ? A[i-1][j-1] + 1 : max(A[i-1][j], A[i][j-1]);
+    
+    return A[m][n];  // Length of the longest common subsequence
+  }
+  ```
 
 ## Math and Geometry
 - [Pow(x, n)](https://leetcode.com/problems/powx-n/)
