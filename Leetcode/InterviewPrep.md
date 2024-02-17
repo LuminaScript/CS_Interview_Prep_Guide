@@ -530,7 +530,59 @@
 
 ## Math and Geometry
 - [Pow(x, n)](https://leetcode.com/problems/powx-n/)
+  
+  Time Complexity: O(logn) + Space Complexity: O(1)
+  ```cpp
+  double myPow(double x, int n) {
+    long long pow = abs(n);
+    double ans = 1;
+    while(pow){
+        if(pow % 2 == 0){
+            x *= x;
+            pow /= 2;
+        }else{
+            ans *= x;
+            pow--;
+        }
+    }
+    return n > 0 ? ans : 1 / ans;
+  }
+  ```
 - [Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/)
+  ```cpp
+  int maxPoints(vector<vector<int>>& points) {
+    if(points.size() == 1) return 1;
+    map<pair<int, int>, int> slope_cnt; // <delta_x, delta_y>, cnt
+    int maxPoints = 0;
+    
+    for(int i = 0; i < points.size(); ++i) {
+        int samePoint = 0, localMax = 0;
+        slope_cnt.clear(); // Clear for each new point
+        
+        for(int j = 0; j < points.size(); ++j) {
+            if(i == j) continue;
+            
+            int dx = points[j][0] - points[i][0];
+            int dy = points[j][1] - points[i][1];
+            
+            if(dx == 0 && dy == 0) { // Same point
+                samePoint++;
+                continue;
+            }
+            
+            int gcd = __gcd(dx, dy);
+            dx /= gcd;
+            dy /= gcd;
+            
+            localMax = max(localMax, ++slope_cnt[{dx, dy}]);
+        }
+        
+        maxPoints = max(maxPoints, localMax + samePoint + 1);
+    }
+    
+    return maxPoints;
+  }
+  ```
 - [Excel Sheet Column Title](https://leetcode.com/problems/excel-sheet-column-title/)
 
 ## Search and Sort
