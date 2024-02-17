@@ -514,6 +514,8 @@
 
   ```
 - [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+
+  Time Complexity: ```O(m * n)``` Space Complexity: ```O(m * n)```
   ```cpp
   int longestCommonSubsequence(string X, string Y) {
     int m = X.size(), n = Y.size();
