@@ -492,6 +492,27 @@
   }
   ```
 - [Word Break](https://leetcode.com/problems/word-break/)
+  
+  Time Complexity:  convert wordDict into a set : ```O(m⋅k)``` + nested for ```loop O(n^2```) * substring operation ```O(n)``` = ```O(n*3 * m * k)```
+
+  Space Compleixty: Dp array ```O(n)``` + Set ```O(m + k)``` = ```O(n + mk)```
+  ```cpp
+  vector<bool> dp(s.size() + 1, false); // dp[i] := does substrin of w with length i exists?
+    unordered_set dict(wordDict.begin(), wordDict.end());
+    dp[0] = true;
+    for(int i = 1; i <= s.size(); i++){ // string
+        for(int j = 0; j < i; j++){
+            string word = s.substr(j, i - j); 
+            if (dp[j] && dict.find(word) != dict.end()) {
+                dp[i] = true;
+                break; 
+            }
+        }
+    }
+    return dp[s.size()];
+  }
+
+  ```
 - [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
 
 ## Math and Geometry
