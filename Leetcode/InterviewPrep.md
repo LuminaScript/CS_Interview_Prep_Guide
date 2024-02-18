@@ -697,17 +697,7 @@
   }
   ```
 - [Find the Closest Palindrome](https://leetcode.com/problems/find-the-closest-palindrome/)
-
-## Design
-- [LRU Cache](https://leetcode.com/problems/lru-cache/)
-- [Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/)
-- [Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
-- [LFU Cache](https://leetcode.com/problems/lfu-cache/)
-- [Design Circular Queue](https://leetcode.com/problems/design-circular-queue/)
-- [Design Authentication Manager](https://leetcode.com/problems/design-authentication-manager/)
-
-## Miscellaneous
-
+  
 - [Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)
   ```cpp
     int largestRectangleArea(vector<int>& heights) {
@@ -752,7 +742,38 @@
         return maxArea;
   }
   ```
+
+## Design
+- [LRU Cache](https://leetcode.com/problems/lru-cache/)
+- [Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/)
+- [Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
+- [LFU Cache](https://leetcode.com/problems/lfu-cache/)
+- [Design Circular Queue](https://leetcode.com/problems/design-circular-queue/)
+- [Design Authentication Manager](https://leetcode.com/problems/design-authentication-manager/)
+
+
+
+
+### Greedy
 - [Gas Station](https://leetcode.com/problems/gas-station/)
+
+  Time Complexity: O(n) + Space Complexity: O(1)
+  ```cpp
+  int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+      int currGain = 0, totalGain = 0, answer = 0;
+      
+      for (int i = 0; i < gas.size(); ++i) {
+          totalGain += gas[i] - cost[i];
+          currGain += gas[i] - cost[i];
+          if (currGain < 0) {
+              answer = i + 1;
+              currGain = 0;
+          }
+      }
+      return totalGain >= 0 ? answer : -1;  
+  }
+  ```
+
 - [Maximal Square](https://leetcode.com/problems/maximal-square/)
 - [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/)
 - [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)
