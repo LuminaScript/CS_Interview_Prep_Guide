@@ -743,6 +743,30 @@
   }
   ```
 
+  - [Maximal Square](https://leetcode.com/problems/maximal-square/)
+  ```cpp
+  int findmin(int i, int j, int k){
+      if(i <= j && i <= k) return i;
+      if(j <= i && j <= k) return j;
+      return k;
+  }
+  int maximalSquare(vector<vector<char>>& matrix) {
+      int rn = matrix.size(), cn = matrix[0].size();
+      vector<vector<int>> dp(rn, vector<int>(cn, 0));
+      int maxside = 0;
+      for(int i = 0; i < matrix.size(); i++){
+          for(int j = 0; j < matrix[0].size(); j++){
+              if(matrix[i][j] == '1'){
+                  if(i == 0 || j == 0) dp[i][j] = 1;
+                  else dp[i][j] = findmin(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1;
+              }
+              maxside = max(maxside, dp[i][j]);
+          }
+      }
+      return maxside * maxside;
+  }
+  ```
+
 ## Design
 - [LRU Cache](https://leetcode.com/problems/lru-cache/)
 - [Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/)
@@ -774,7 +798,7 @@
   }
   ```
 
-- [Maximal Square](https://leetcode.com/problems/maximal-square/)
+
 - [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/)
 - [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)
 - [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/)
