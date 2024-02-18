@@ -620,6 +620,59 @@
   };
   ```
 - [Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/)
+  
+  Solution 1: Priority Queue:
+  ```cpp
+  int kthSmallest(vector<vector<int>>& matrix, int k) {
+    priority_queue<int> pq;
+    int n = matrix.size();
+    
+    for(int i = 0; i < min(k, n); i++)
+        for(int j = 0; j < min(k, n); j++)
+            pq.push(matrix[i][j]);
+
+    int size = pq.size(), cnt = size - k + 1;
+    while(--cnt) pq.pop();
+    
+    return pq.top();
+  }
+  ```
+
+  Solution 2 : BST (OPTIMAL)
+  ```cpp
+  int kthSmallest(vector<vector<int>>& matrix, int k) {
+    int n = matrix.size();
+    int start = matrix[0][0], end = matrix[n - 1][n - 1];
+    while (start < end) {
+        int mid = start + (end - start) / 2;
+        vector<int> smallLargePair = {matrix[0][0], matrix[n - 1][n - 1]};
+        int count = countLessEqual(matrix, mid, smallLargePair);
+        if (count == k)
+            return smallLargePair[0];
+        if (count < k)
+            start = smallLargePair[1]; // search higher
+        else
+            end = smallLargePair[0]; // search lower
+    }
+    return start;
+  }
+
+  int countLessEqual(vector<vector<int>>& matrix, int mid, vector<int>& smallLargePair) {
+      int count = 0;
+      int n = matrix.size(), row = n - 1, col = 0;
+      while (row >= 0 && col < n) {
+          if (matrix[row][col] > mid) {
+              smallLargePair[1] = min(smallLargePair[1], matrix[row][col]);
+              row--;
+          } else {
+              smallLargePair[0] = max(smallLargePair[0], matrix[row][col]);
+              count += row + 1;
+              col++;
+          }
+      }
+      return count;
+  }
+  ```
 - [Find the Closest Palindrome](https://leetcode.com/problems/find-the-closest-palindrome/)
 
 ## Design
