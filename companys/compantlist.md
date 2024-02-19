@@ -24,3 +24,14 @@
 23. Nibble Health
 24. Petal
 25. GoodLeap
+
+### Top Quant Trading
+1. Two Sigma Investments
+2. Citadel
+3. D.E. Shaw & Co.
+4. Renaissance Technologies
+5. AQR Capital Management
+6. Bridgewater Associates
+7. Point72 Asset Management
+8. Man AHL
+9. Jump Trading
