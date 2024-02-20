@@ -914,6 +914,23 @@
   ```
 ### Other
 - [Island Perimeter](https://leetcode.com/problems/island-perimeter/)
+
+  Note: any combination of (left + top), (left + bottom), (right + top), (right, bottom)
+  ```cpp
+  int islandPerimeter(vector<vector<int>>& grid) {
+      int res = 0, rn = grid.size(), cn = grid[0].size();
+      for(int r = 0; r < rn; r++){
+          for(int c = 0; c < cn; c++){
+              if(grid[r][c] == 1){
+                  res += 4;
+                  if(r < rn - 1 && grid[r + 1][c] == 1) res -= 2; 
+                  if(c < cn - 1 && grid[r][c + 1] == 1) res -= 2; 
+              }
+          }
+      }
+      return res;
+  }
+  ```
 - [Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
 - [Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
 - [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
