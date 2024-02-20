@@ -823,6 +823,27 @@
   }
   ```
 - [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)
+
+  O(nlogn) + O(n)
+  ```cpp
+  static inline bool cmpStart(vector<int> x, vector<int> y){
+    return x[0] < y[0];
+  }
+
+  int minMeetingRooms(vector<vector<int>>& intervals) {
+      if (intervals.size() == 0) return 0;
+      sort(intervals.begin(), intervals.end(), cmpStart);
+      int cnt = 0;
+      priority_queue<int, vector<int>, greater<int>> pq; 
+      for (const auto& interval : intervals) {
+          if (!pq.empty() && pq.top() <= interval[0]) 
+              pq.pop(); 
+          pq.push(interval[1]); 
+          cnt = max(cnt, (int)pq.size()); 
+      }
+      return cnt;
+  }
+  ```
 - [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/)
 - [Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/)
 - [Longest Palindrome](https://leetcode.com/problems/longest-palindrome/)
