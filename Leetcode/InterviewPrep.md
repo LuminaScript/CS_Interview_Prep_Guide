@@ -879,6 +879,7 @@
   }
   ```
 
+### Hash Table
 - [Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/)
   ```cpp
   class Logger {
@@ -897,6 +898,21 @@
   };
   ```
 - [Longest Palindrome](https://leetcode.com/problems/longest-palindrome/)
+  ```cpp
+  int longestPalindrome(string s) {
+    unordered_map<char, int> mp;
+    int len = 0;
+    bool foundsingle = false;
+
+    for(auto c : s) mp[c]++;
+    for(auto p : mp){
+        len += (p.second / 2) * 2;
+        if(p.second % 2 == 1) foundsingle = true;
+    }
+    return foundsingle ? len + 1 : len;
+  }
+  ```
+### Other
 - [Island Perimeter](https://leetcode.com/problems/island-perimeter/)
 - [Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
 - [Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
