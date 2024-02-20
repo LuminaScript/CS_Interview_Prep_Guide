@@ -880,6 +880,22 @@
   ```
 
 - [Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/)
+  ```cpp
+  class Logger {
+  public:
+      unordered_map<string, int> mp;
+      Logger() {}
+      
+      bool shouldPrintMessage(int timestamp, string message) {
+          if(mp.find(message) == mp.end() || timestamp - mp[message] >= 10){
+              mp[message] = timestamp;
+              return true;
+          }
+          return false;
+      }
+  
+  };
+  ```
 - [Longest Palindrome](https://leetcode.com/problems/longest-palindrome/)
 - [Island Perimeter](https://leetcode.com/problems/island-perimeter/)
 - [Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
