@@ -932,6 +932,18 @@
   }
   ```
 - [Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+  ```cpp
+  int singleNonDuplicate(vector<int>& nums) {
+    int left = 0, right = nums.size() - 1;
+    while(left < right){
+        int mid = left + (right - left) / 2;
+        if(mid % 2 == 1) mid--;
+        if(nums[mid] != nums[mid + 1]) right = mid;
+        else left = mid + 2;
+    }
+    return nums[left];
+  }
+  ```
 - [Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
 - [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
 - [Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/)
