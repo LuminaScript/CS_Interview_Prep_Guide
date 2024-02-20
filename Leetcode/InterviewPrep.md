@@ -776,30 +776,41 @@
 - [Design Authentication Manager](https://leetcode.com/problems/design-authentication-manager/)
 
 
-
-
-### Greedy
-- [Gas Station](https://leetcode.com/problems/gas-station/)
-
-  Time Complexity: O(n) + Space Complexity: O(1)
+### Monotone Stack
+- [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/)
   ```cpp
-  int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-      int currGain = 0, totalGain = 0, answer = 0;
-      
-      for (int i = 0; i < gas.size(); ++i) {
-          totalGain += gas[i] - cost[i];
-          currGain += gas[i] - cost[i];
-          if (currGain < 0) {
-              answer = i + 1;
-              currGain = 0;
-          }
-      }
-      return totalGain >= 0 ? answer : -1;  
+  string removeDuplicateLetters(string s) {
+    if (s.size() == 1) return s;
+
+    unordered_map<char, int> cnt;
+    stack<char> monostack;
+    unordered_set<char> seen;
+
+    for (char c : s) cnt[c]++;
+
+    for (char c : s) {
+        cnt[c]--; // Decrease the count of character c
+        if (seen.find(c) != seen.end()) continue;
+
+        while (!monostack.empty() && monostack.top() > c && cnt[monostack.top()] > 0) {
+            seen.erase(monostack.top());
+            monostack.pop();
+        }
+
+        monostack.push(c);
+        seen.insert(c);
+    }
+
+    string ans = "";
+    while (!monostack.empty()) {
+        ans = monostack.top() + ans;
+        monostack.pop();
+    }
+    return ans;
   }
   ```
 
-
-- [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/)
+  - [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/)
   ```cpp
   vector<int> maxSlidingWindow(vector<int>& nums, int k) {
     deque<int> dq;
@@ -822,6 +833,29 @@
     return ans;
   }
   ```
+
+### Greedy
+- [Gas Station](https://leetcode.com/problems/gas-station/)
+
+  Time Complexity: O(n) + Space Complexity: O(1)
+  ```cpp
+  int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+      int currGain = 0, totalGain = 0, answer = 0;
+      
+      for (int i = 0; i < gas.size(); ++i) {
+          totalGain += gas[i] - cost[i];
+          currGain += gas[i] - cost[i];
+          if (currGain < 0) {
+              answer = i + 1;
+              currGain = 0;
+          }
+      }
+      return totalGain >= 0 ? answer : -1;  
+  }
+  ```
+
+
+
 - [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)
 
   O(nlogn) + O(n)
@@ -844,7 +878,7 @@
       return cnt;
   }
   ```
-- [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/)
+
 - [Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/)
 - [Longest Palindrome](https://leetcode.com/problems/longest-palindrome/)
 - [Island Perimeter](https://leetcode.com/problems/island-perimeter/)
