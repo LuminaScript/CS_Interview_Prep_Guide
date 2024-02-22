@@ -466,8 +466,6 @@ In call by reference method, we pass the address of the variable and the address
 
 ## Functions
 
-#### Friend Function
-
 #### Inline Function
 
 If a function is inline, the compiler places a copy of the code of that function at each point where the function is called at compile time. One of the important advantages of using an inline function is that it eliminates the function calling overhead of a traditional function.
@@ -476,234 +474,429 @@ If a function is inline, the compiler places a copy of the code of that function
 
 ## OOP IN C++
 
-#### I. Class vs Object
+#### I. Class
 
-- **A class** is a user-defined data type that has data members and member functions. Data members are the data variables and member functions are the functions that are used to perform operations on these variables.
+- A Class is a user-defined data type that has data members and member functions.
+- Data members are the data variables and member functions are the functions used to manipulate these variables together these data members and member functions define the properties and behavior of the objects in a Class.
+- In the above example of class Car, the data member will be speed limit, mileage, etc and member functions can apply brakes, increase speed, etc.
 
-- **An object** is an instance of a class. Since a class is a user-defined data type so an object can also be called a variable of that data type.
+#### II. Object
 
-#### II. Class vs Struct
+- An Object is an identifiable entity with some characteristics and behavior. An Object is an instance of a Class. When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated.
 
-- **Struct**
+> SUMMARY
+>
+> ##### Class vs Object
+>
+> - **A class** is a user-defined data type that has data members and member functions. Data members are the data variables and member functions are the functions that are used to perform operations on these variables.
+>
+> - **An object** is an instance of a class. Since a class is a user-defined data type so an object can also be called a variable of that data type.
+>
+> ###### Class vs Struct
+>
+> - **Struct**
+>
+>   - Members of the structure are public by default.
+>
+>   - When deriving a struct from a class/struct, default access specifiers for base class/struct are public.
+>
+> - **Class**
+>
+>   - Members of the class are private by default.
+>
+>   - When deriving a class, default access specifiers are private.
 
-  - Members of the structure are public by default.
+#### III. Encapsulation
 
-  - When deriving a struct from a class/struct, default access specifiers for base class/struct are public.
+- **Definition**: In C++, encapsulation involves **combining similar data and functions into a single unit called a class**.
+- Benifits: By encapsulating these functions and data, we protect that data from change. This concept is also known as data or information hiding. 
 
-- **Class**
+#### IV. Abstraction
 
-  - Members of the class are private by default.
+- **Definition**: Data abstraction refers to providing only essential information about the data to the outside world, hiding the background details or implementation.
+- Ways:
+  - **Abstraction using classes**: The class helps us to group data members and member functions using available access specifiers. A Class can decide which data member will be visible to the outside world and which is not.
+  - **Abstraction in Header files**:  For example, consider the pow() method present in math.h header file. Whenever we need to calculate the power of a number, we simply call the function pow() present in the math.h header file and pass the numbers as arguments without knowing the underlying algorithm according to which the function is actually calculating the power of numbers.
 
-  - When deriving a class, default access specifiers are private.
+#### V. Polymorphism
 
-#### III. Constructor vs Destructor
+> SUMMARY
+>
+> **COMPILE-TIME**
+>
+> - Also known as static or early binding polymorphism.
+> - Function calls are resolved by the compiler.
+> - Provides less flexibility to programmers as everything is executed during compilation.
+> - Implemented through function overloading and operator overloading.
+> - Method overloading allows multiple methods/functions with the same name but different arguments or signatures and the same return types.
+> - Faster execution rate as methods are called during compile time.
+> - Less preferred for handling compound problems as methods and details are known only during compilation.
+>
+> **RUN-TIME**
+>
+> - Also known as dynamic or late binding polymorphism.
+> - Function calls are not resolved by the compiler.
+> - More flexible as everything is executed during run-time.
+> - Implemented through virtual functions and function overriding.
+> - Method overriding allows functions with the same name, arguments, and return type to accompany different classes of the same structure.
+> - Comparatively slower execution rate as methods are called during run-time.
+> - Known to be better for dealing with compound problems as methods and details emerge during run-time.
 
-#### 
+- **Definition**: In simple words, we can define polymorphism as the ability of a message to be displayed in more than one form. 
 
-#### IV. Static member Function
+- **Compile Time Polymorpism**
 
-- static class variable, space for it is allocated for the lifetime of the program. No matter how many objects of that class have been created, there is only one copy of the static member. So same static member can be accessed by all the objects of that class.
+  - <u>Function Overloading</u>
 
-- static member function can be called even if no objects of the class exist and the static function are accessed using only the class name and the scope resolution operator ::
+    ```cpp
+    class FuncOverload {
+      public:
+      void Func(int a) {}
+      void Func(double a) {}
+      void Func(int a, int b) {...}
+    };
+    
+    int main() {
+      FuncOverload obj;
+      obj.Func(1);
+      obj.Func(1.1);
+      obj.Func(100, 200);
+      return 0;
+    }
+    ```
 
+  - <u>Operator Overloading</u>  (ad-hoc polymorphism)
 
+    ```cpp
+    #include <iostream>
+    using namespace std;
+    class Obj {
+      private: 
+      	int Var;
+      public:
+      	Obj(): myVar(8){};
+      	void operator ++(){
+          Var += 20;
+        }
+      	void display() {
+          cout << "Var: " << Var << endl;
+        }
+    };
+    
+    int main(){
+      Obj object;
+      obj.display();
+      return 0;
+    }
+    ```
 
-#### V. C++ Inheritance / Abstraction 
+    - *Oprator Overload Exception in C++*
+      - *.  (dot operator)*
+      - *::  (scope operator)*
+      - *?: (ternary operator)*
+      - *size of* 
 
-#### C++ Inheritance
+- **Runtime Polymorphism**
 
-- Using inheritance, we can create a parent class containing the common properties and methods of all its children's classes. The child classes can then inherit the properties and methods of the parent class and add their unique properties and methods. 
+  - <u>Virtual function</u>
 
-#### C++ Abstraction
+    *Virtual functions are the member functions of the base class which are overridden in a derived class. When you make a call to such a function by using a pointer or reference to the base class, the virtual function is called and the derived class’s version of the function gets invoked.*
 
-#### C++ Overriding
+    - Virtual functions ensure that the correct function is called for an object, regardless of the type of reference (or pointer) used for the function call.
+    - Virtual functions are always declared with a base class and overridden in a child class
+    - Functions are declared with a **virtual** keyword in a base class.
+    - The resolving of a function call is done at runtime.
 
-- In C++, [overriding](https://www.simplilearn.com/tutorials/java-tutorial/overriding-in-java) is the process of creating a new version of a method that already exists in a parent class. This new version of the method can be used to modify or extend the functionality of the parent class.
+    ```cpp
+    // C++ program to illustrate
+    // concept of Virtual Functions
+    
+    #include <iostream>
+    using namespace std;
+    
+    class base {
+    public:
+    	virtual void print() { cout << "print base class\n"; }
+    
+    	void show() { cout << "show base class\n"; }
+    };
+    
+    class derived : public base {
+    public:
+    	void print() { cout << "print derived class\n"; }
+    
+    	void show() { cout << "show derived class\n"; }
+    };
+    
+    int main()
+    {
+    	base* bptr;
+    	derived d;
+    	bptr = &d;
+    
+    	// Virtual function, binded at runtime
+    	bptr->print();
+    
+    	// Non-virtual function, binded at compile time
+    	bptr->show();
+    
+    	return 0;
+    }
+    
+    //------ output ------
+    // print derived class
+    // show base class
+    ```
 
-#### C++ Overloading
+  - <u>Function Overriding</u>
 
-- In C++, [overloading](https://www.simplilearn.com/what-is-function-overloading-in-cpp-article) is the process of creating multiple versions of a method that have the same name but different parameters. This allows us to use the same method for different types of parameters.
+    - When derived class and base class both contain a function with same name, same # of arguments, and same return type. 
+    - Derived class inherits the member functions and data memebers from its base class
+    - Override a certain functionality -> function overriding
 
-#### C++ Virtual Function
+    ```cpp
+    #include <iostream>
+    using namespace std;
+    
+    class bird {
+      public:
+      void display(){ cout << "base" << endl;}
+    };
+    
+    class parrot:public bird {
+      public:
+      void display(){ cout << "derived" << endl;}
+    };
+    
+    int main(){
+      bird b;
+      parrot p;
+      b.display();
+      p.display(;)
+    }
+    ```
 
-- A virtual function is a member function of base class which can be redefined by derived class. 
-- A pure virtual function is a member function of base class whose only declaration is provided in base class and should be defined in derived class otherwise derived class also becomes abstract.
+#### VI. Inheritance
 
-#### VI. C++ Polmorphism
+- **Definition**: The capability of a class to derive properties and characteristics from another class.
+- **Features**:
+  - <u>Sub Class</u>: The class that inherits properties from another class is called Sub class or Derived Class.
+  - <u>Super Class</u>: The class whose properties are inherited by a sub-class is called Base Class or Superclass.
+  - <u>Reusability:</u> Inheritance supports the concept of “reusability”, i.e. when we want to create a new class and there is already a class that includes some of the code that we want, we can derive our new class from the existing class. By doing this, we are reusing the fields and methods of the existing class.
 
-1. **Compile Time Polymorpism**
+#### VII. Dynamic Binding
 
-   - Function Overloading
+- **Definition**: In dynamic binding, the code to be executed in response to the function call is decided at runtime. C++ has [virtual functions](https://www.geeksforgeeks.org/virtual-functions-and-runtime-polymorphism-in-c-set-1-introduction/) to support this. Because dynamic binding is flexible, it avoids the drawbacks of static binding, which connected the function call and definition at build time.
 
-     ```cpp
-     class FuncOverload {
-       public:
-       void Func(int a) {}
-       void Func(double a) {}
-       void Func(int a, int b) {...}
-     };
-     
-     int main() {
-       FuncOverload obj;
-       obj.Func(1);
-       obj.Func(1.1);
-       obj.Func(100, 200);
-       return 0;
-     }
-     ```
+#### VIII. Functions
 
-     
+- **Static member Function**
 
-   - Operator Overloading (ad-hoc polymorphism)
+  - static class variable, space for it is allocated for the lifetime of the program. No matter how many objects of that class have been created, there is only one copy of the static member. So same static member can be accessed by all the objects of that class.
 
-     ```cpp
-     #include <iostream>
-     using namespace std;
-     class Obj {
-       private: 
-       	int Var;
-       public:
-       	Obj(): myVar(8){};
-       	void operator ++(){
-           Var += 20;
+  - static member function can be called even if no objects of the class exist and the static function are accessed using only the class name and the scope resolution operator ::
+
+- **Friend Function**
+
+  - Friend Class:
+
+    - **Definition**: A **friend class** can access private and protected members of other classes in which it is declared as a friend.
+
+    - **Example**: a LinkedList class may be allowed to access private members of Node.
+
+      ```cpp
+      	// C++ Program to demonstrate the
+      // functioning of a friend class
+      #include <iostream>
+      using namespace std;
+       
+      class GFG {
+      private:
+          int private_variable;
+       
+      protected:
+          int protected_variable;
+       
+      public:
+          GFG()
+          {
+              private_variable = 10;
+              protected_variable = 99;
+          }
+       
+          // friend class declaration
+          friend class F;
+      };
+       
+      // Here, class F is declared as a
+      // friend inside class GFG. Therefore,
+      // F is a friend of class GFG. Class F
+      // can access the private members of
+      // class GFG.
+      class F {
+      public:
+          void display(GFG& t)
+          {
+              cout << "The value of Private Variable = "
+                   << t.private_variable << endl;
+              cout << "The value of Protected Variable = "
+                   << t.protected_variable;
+          }
+      };
+       
+      // Driver code
+      int main()
+      {
+          GFG g;
+          F fri;
+          fri.display(g);
+          return 0;
+      }
+      ```
+
+  - **Friend Function**
+
+    - **Definition**: Like a friend class, a friend function can be granted special access to private and protected members of a class in C++. They are the non-member functions that can access and manipulate the private and protected members of the class for they are declared as friends.
+
+    - Examples:
+
+      1. Global Function as  Friend Fuction
+
+         ```cpp
+         // C++ program to create a global function as a friend
+         // function of some class
+         #include <iostream>
+         using namespace std;
+          
+         class base {
+         private:
+             int private_variable;
+          
+         protected:
+             int protected_variable;
+          
+         public:
+             base()
+             {
+                 private_variable = 10;
+                 protected_variable = 99;
+             }
+              
+               // friend function declaration
+             friend void friendFunction(base& obj);
+         };
+          
+          
+         // friend function definition
+         void friendFunction(base& obj)
+         {
+             cout << "Private Variable: " << obj.private_variable
+                  << endl;
+             cout << "Protected Variable: " << obj.protected_variable;
          }
-       	void display() {
-           cout << "Var: " << Var << endl;
+          
+         // driver code
+         int main()
+         {
+             base object1;
+             friendFunction(object1);
+          
+             return 0;
          }
-     };
-     
-     int main(){
-       Obj object;
-       obj.display();
-       return 0;
-     }
-     ```
+         ```
 
-     - Oprator Overload Exception in C++
-       - .  (dot operator)
-       - ::  (scope operator)
-       - ?: (ternary operator)
-       - size of 
+      2. Member Function of Another Class as Friend Function
 
-2. **Runtime Polymorphism**
+         ```cpp
+         // C++ program to create a member function of another class
+         // as a friend function
+         #include <iostream>
+         using namespace std;
+          
+         class base; // forward definition needed
+         // another class in which function is declared
+         class anotherClass {
+         public:
+             void memberFunction(base& obj);
+         };
+          
+         // base class for which friend is declared
+         class base {
+         private:
+             int private_variable;
+          
+         protected:
+             int protected_variable;
+          
+         public:
+             base()
+             {
+                 private_variable = 10;
+                 protected_variable = 99;
+             }
+          
+             // friend function declaration
+             friend void anotherClass::memberFunction(base&);
+         };
+          
+         // friend function definition
+         void anotherClass::memberFunction(base& obj)
+         {
+             cout << "Private Variable: " << obj.private_variable
+                  << endl;
+             cout << "Protected Variable: " << obj.protected_variable;
+         }
+          
+         // driver code
+         int main()
+         {
+             base object1;
+             anotherClass object2;
+             object2.memberFunction(object1);
+          
+             return 0;
+         }
+         ```
 
-   - Virtual function
+      > SUMMARY
+      >
+      > - A friend function is a special function in C++ that in spite of not being a member function of a class has the privilege to **access** the **private and protected data** of a class.
+      > - A friend function is a non-member function or ordinary function of a class, which is declared as a friend using the keyword “**friend**” inside the class. By declaring a function as a friend, all the access permissions are given to the function.
+      > - The keyword “friend” is placed only in the function declaration of the friend function and **not** in the **function definition or call.**
+      > - A friend function is called like an ordinary function. It cannot be called using the object name and dot operator. However, it may accept the object as an argument whose value it wants to access.
+      > - A friend function can be declared in any section of the class i.e. public or private or protected.
 
-     *Virtual functions are the member functions of the base class which are overridden in a derived class. When you make a call to such a function by using a pointer or reference to the base class, the virtual function is called and the derived class’s version of the function gets invoked.*
+#### VIIII. Access Specifiers 
 
-     - Virtual functions ensure that the correct function is called for an object, regardless of the type of reference (or pointer) used for the function call.
-     - Virtual functions are always declared with a base class and overridden in a child class
-     - Functions are declared with a **virtual** keyword in a base class.
-     - The resolving of a function call is done at runtime.
+- **Public**: all data members & meber functions are accessible outside the class
 
-     ```cpp
-     // C++ program to illustrate
-     // concept of Virtual Functions
-     
-     #include <iostream>
-     using namespace std;
-     
-     class base {
-     public:
-     	virtual void print() { cout << "print base class\n"; }
-     
-     	void show() { cout << "show base class\n"; }
-     };
-     
-     class derived : public base {
-     public:
-     	void print() { cout << "print derived class\n"; }
-     
-     	void show() { cout << "show derived class\n"; }
-     };
-     
-     int main()
-     {
-     	base* bptr;
-     	derived d;
-     	bptr = &d;
-     
-     	// Virtual function, binded at runtime
-     	bptr->print();
-     
-     	// Non-virtual function, binded at compile time
-     	bptr->show();
-     
-     	return 0;
-     }
-     
-     //------ output ------
-     // print derived class
-     // show base class
-     ```
+- **Protected**: All data memebers & emmebr functions are accessible inside the class and to the derived class
 
-     
-
-   - Function Overriding
-
-     - When derived class and base class both contain a function with same name, same # of arguments, and same return type. 
-     - Derived class inherits the member functions and data memebers from its base class
-     - Override a certain functionality -> function overriding
-
-     ```cpp
-     #include <iostream>
-     using namespace std;
-     
-     class bird {
-       public:
-       void display(){ cout << "base" << endl;}
-     };
-     
-     class parrot:public bird {
-       public:
-       void display(){ cout << "derived" << endl;}
-     };
-     
-     int main(){
-       bird b;
-       parrot p;
-       b.display();
-       p.display(;)
-     }
-     ```
-
-### Compile-Time vs. Run-Time Polymorphism in C++
-
-**COMPILE-TIME**
-
-- Also known as static or early binding polymorphism.
-- Function calls are resolved by the compiler.
-- Provides less flexibility to programmers as everything is executed during compilation.
-- Implemented through function overloading and operator overloading.
-- Method overloading allows multiple methods/functions with the same name but different arguments or signatures and the same return types.
-- Faster execution rate as methods are called during compile time.
-- Less preferred for handling compound problems as methods and details are known only during compilation.
-
-**RUN-TIME**
-
-- Also known as dynamic or late binding polymorphism.
-- Function calls are not resolved by the compiler.
-- More flexible as everything is executed during run-time.
-- Implemented through virtual functions and function overriding.
-- Method overriding allows functions with the same name, arguments, and return type to accompany different classes of the same structure.
-- Comparatively slower execution rate as methods are called during run-time.
-- Known to be better for dealing with compound problems as methods and details emerge during run-time.
+- **Private**: All data members && member functinos are not accessible outside the class
 
 
 
-#### VII. Access Specifiers 
+#### X. Constructors vs Destrutcors
 
-- **Def'n**
+- Constructors 
+- Copy Constructors
+- Destructors
+- Shallow Copy vs 
 
-- **Examples**
-
-  - Public: all data members & meber functions are accessible outside the class
-
-  - Protected: All data memebers & emmebr functions are accessible inside the class and to the derived class
-
-  - Private: All data members && member functinos are not accessible outside the class
-
-
+> SUMMARY
+>
+> #### C++ Overriding
+>
+> - In C++, [overriding](https://www.simplilearn.com/tutorials/java-tutorial/overriding-in-java) is the process of creating a new version of a method that already exists in a parent class. This new version of the method can be used to modify or extend the functionality of the parent class.
+>
+> #### C++ Overloading
+>
+> - In C++, [overloading](https://www.simplilearn.com/what-is-function-overloading-in-cpp-article) is the process of creating multiple versions of a method that have the same name but different parameters. This allows us to use the same method for different types of parameters.
+>
+> #### C++ Virtual Function
+>
+> - A virtual function is a member function of base class which can be redefined by derived class. 
+> - A pure virtual function is a member function of base class whose only declaration is provided in base class and should be defined in derived class otherwise derived class also becomes abstract.
 
 *Referneces:*
 
