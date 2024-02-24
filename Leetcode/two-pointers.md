@@ -9,7 +9,6 @@
 
 ### Opposite-direction Pointers:
 
-- [Leetcode 409. Longest Palindrome](https://leetcode.com/problems/longest-palindrome/)
 - [Leetcode 125. Valid Palindrome (I, II)](https://leetcode.com/problems/valid-palindrome/)
 - [Leetcode 5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 - [Leetcode 647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
