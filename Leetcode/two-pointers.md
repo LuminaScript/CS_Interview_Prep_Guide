@@ -9,7 +9,58 @@
 
 ### Opposite-direction Pointers:
 
-- [Leetcode 125. Valid Palindrome (I, II)](https://leetcode.com/problems/valid-palindrome/)
+- [Leetcode 125. Valid Palindrome (I)](https://leetcode.com/problems/valid-palindrome/) **[EASY]**
+  ```cpp
+  bool isPalindrome(string s) {
+    int l = 0, r = s.size() - 1;
+    while(l < r){
+        while(l < r && !isalnum(s[l])) l++;
+        while(l < r && !isalnum(s[r])) r--;
+        if(tolower(s[l]) != tolower(s[r])) return false;
+        l++, r--;
+    }
+    return true;
+  }
+  ```
+- [Leetcode 125. Valid Palindrome (II)](https://leetcode.com/problems/valid-palindrome-ii/) **[EASY]**
+  ```cpp
+  bool helper(string s, int l, int r){
+    while(l < r){
+        if(s[l] != s[r]) return false;
+        l++, r--;
+    }
+    return true;
+  }
+  bool validPalindrome(string s) {
+      int l = 0, r = s.size() - 1;
+      while(l < r){
+          if(s[l] != s[r]) return helper(s, l + 1, r) || helper(s, l, r - 1);
+          l++, r--;
+      }
+      return true;
+  }
+  ```
+- [Leetcode 1216. Valid Palindrome (III)](https://leetcode.com/problems/valid-palindrome-iii/) **[HARD]**
+  ```cpp
+  vector<vector<int>> memo;
+
+  // Helper function to find the minimum deletions required to make the substring a palindrome
+  int findMinDeletions(string &s, int l, int r) {
+      if (l >= r) return 0;
+      if (memo[l][r] != -1) return memo[l][r]; // Return cached result
+
+      if (s[l] == s[r]) memo[l][r] = findMinDeletions(s, l + 1, r - 1);
+      else memo[l][r] = 1 + min(findMinDeletions(s, l + 1, r), findMinDeletions(s, l, r - 1));
+  
+      return memo[l][r];
+  }
+
+  bool isValidPalindrome(string s, int k) {
+      int n = s.length();
+      memo.assign(n, vector<int>(n, -1));
+      return findMinDeletions(s, 0, n - 1) <= k;
+  }
+  ```
 - [Leetcode 5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 - [Leetcode 647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
 
