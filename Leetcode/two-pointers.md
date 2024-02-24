@@ -61,8 +61,35 @@
       return findMinDeletions(s, 0, n - 1) <= k;
   }
   ```
+
+- [Leetcode 2330. Valid Palindrome (IV)](https://leetcode.com/problems/valid-palindrome-iv/) **[MED]**
+  ```cpp
+  bool makePalindrome(string s) {
+    int l = 0, r = s.size() - 1, cnt = 2;
+    while(l < r){
+        if(s[l] != s[r]){
+            if(--cnt < 0) return false;
+        }
+        l++, r--;
+    }
+    return true; 
+  }
+  ```
 - [Leetcode 5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
-- [Leetcode 647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
+- [Leetcode 647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/) **[MED]**
+  ```cpp
+  int countSubstrings(string s) {
+    if(s.size() == 0 ) return 0;
+    int cnt = 0;
+    for(int i = 0; i < s.size(); i++){
+        for(int l = i, r = i; l >= 0 && r < s.size() && s[l] == s[r]; l--, r++)
+            cnt ++;
+        for(int l = i, r = i + 1; l >= 0 && r < s.size() && s[l] == s[r]; l--, r++)
+            cnt ++;
+    }
+    return cnt;
+  }
+  ```
 
 ### Meeting-in-the-middle Pointers:
 
