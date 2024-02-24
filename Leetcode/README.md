@@ -65,6 +65,22 @@ The following list includes frequently asked algorithm and data structure topics
 
 **HashMap/HashSet Problems:**
 - Leetcode 1. Two Sum
+- [Leetcode 409. Longest Palindrome](https://leetcode.com/problems/longest-palindrome/)
+  ```cpp
+  int longestPalindrome(string s) {
+      unordered_map<char, int> mp;
+      int len = 0;
+      bool foundsingle = false;
+      
+      for(auto c : s) mp[c]++;
+
+      for(auto p : mp){
+          len += (p.second / 2) * 2;
+          if(p.second % 2 == 1) foundsingle = true;
+      }
+      return foundsingle ? len + 1 : len;
+  }
+  ```
 - Leetcode 146. LRU Cache (Use OrderedDict in Python)
 - Leetcode 128. Longest Consecutive Sequence
 - Leetcode 73. Set Matrix Zeroes
