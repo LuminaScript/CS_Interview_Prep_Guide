@@ -1,4 +1,67 @@
 - [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words/) - 30.5% Hard
+  ```cpp
+  #include <vector>
+  #include <string>
+  using namespace std;
+  vector<string> digits = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+  vector<string> tentwenty = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+  vector<string> tens = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+  #define one(num) (digits[(num)])
+  #define twoLessThan20(num) (tentwenty[(num) - 10])
+  #define ten(num) (tens[(num)])
+  
+  class Solution {
+  public:
+      string two(int num) {
+          if (!num) return "";
+          else if (num < 10) return one(num);
+          else if (num < 20) return twoLessThan20(num);
+          else {
+              int tenner = num / 10;
+              int rest = num % 10;
+              if (rest) return ten(tenner) + " " + one(rest);
+              else return ten(tenner);
+          }
+      }
+  
+      string three(int num) {
+          int hundred = num / 100;
+          int rest = num % 100;
+          string res = "";
+          if (hundred && rest) res = one(hundred) + " Hundred " + two(rest);
+          else if (!hundred && rest) res = two(rest);
+          else if (hundred && !rest) res = one(hundred) + " Hundred";
+          return res;
+      }
+  
+      string numberToWords(int num) {
+          if (num == 0) return "Zero";
+  
+          int billion = num / 1000000000;
+          int million = (num % 1000000000) / 1000000;
+          int thousand = (num % 1000000) / 1000;
+          int remainder = num % 1000;
+          string result = "";
+  
+          if (billion) result += three(billion) + " Billion";
+          if (million) {
+              if (!result.empty()) result += " ";
+              result += three(million) + " Million";
+          }
+          if (thousand) {
+              if (!result.empty()) result += " ";
+              result += three(thousand) + " Thousand";
+          }
+          if (remainder) {
+              if (!result.empty()) result += " ";
+              result += three(remainder);
+          }
+  
+          return result;
+      }
+  };
+
+  ```
 - [146. LRU Cache](https://leetcode.com/problems/lru-cache/) - 42.2% Medium
 - [1405. Longest Happy String](https://leetcode.com/problems/longest-happy-string/) - 57.3% Medium
 - [1647. Minimum Deletions to Make Character Frequencies Unique](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/) - 61.2% Medium
