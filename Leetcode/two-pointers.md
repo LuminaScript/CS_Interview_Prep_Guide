@@ -1,13 +1,6 @@
 # Two Pointers (2 Pointer) Techniques in LeetCode Problems
 
-## Basic Knowledge
-
-- **Common two-pointer algorithms** include same-direction, opposite-direction, and meeting-in-the-middle.
-- **Same-direction pointers** move in the same direction.
-- **Opposite-direction pointers** move toward each other.
-- **Meeting-in-the-middle pointers** start from both ends and meet in the middle.
-
-### Opposite-direction Pointers:
+## I.Opposite-direction Pointers:
 
 - [Leetcode 125. Valid Palindrome (I)](https://leetcode.com/problems/valid-palindrome/) **[EASY]**
   ```cpp
@@ -91,7 +84,7 @@
   }
   ```
 
-### Meeting-in-the-middle Pointers:
+## II. Meeting-in-the-middle Pointers:
 
 - [Leetcode 1. Two Sum (using a two-pointer algorithm with sorting)](https://leetcode.com/problems/two-sum/) **[EASY]**
   
@@ -343,7 +336,7 @@
   }
   ```
 
-### Same-direction Pointers:
+## III. Same-direction Pointers:
 
 - [Leetcode 283. Move Zeroes](https://leetcode.com/problems/move-zeroes/)
 - [Leetcode 26. Remove Duplicate Numbers in Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
