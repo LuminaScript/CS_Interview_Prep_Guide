@@ -121,7 +121,7 @@
     return {-1, -1};
   }
   ```
-- [Leetcode 15. 3Sum](https://leetcode.com/problems/3sum/)
+- [Leetcode 15. 3Sum](https://leetcode.com/problems/3sum/) **[MED]**
   
   **Two Pointers: Time -> ```O(N*2)``` + Space -> ```O(logN)``` ~ ```O(N)```, depends on sorting algo**
   ```cpp
@@ -145,12 +145,203 @@
     return res;
   }
   ```
-- [Leetcode 16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/)
+
+  **No-Sort + HashMap: ```O(N*2)``` + ```O(N)```**
+  ```cpp
+  vector<vector<int>> threeSum(vector<int>& nums) {
+    set<vector<int>> res;
+    unordered_set<int> dups;
+    unordered_map<int, int> seen;
+    for(int i = 0; i < nums.size(); i++){
+        if (dups.insert(nums[i]).second) {
+            for(int j = i + 1; j < nums.size(); j++){
+                int comp = -nums[i] - nums[j];
+                auto it = seen.find(comp);
+                if(it != seen.end() && it->second == i){
+                    vector<int> trip = {nums[i], nums[j], comp};
+                    sort(trip.begin(), trip.end());
+                    res.insert(trip);
+                }
+                seen[nums[j]] = i; // i has a match with j
+            }
+        }
+    }
+    return vector<vector<int>>(begin(res), end(res));
+  }
+  ```
+- [Leetcode 16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/) **[MED]**
+
+  **Time : ```O(NlogN)``` + ```O(N^2)``` = ```O(N^2)``` | Space : ```O(logN)``` ~ ```O(N)```, depends on sorting algo**
+  
+  ```cpp
+  int threeSumClosest(vector<int>& nums, int target) {
+    sort(nums.begin(), nums.end());
+    int dif = INT_MAX;
+    int res = target;
+    for(int i = 0; i < nums.size(); i++){
+        int j = i + 1, k = nums.size() - 1;
+        while(j < k){
+            int sum = nums[i] + nums[j] + nums[k];
+            dif = abs(target - sum) < abs(dif) ? target - sum : dif;
+            if(dif == 0) return target - dif;
+            if(sum > target) k--;
+            else if(sum < target) j++;
+        }
+    }
+    return target - dif;
+  }
+  ```
 - [Leetcode 18. 4Sum](https://leetcode.com/problems/4sum/)
-- [Leetcode 454. 4Sum II](https://leetcode.com/problems/4sum-ii/)
-- [Leetcode 277. Find the Celebrity](https://leetcode.com/problems/find-the-celebrity/)
-- [Leetcode 11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
-- [Leetcode 186 Reverse Words in a String II](https://leetcode.com/problems/reverse-words-in-a-string-ii/)
+  
+  **Time : ```O(N*3)``` | Space : ```O(logN)``` ~ ```O(N)```, depends on sorting algo**
+  ```cpp
+  vector<vector<int>> fourSum(vector<int>& nums, int target) {
+    sort(nums.begin(), nums.end());
+    vector<vector<int>> res;
+    int n = nums.size();
+    for(int i = 0; i < n - 3; i++){
+        if (i > 0 && nums[i] == nums[i-1]) continue;  // Skip duplicate i values
+        for(int j = i + 1; j < n - 2; j++){
+            if (j > i + 1 && nums[j] == nums[j-1]) continue;  // Skip duplicate j values
+            long long newTarget = (long long)target - (long long)nums[i] - (long long)nums[j];
+            int low = j + 1, high = n - 1;
+            while(low < high){
+                int sum = nums[low] + nums[high];
+                if (sum < newTarget)
+                    low++;
+                else if (sum > newTarget)
+                    high--;
+                else {
+                    res.push_back({nums[i], nums[j], nums[low], nums[high]});
+                    while (low < high && nums[low] == nums[low + 1]) low++; // Skip duplicate low values
+                    while (low < high && nums[high] == nums[high - 1]) high--; // Skip duplicate high values
+                    low++;
+                    high--;
+                }
+            }
+        }
+    }
+    return res;
+  }
+  ```
+- [Leetcode 454. 4Sum II](https://leetcode.com/problems/4sum-ii/) **[MED]**
+
+  **For 4 arrays:**
+  ```cpp
+  int fourSumCount(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D) {
+      int cnt = 0;
+      unordered_map<int, int> m;
+      for (int a : A) {
+          for (int b : B) {
+              ++m[a + b];
+          }
+      }
+      
+      for (int c : C) {
+          for (int d : D) {
+              auto it = m.find(-(c + d));
+              if (it != end(m)) {
+                  cnt += it->second;
+              }
+          }    
+      }
+      return cnt;
+  }
+  ```
+
+  **For N arrays:**
+  ```cpp
+  // Function to compute sum counts for a list of vectors
+  unordered_map<int, int> sumCount(vector<vector<int>>& lists) {
+      unordered_map<int, int> res = {{0, 1}}; // Initialize with sum 0 having count 1
+      for (auto& list : lists) {
+          unordered_map<int, int> temp;
+          for (int num : list) {
+              for (auto& [total, count] : res) {
+                  temp[total + num] += count;
+              }
+          }
+          res = move(temp); // Move temp to res for the next iteration
+      }
+      return res;
+  }
+
+  int fourSumCount(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D) {
+      // Split the original lists into two halves
+      vector<vector<int>> firstHalf = {A, B};
+      vector<vector<int>> secondHalf = {C, D};
+
+      // Get sum counts for each half
+      auto left = sumCount(firstHalf);
+      auto right = sumCount(secondHalf);
+
+      int result = 0;
+      // Calculate the final count by multiplying complementary sum counts
+      for (auto& [sum, count] : left) {
+          if (right.find(-sum) != right.end()) {
+              result += count * right[-sum];
+          }
+      }
+
+      return result;
+  }
+  ```
+
+- [Leetcode 277. Find the Celebrity](https://leetcode.com/problems/find-the-celebrity/) **[MED]**
+
+  **Time : ```O(N)``` + Space : ```O(1)```**
+  ```cpp
+  int findCelebrity(int n) {
+    int celebrity_candidate = 0;
+    for(int i = 0; i < n; i++){
+        if(knows(celebrity_candidate, i))
+            celebrity_candidate = i;
+    }
+    for(int j = 0; j < n; j++){
+        if(j == celebrity_candidate) continue;
+        if(knows(celebrity_candidate, j) || !knows(j, celebrity_candidate)) return -1;
+    }
+    return celebrity_candidate;
+  }
+  ```
+- [Leetcode 11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/) **[MED]**
+
+  **Time : ```O(N)``` + Space : ```O(1)```**
+  ```cpp
+  int maxArea(vector<int>& height) {
+    int l = 0, r = height.size() - 1;
+    int maxArea = 0;
+    while(l < r){
+        int lHeight = height[l], rHeight = height[r];
+        int curArea = (r - l) * min(lHeight, rHeight);
+        maxArea = max(maxArea, curArea);
+        if(lHeight < rHeight) l++;
+        else r--;
+    }
+    return maxArea;
+  }
+  ```
+- [Leetcode 186 Reverse Words in a String II](https://leetcode.com/problems/reverse-words-in-a-string-ii/) **[MED]**
+
+  **Time : ```O(N)``` + Space : ```O(1)```**
+  ```cpp
+  void swap(char* i, char* j){
+    char temp = *i;
+    *i = *j;
+    *j = temp;
+  }
+  void reverseWords(vector<char>& s) {
+      for(int l = 0, r = s.size() - 1; l < r; l++, r--) swap(&s[l], &s[r]);
+  
+      int i = 0;
+      while(i < s.size()){
+          int j = i;
+          while(j < s.size() && s[j] != ' ') j++;
+          for(int l = i, r = j - 1; l < r; l++, r--) swap(&s[l], &s[r]);
+          i = j + 1;
+      }
+  }
+  ```
 
 ### Same-direction Pointers:
 
