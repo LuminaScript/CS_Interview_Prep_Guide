@@ -93,9 +93,58 @@
 
 ### Meeting-in-the-middle Pointers:
 
-- [Leetcode 1. Two Sum (using a two-pointer algorithm with sorting)](https://leetcode.com/problems/two-sum/)
-- [Leetcode 167. Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+- [Leetcode 1. Two Sum (using a two-pointer algorithm with sorting)](https://leetcode.com/problems/two-sum/) **[EASY]**
+  
+  **HashMap ```O(N)``` + ```O(N)```**
+  ```cpp
+  vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int, int> mp;
+    for(int i = 0; i < nums.size(); i++){
+        if(mp.find(target - nums[i]) != mp.end()) return {mp[target - nums[i]], i};
+        else mp[nums[i]] = i;
+    }
+    return {-1, -1};
+  }
+  ```
+- [Leetcode 167. Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) **[MED]**
+
+  **```O(N)``` + ```O(1)```**
+  ```cpp
+  vector<int> twoSum(vector<int>& nums, int target) {
+    int l = 0, r = nums.size() - 1;
+    while(l < r){
+        int sum = nums[l] + nums[r];
+        if(sum == target) return {l + 1, r + 1};
+        if(sum > target) r--;
+        else l++;
+    }
+    return {-1, -1};
+  }
+  ```
 - [Leetcode 15. 3Sum](https://leetcode.com/problems/3sum/)
+  
+  **Two Pointers: Time -> ```O(N*2)``` + Space -> ```O(logN)``` ~ ```O(N)```, depends on sorting algo**
+  ```cpp
+  vector<vector<int>> threeSum(vector<int>& nums) {
+    vector<vector<int>> res;
+    sort(nums.begin(), nums.end());
+    for(int i = 0; i <= nums.size() - 3 && nums[i] <= 0; i++){
+        if(i > 0 && nums[i - 1] == nums[i]) continue;
+        int j = i + 1, k = nums.size() - 1;
+        int target = -nums[i];
+        while(j < k){
+            int sum = nums[j] + nums[k];
+            if(sum > target) k--;
+            else if(sum < target) j++;
+            else{
+                res.push_back({nums[i], nums[j++], nums[k--]});
+                while(j < k && nums[j] == nums[j - 1]) j++;
+            }
+        }
+    }
+    return res;
+  }
+  ```
 - [Leetcode 16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/)
 - [Leetcode 18. 4Sum](https://leetcode.com/problems/4sum/)
 - [Leetcode 454. 4Sum II](https://leetcode.com/problems/4sum-ii/)
