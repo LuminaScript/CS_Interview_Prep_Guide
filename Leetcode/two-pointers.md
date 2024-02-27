@@ -449,7 +449,54 @@
     return min_len == INT_MAX ? "" : s.substr(min_start, min_len);
   }
   ```
-  
 - [Leetcode 3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+  **Time : ```O(N)``` | Space : ```O(1)```**
+  ```cpp
+  int lengthOfLongestSubstring(string s) {
+    vector<bool> seen(128, false);
+    int start = 0, maxLen = 0;
+    for(int end = 0; end < s.size(); end++){
+        if(seen[s[end]] == false) seen[s[end]] = true;
+        else{
+            while(s[end] != s[start]) seen[s[start++]] = false;
+            start++;
+        }
+        maxLen = max(maxLen, end - start + 1);
+    }
+    return maxLen;
+  }
+  ```
 - [Leetcode 1004 Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
-- [Leetcode 1658 Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/)
+
+   **Time : ```O(N)``` | Space : ```O(1)```**
+  ```cpp
+  int longestOnes(vector<int>& nums, int k) {
+    int maxLen = 0, left = 0;
+    for(int right = 0; right < nums.size(); right++){
+        if(nums[right] == 0){
+            if(--k < 0){
+                while(nums[left] != 0) left++;
+                left++;
+                k++;
+            }
+        }
+        maxLen = max(maxLen, right - left + 1);
+    }
+    return maxLen;
+  }
+  ```
+- [Leetcode 1658 Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/) **[MED]** **
+  ```cpp
+  int minOperations(vector<int>& nums, int x) {
+    int cur = 0, n = nums.size(), mini = INT_MAX, left = 0;
+    for(int n : nums) cur += n;
+
+    for(int right = 0; right < n; right++){
+        cur -= nums[right];
+        while(cur < x && left <= right) cur += nums[left++];
+        if(cur == x) mini = min(mini, (n - 1 - right) + left);
+    }
+    return mini != INT_MAX ? mini : -1;
+  }
+  ```
