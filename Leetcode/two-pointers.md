@@ -342,7 +342,7 @@
 - [Leetcode 26. Remove Duplicate Numbers in Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
 - [Leetcode 395. Longest Substring with At Least K Repeating Characters](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/) **[MED]**
 
-  **Time : ```O(26 * N)``` = ```O(1)``` | Space : ```O(1)```**
+  **Time : ```O(26 * N)``` = ```O(N)``` | Space : ```O(1)```**
   ```cpp
   int longestSubstring(string s, int k) {
       // Step 1: Calculate the total number of unique characters in the string.
@@ -378,9 +378,78 @@
       return maxLen;
   }
   ```
-- [Leetcode 340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)
+- [Leetcode 340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/) **[MED]**
+
+  **Time : ```O(N)``` * ```O(N - 1)``` = ```O(N)``` | Space : ```O(1)```**
+  ```cpp
+  int lengthOfLongestSubstringKDistinct(string s, int k) {
+    unordered_map<char, int> cnt;
+    int start = 0, end = 0, maxLen = 0;
+    while(end < s.size()){
+        char endc = s[end];
+        if(cnt.find(endc) == cnt.end()) cnt[endc] = 1;
+        else cnt[endc]++;
+
+        while(cnt.size() > k){
+            if(--cnt[s[start]] == 0) cnt.erase(s[start]);
+            start++;
+        }
+        maxLen = std::max(maxLen, end - start + 1);
+        end++;
+    }
+    return maxLen;
+  }
+  ```
 - [Leetcode 424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
+
+  **Time : ```O(N)``` | Space : ```O(1)```**
+  ```cpp
+  int characterReplacement(string s, int k) {
+    vector<int> freqMap(26, 0);
+    int start = 0, maxFreq = 0, maxLen = 0;
+    for(int end = 0; end < s.size(); end++){
+        int curChar = s[end] - 'A';
+        maxFreq = max(maxFreq, ++freqMap[curChar]);
+        bool isValid = (end - start + 1 - maxFreq <= k);
+        if(!isValid){
+            int removeChar = s[start] - 'A';
+            freqMap[removeChar]--;
+            start++;
+        }
+        maxLen = end + 1 - start;
+    }
+    return maxLen;
+  }
+  ```
 - [Leetcode 76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+
+  **Time : ```O(N)``` | Space : ```O(1)```**
+  ```cpp
+  string minWindow(string s, string t) {
+    vector<int> t_map(128, 0);
+    for (char c : t) t_map[c]++;
+    
+    int left = 0, right = 0;
+    int min_len = INT_MAX, min_start = 0, found_chars = 0;
+    while (right < s.size()) {
+        if (t_map[s[right]] > 0) found_chars++;
+        t_map[s[right]]--;
+
+        while (found_chars == t.size()) {
+            if (right - left + 1 < min_len) {
+                min_len = right - left + 1;
+                min_start = left;
+            }
+            if (t_map[s[left]] == 0)found_chars--;
+            t_map[s[left++]]++;
+        }
+        right++;
+    }
+
+    return min_len == INT_MAX ? "" : s.substr(min_start, min_len);
+  }
+  ```
+  
 - [Leetcode 3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 - [Leetcode 1004 Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
 - [Leetcode 1658 Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/)
