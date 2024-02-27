@@ -340,7 +340,44 @@
 
 - [Leetcode 283. Move Zeroes](https://leetcode.com/problems/move-zeroes/)
 - [Leetcode 26. Remove Duplicate Numbers in Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
-- [Leetcode 395. Longest Substring with At Least K Repeating Characters](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/)
+- [Leetcode 395. Longest Substring with At Least K Repeating Characters](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/) **[MED]**
+
+  **Time : ```O(26 * N)``` = ```O(1)``` | Space : ```O(1)```**
+  ```cpp
+  int longestSubstring(string s, int k) {
+      // Step 1: Calculate the total number of unique characters in the string.
+      unordered_set<char> uniqueCharsSet(s.begin(), s.end());
+      int totalUnique = uniqueCharsSet.size();
+
+      int maxLen = 0;
+      
+      // Step 2: Apply sliding window technique for each possible number of unique target characters.
+      for (int uniqueTarget = 1; uniqueTarget <= totalUnique; ++uniqueTarget) {
+          vector<int> freq(26, 0);
+          int start = 0, end = 0;
+          int uniqueChars = 0, charsAtLeastK = 0;
+          while (end < s.length()) {
+              if (uniqueChars <= uniqueTarget) {
+                  int index = s[end] - 'a';
+                  if (freq[index]++ == 0) uniqueChars++;
+                  if (freq[index] == k) charsAtLeastK++;
+                  end++;
+              } else {
+                  int index = s[start] - 'a';
+                  if (freq[index]-- == k) charsAtLeastK--;
+                  if (freq[index] == 0) uniqueChars--;
+                  start++;
+              }
+              
+              if (uniqueChars == uniqueTarget && uniqueChars == charsAtLeastK) {
+                  maxLen = max(maxLen, end - start);
+              }
+          }
+      }
+      
+      return maxLen;
+  }
+  ```
 - [Leetcode 340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)
 - [Leetcode 424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
 - [Leetcode 76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
