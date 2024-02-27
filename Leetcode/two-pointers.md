@@ -469,7 +469,7 @@
   ```
 - [Leetcode 1004 Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
 
-   **Time : ```O(N)``` | Space : ```O(1)```**
+  **Time : ```O(N)``` | Space : ```O(1)```**
   ```cpp
   int longestOnes(vector<int>& nums, int k) {
     int maxLen = 0, left = 0;
@@ -486,17 +486,23 @@
     return maxLen;
   }
   ```
-- [Leetcode 1658 Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/) **[MED]** **
+- [Leetcode 1658 Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/) **[MED]**
+  
+  > The core idea is to transform the problem into finding the **maximum-length subarray** whose sum equals **total_sum - x**
+  
+  **Time : ```O(N)``` | Space : ```O(1)```**
   ```cpp
   int minOperations(vector<int>& nums, int x) {
-    int cur = 0, n = nums.size(), mini = INT_MAX, left = 0;
-    for(int n : nums) cur += n;
-
-    for(int right = 0; right < n; right++){
-        cur -= nums[right];
-        while(cur < x && left <= right) cur += nums[left++];
-        if(cur == x) mini = min(mini, (n - 1 - right) + left);
-    }
-    return mini != INT_MAX ? mini : -1;
+      int sum = 0;
+      for(int n : nums) sum += n;
+  
+      int maxLen = -1, curSum = 0;
+      for(int l = 0, r = 0; r < nums.size(); r++){
+          curSum += nums[r];
+          while(l <= r && curSum > sum - x) curSum -= nums[l++];
+          if(curSum == sum - x) maxLen = max(maxLen, r - l + 1);
+      }
+      
+      return maxLen == -1 ? -1 : nums.size() - maxLen;
   }
   ```
