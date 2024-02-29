@@ -33,7 +33,21 @@
     return res;
   }
   ```
-- [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters)
+- [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters) 🟠 MEDIUM 🔵 Sliding Windows 🔵 Hash Map
+  ```cpp
+  int lengthOfLongestSubstring(string s) {
+    unordered_map<int, int> mp;
+    int maxLen = 0;
+    for(int l = 0, r = 0; r < s.size(); r++){
+        if(mp.find(s[r]) != mp.end()){
+            while(l <= mp[s[r]]) mp.erase(s[l++]);
+        } 
+        mp[s[r]] = r;
+        maxLen = std::max(maxLen, r - l + 1);
+    }
+    return maxLen; 
+  }
+  ```
 - [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement)
 - [Permutation in String](https://leetcode.com/problems/permutation-in-string)
 - [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element)
