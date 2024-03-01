@@ -1,4 +1,4 @@
-
+## CPP Version
 
 ### C++ 11
 
@@ -41,4 +41,42 @@
 - Inline Variables
 - Optional header file
 - Class Template argument deduction(CTAD)
+
+
+
+
+
+Run-time
+
+```bash
+ubuntu@primary:~/Home$ g++ -std=c++20 helloworld.cpp -o helloworld20
+ubuntu@primary:~/Home$ ls
+helloworld  helloworld.cpp  helloworld20
+ubuntu@primary:~/Home$ ./helloworld20
+Hello, World!
+ubuntu@primary:~/Home$ g++ -std=c++23 helloworld.cpp -o helloworld23
+ubuntu@primary:~/Home$ ls
+helloworld  helloworld.cpp  helloworld20  helloworld23
+ubuntu@primary:~/Home$ g++ -std=c++25 helloworld.cpp -o helloworld25
+```
+
+
+
+## Linux Version
+
+
+
+## Boost.Asio
+
+#### Introduction
+
+Boost.Asio is a C++ library that provides a set of tools for asynchronous I/O, concurrency, and networking. It is a part of the Boost C++ Libraries collection, which is a well-established and widely-used open-source project. Boost.Asio aims to simplify the process of writing asynchronous networked applications while also offering excellent performance.
+
+#### Features
+
+1. **Asynchronous I/O**: Boost.Asio’s asynchronous model allows you to perform I/O operations without blocking the execution of the program. This feature is especially valuable for networking tasks, as it allows the application to handle multiple connections concurrently.
+2. **Networking Protocols**: The library supports a wide range of networking protocols, including TCP, UDP, SSL/TLS, and serial ports. This enables developers to build various networking applications, from simple TCP servers to secure communication channels using SSL/TLS.
+3. **Platform Independence**: Boost.Asio abstracts the platform-specific details, making it easier to write portable networking code that works across different operating systems without modification.
+4. **Error Handling**: The library provides a robust error handling mechanism, which is essential for writing reliable networking applications. Errors are reported through exceptions or error codes, giving developers the flexibility to choose their preferred error-handling approach.
+5. **Timers**: Boost.Asio includes timer functionality, allowing you to schedule tasks to be executed at specific intervals or after a delay. This feature is valuable for implementing time-sensitive operations.
 
