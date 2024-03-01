@@ -68,8 +68,76 @@
     return false;
   }
   ```
-- [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element)
-- [Fruits into Baskets](https://leetcode.com/problems/fruit-into-baskets) *(Note: The correct LeetCode problem title is "Fruit Into Baskets")*
+- [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element) 🟠 MEDIUM 🔵 Sliding Windows
+  > We only care about the length of sliding windows, but not the content inside it.
+  >
+  > Does not shrink the windows, only expand it when we encounter longer valid windows.
+  
+  **Time ```O(NlogN)``` + Space ```O(N)```**
+  ```cpp
+  int maxFrequency(vector<int>& nums, int k) {
+    sort(nums.begin(), nums.end());
+    int left = 0;
+    long curr = 0;
+    
+    for (int right = 0; right < nums.size(); right++) {
+        long target = nums[right];
+        curr += target;
+        
+        if ((right - left + 1) * target - curr > k) {
+            curr -= nums[left];
+            left++;
+        }
+    }
+    
+    return nums.size() - left;
+  }
+  ```
+- [904. Fruits into Baskets](https://leetcode.com/problems/fruit-into-baskets) 🟠 MEDIUM 🔵 Sliding Windows 🔵 Hash Map
+  
+  **Solution 1: Adjust Sliding Window's Size**
+  ```cpp
+  int totalFruit(vector<int>& fruits) {
+      unordered_map<int, int> mp;
+      int cnt = 0;
+      int maxFruit = 0, curFruit = 0;
+      for(int l = 0, r = 0; r < fruits.size(); r++){
+          if(mp.find(fruits[r]) == mp.end()) cnt++;
+          mp[fruits[r]]++;
+
+          curFruit++;
+          while(cnt > 2){
+              if(--mp[fruits[l]] == 0){
+                  mp.erase(fruits[l]);
+                  cnt--;
+              }
+              l++;
+              curFruit--;
+          }
+          maxFruit = std::max(curFruit, maxFruit);
+      }
+      return maxFruit;
+  }
+  ```
+
+  **Solution 2: Never Shrinking Sliding Window** 🌟
+  ```cpp
+  int totalFruit(vector<int>& fruits) {
+    unordered_map<int, int> mp;
+    int cnt = 0;
+    int l = 0, r = 0;
+    while(r < fruits.size()){
+        if(mp.find(fruits[r]) == mp.end()) cnt++;
+        mp[fruits[r]]++;
+        if(mp.size() > 2){
+            if(--mp[fruits[l]] == 0) mp.erase(fruits[l]);
+            l++;
+        }
+        r++;
+    }
+    return r - l;
+  }
+  ```
 - [Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length)
 - [Minimum Number of Flips to Make the Binary String Alternating](https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating)
 - [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum)
