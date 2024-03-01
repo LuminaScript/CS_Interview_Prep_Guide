@@ -138,7 +138,24 @@
     return r - l;
   }
   ```
-- [Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length)
+- [Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length) 🟠 MEDIUM 🔵 Sliding Windows
+
+  **Time ```O(N)``` + Space ```O(1)```**
+  ```cpp
+  int maxVowels(string s, int k) {
+    int maxVowel = 0, curVowel = 0;
+    set<char> vowels= {'a', 'e', 'i', 'o', 'u'};
+    for(int l = 0, r = 0; r < s.size(); r++){
+        if(vowels.find(s[r]) != vowels.end()) curVowel++;
+        if(r - l + 1 > k){
+            if(vowels.find(s[l]) != vowels.end()) curVowel--;
+            l++;
+        }
+        maxVowel = max(maxVowel, curVowel);
+    }
+    return maxVowel;
+  }
+  ```
 - [Minimum Number of Flips to Make the Binary String Alternating](https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating)
 - [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum)
 - [Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements)
