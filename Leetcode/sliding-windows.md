@@ -138,7 +138,7 @@
     return r - l;
   }
   ```
-- [Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length) 🟠 MEDIUM 🔵 Sliding Windows
+- [1456. Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length) 🟠 MEDIUM 🔵 Sliding Windows
 
   **Time ```O(N)``` + Space ```O(1)```**
   ```cpp
@@ -157,8 +157,71 @@
   }
   ```
 - [Minimum Number of Flips to Make the Binary String Alternating](https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating)
-- [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum)
-- [Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements)
-- [Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero)
-- [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring)
+- [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum) 🟠 MEDIUM 🔵 Sliding Windows
+
+  **Time ```O(N)``` + Space ```O(1)```**
+  ```cpp
+  int minSubArrayLen(int target, vector<int>& nums) {
+    int curSum = 0, minLen = INT_MAX;
+    for(int l = 0, r = 0; r < nums.size(); r++){
+        curSum += nums[r];
+        while(curSum - nums[l]>= target) curSum -= nums[l++];
+        if(curSum >= target) minLen = min(r - l + 1, minLen);
+    }
+    return minLen == INT_MAX ? 0 : minLen;
+  }
+  ```
+- [209. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements)
+- [1658. Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero) 🟠 MEDIUM 🔵 Sliding Windows
+  > Min Operation to Reduce X to Zero <-> Max Length Sub Array for a total sum of ```SUM - X```
+
+  **Time ```O(N)``` + Space ```O(1)```**
+  ```cpp
+  int minOperations(vector<int>& nums, int x) {
+    int sum = 0;
+    for(int n : nums) sum += n;
+
+    int maxLen = -1, curSum = 0;
+    for(int l = 0, r = 0; r < nums.size(); r++){
+        curSum += nums[r];
+        while(l <= r && curSum > sum - x) curSum -= nums[l++];
+        if(curSum == sum - x) maxLen = max(maxLen, r - l + 1);
+    }
+    
+    return maxLen == -1 ? -1 : nums.size() - maxLen;
+  }
+  ```
+- [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring) 🔴 HARD 🔵 Sliding Windows 🔵 Hash Map
+
+  **Time ```O(N + M)``` + Space ```O(1)```**
+  ```cpp
+  string minWindow(string s, string t) {
+
+      vector<int> dict(128, 0);
+      vector<int> windows(128, 0);
+      vector<int> cnt(128, 0);
+      for(char c : t) dict[c]++;
+
+      int minLen = INT_MAX;
+      string minSubstr = "";
+      for(int l = 0, r = 0; r < s.size(); r++){
+          if(dict[s[r]] > 0) {
+              cnt[s[r]]++;
+              if(windows[s[r]] < dict[s[r]]) windows[s[r]]++;
+          }
+          if(r - l + 1 > t.size()){
+              while(l < r && (dict[s[l]] == 0 || cnt[s[l]] > dict[s[l]])){
+                  if(cnt[s[l]] > dict[s[l]]) cnt[s[l]]--;
+                  l++;
+              }
+          }
+
+          if(dict == windows && r - l + 1 < minLen){
+              minLen = r - l + 1;
+              minSubstr = s.substr(l, r - l + 1);
+          }
+      }
+      return minSubstr;
+  }
+  ```
 - [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum)
