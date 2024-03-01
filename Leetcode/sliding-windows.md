@@ -49,7 +49,25 @@
   }
   ```
 - [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement)
-- [Permutation in String](https://leetcode.com/problems/permutation-in-string)
+- [567. Permutation in String](https://leetcode.com/problems/permutation-in-string) 🟠 MEDIUM 🔵 Sliding Windows 🔵 Hash Map
+
+  **Time ```O(sn)``` + Space ```O(1)```**
+  ```cpp
+  bool checkInclusion(string p, string s) {
+    int pn = p.size(), sn = s.size();
+    if(sn < pn) return false;
+    vector<int> ref(26, 0);
+    vector<int> windows(26, 0);
+    for(char c : p) ref[c - 'a']++;
+
+    for(int i = 0; i < sn; i++){
+        windows[s[i] - 'a']++;
+        if(i >= pn) windows[s[i - pn] - 'a']--;
+        if(ref == windows) return true;
+    }
+    return false;
+  }
+  ```
 - [Frequency of the Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element)
 - [Fruits into Baskets](https://leetcode.com/problems/fruit-into-baskets) *(Note: The correct LeetCode problem title is "Fruit Into Baskets")*
 - [Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length)
