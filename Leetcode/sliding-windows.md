@@ -157,7 +157,7 @@
   }
   ```
 - [Minimum Number of Flips to Make the Binary String Alternating](https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating)
-- [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum) 🟠 MEDIUM 🔵 Sliding Windows
+- [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum) 🟠 MEDIUM 🔵 Sliding Windows
 
   **Time ```O(N)``` + Space ```O(1)```**
   ```cpp
@@ -171,7 +171,6 @@
     return minLen == INT_MAX ? 0 : minLen;
   }
   ```
-- [209. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements)
 - [1658. Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero) 🟠 MEDIUM 🔵 Sliding Windows
   > Min Operation to Reduce X to Zero <-> Max Length Sub Array for a total sum of ```SUM - X```
 
@@ -191,7 +190,7 @@
     return maxLen == -1 ? -1 : nums.size() - maxLen;
   }
   ```
-- [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring) 🔴 HARD 🔵 Sliding Windows 🔵 Hash Map
+- [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring) 🔴 HARD 🔵 Sliding Windows 🔵 Hash Map
 
   **Time ```O(N + M)``` + Space ```O(1)```**
   ```cpp
@@ -224,7 +223,7 @@
       return minSubstr;
   }
   ```
-- [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum) 🔴 HARD 🔵 Sliding Windows 🔵 Monotonue Queue 🔵 Deque
+- [239. Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum) 🔴 HARD 🔵 Sliding Windows 🔵 Monotonue Queue 🔵 Deque
   
   **Time ```O(N)``` + Space ```O(k)```**
   ```cpp
