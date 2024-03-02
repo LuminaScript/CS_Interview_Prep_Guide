@@ -35,7 +35,25 @@
     return maxheap.empty() ? 0 : maxheap.top();
   }
   ```
-- [K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
+- [973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) 🟠 MEDIUM 🔵 Min Heap 🔵 Hash Map
+  ```cpp
+      vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        priority_queue<pair<double, int>, vector<pair<double, int>>, greater<pair<double, int>>> pq;
+        
+        for(int i = 0; i < points.size(); ++i) {
+            double distance = sqrt(pow(points[i][0], 2) + pow(points[i][1], 2));
+            pq.push({distance, i});
+        }
+        
+        vector<vector<int>> res;
+        while(k-- > 0 && !pq.empty()) {
+            auto [dist, idx] = pq.top(); pq.pop();
+            res.push_back(points[idx]);
+        }
+        
+        return res;
+    }
+  ```
 - [Kth Largest Element In An Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 - [Task Scheduler](https://leetcode.com/problems/task-scheduler/)
 - [Design Twitter](https://leetcode.com/problems/design-twitter/)
