@@ -1,5 +1,40 @@
-- [Kth Largest Element In a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
-- [Last Stone Weight](https://leetcode.com/problems/last-stone-weight/)
+- [703. Kth Largest Element In a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/) 🟢 EASY 🔵 Min Heap
+
+  ```N``` as the length of nums and ```M``` as the number of calls to ```add()```
+
+  **Time : ```O(N⋅log⁡(N) + M⋅log⁡(k))``` | Space : ```O(N)```**
+  ```cpp
+  priority_queue<int, vector<int>, greater<int>> q;
+  int k;
+  KthLargest(int k, vector<int>& nums) {
+      this->k = k;
+      for(auto n : nums) add(n);
+  }
+  
+  int add(int val) {
+      q.push(val);
+      if(q.size() > k) q.pop();
+      return q.top();
+  }
+  ```
+- [1046. Last Stone Weight](https://leetcode.com/problems/last-stone-weight/) 🟢 EASY 🔵 Max Heap
+
+  Each time around the main loop, there is a net loss of either 1 or 2 stones. Thus ```N - 1``` Maximum Itererations. 
+
+  **Time : ```O(NlogN)``` | Space : ```O(N)```**
+  ```cpp
+  int lastStoneWeight(vector<int>& stones) {
+    priority_queue<int> maxheap;
+    for(int n : stones) maxheap.push(n);
+    while(maxheap.size() > 1){
+        int x = maxheap.top(); maxheap.pop();
+        int y = maxheap.top(); maxheap.pop();
+        if(x < y) maxheap.push(y - x);
+        else if(x > y) maxheap.push(x - y);
+    }
+    return maxheap.empty() ? 0 : maxheap.top();
+  }
+  ```
 - [K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
 - [Kth Largest Element In An Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 - [Task Scheduler](https://leetcode.com/problems/task-scheduler/)
