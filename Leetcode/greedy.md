@@ -1,6 +1,6 @@
 - [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) 🟠 MEDIUM 🔵 Greedy
 
-  Time ```O(N)``` | Space ```O(N)```
+  Time ```O(N)``` | Space ```O(1)```
   ```cpp
       int maxSubArray(vector<int>& nums) {
         int cur_res = nums[0];
@@ -13,8 +13,38 @@
         return max_res;
     }
   ```
-- [Jump Game](https://leetcode.com/problems/jump-game/)
-- [Jump Game II](https://leetcode.com/problems/jump-game-ii/)
+- [Jump Game](https://leetcode.com/problems/jump-game/) 🟠 MEDIUM 🔵 Greedy
+
+  Time ```O(N)``` | Space ```O(1)```
+  ```cpp
+  bool canJump(vector<int>& nums) {
+    int furtherestIndex = 0;
+    for(int i = 0; i < nums.size(); i++){
+        if(furtherestIndex >= i) furtherestIndex = max(furtherestIndex, i + nums[i]);
+        if(furtherestIndex >= nums.size() - 1) return true;
+    }
+    return false;
+  }
+  ```
+- [Jump Game II](https://leetcode.com/problems/jump-game-ii/) 🟠 MEDIUM 🔵 Greedy
+
+  Time ```O(N)``` | Space ```O(1)```
+  ```cpp
+  int jump(vector<int>& nums) {
+    if(nums.size() == 1) return 0;
+    
+    int curEnd = 0, furthestIdx = 0, jumps = 0;
+    for(int i = 0; i < nums.size(); i++){
+        if(furthestIdx >= i) furthestIdx = max(furthestIdx, i + nums[i]);
+        if(i == curEnd){
+            curEnd = furthestIdx;
+            jumps++;
+            if(furthestIdx >= nums.size() - 1) return jumps;
+        }
+    }
+    return jumps;
+  }
+  ```
 - [Gas Station](https://leetcode.com/problems/gas-station/)
 - [Hand of Straights](https://leetcode.com/problems/hand-of-straights/)
 - [Merge Triplets to Form Target Triplet](https://leetcode.com/problems/merge-triplets-to-form-target-triplet/)
