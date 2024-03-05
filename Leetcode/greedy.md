@@ -47,6 +47,18 @@
   ```
 - [Gas Station](https://leetcode.com/problems/gas-station/)
 - [Hand of Straights](https://leetcode.com/problems/hand-of-straights/)
+  ```cpp
+  bool isNStraightHand(vector<int>& hand, int W) {
+    map<int, int> c;
+    for (int i : hand) c[i]++;
+    for (auto it : c)
+        if (c[it.first] > 0)
+            for (int i = W - 1; i >= 0; --i)
+                if ((c[it.first + i] -= c[it.first]) < 0)
+                    return false;
+    return true;
+  }
+  ```
 - [Merge Triplets to Form Target Triplet](https://leetcode.com/problems/merge-triplets-to-form-target-triplet/)
 - [Partition Labels](https://leetcode.com/problems/partition-labels/)
 - [Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/)
