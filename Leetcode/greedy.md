@@ -46,7 +46,23 @@
   }
   ```
 - [Gas Station](https://leetcode.com/problems/gas-station/)
+  ```cpp
+  int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+    int currGain = 0, totalGain = 0, answer = 0;
+    
+    for (int i = 0; i < gas.size(); ++i) {
+        totalGain += gas[i] - cost[i];
+        currGain += gas[i] - cost[i];
+        if (currGain < 0) {
+            answer = i + 1;
+            currGain = 0;
+        }
+    }
+    return totalGain >= 0 ? answer : -1;  
+  }
+  ```
 - [Hand of Straights](https://leetcode.com/problems/hand-of-straights/)
+  
   ```cpp
   bool isNStraightHand(vector<int>& hand, int W) {
     map<int, int> c;
@@ -59,6 +75,18 @@
     return true;
   }
   ```
-- [Merge Triplets to Form Target Triplet](https://leetcode.com/problems/merge-triplets-to-form-target-triplet/)
+- [1899. Merge Triplets to Form Target Triplet](https://leetcode.com/problems/merge-triplets-to-form-target-triplet/)
+
+  O(N) + O(1)
+  ```cpp
+  bool mergeTriplets(vector<vector<int>>& triplets, vector<int>& t) {
+    vector<int> res(3);
+    for(auto s : triplets){
+        if(s[0] <= t[0] && s[1] <= t[1] && s[2] <= t[2])
+            res = {max(res[0], s[0]), max(res[1], s[1]), max(res[2], s[2])};
+    }
+    return res == t;
+  }
+  ```
 - [Partition Labels](https://leetcode.com/problems/partition-labels/)
 - [Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/)
