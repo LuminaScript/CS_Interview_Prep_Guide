@@ -88,5 +88,36 @@
     return res == t;
   }
   ```
-- [Partition Labels](https://leetcode.com/problems/partition-labels/)
-- [Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/)
+- [763. Partition Labels](https://leetcode.com/problems/partition-labels/)
+
+  O(N) + O(1)
+  ```cpp
+  vector<int> partitionLabels(string s) {
+    vector<int> last(26);
+    for(int i = 0; i < s.size(); i++) last[s[i] - 'a'] = i;
+    int start = 0, end = 0;
+    vector<int> res;
+    for(int i = 0; i < s.size(); i++){
+        end = max(end, last[s[i]- 'a']);
+        if(end == i){
+            res.push_back(end - start + 1);
+            start = i + 1;
+        }
+    }
+    return res;
+  }
+  ```
+- [678. Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/)
+  ```cpp
+  bool checkValidString(string s) {
+    int minleft = 0, maxleft = 0;
+    for(auto c : s){
+        if(c == '(') minleft++, maxleft++;
+        else if(c == ')') minleft--, maxleft--;
+        else minleft--, maxleft++;
+        if(maxleft < 0) return false;
+        minleft = max(0, minleft);
+    }
+    return minleft == 0;
+  }
+  ```
