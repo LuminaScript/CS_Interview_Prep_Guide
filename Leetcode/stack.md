@@ -136,4 +136,23 @@
 - [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) 
 
 ### Queue
-- [Car Fleet](https://leetcode.com/problems/car-fleet/) 
+- [853. Car Fleet](https://leetcode.com/problems/car-fleet/)
+
+  **Time O(N) + Space O(N)**
+  ```cpp
+  int carFleet(int target, vector<int>& position, vector<int>& speed) {
+    vector<pair<int, int>> nums; //position & speed
+    for(int i = 0; i < position.size(); i++) nums.push_back({position[i], speed[i]});
+    sort(nums.begin(), nums.end());
+    for(auto p : nums)
+        cout << "{" << p.first << ", " << p.second << "}, ";
+    
+    stack<double> stack;
+    for(int i = nums.size() - 1; i >= 0; i--){
+        double time = (target - nums[i].first) / (double)nums[i].second;
+        if(stack.empty() || stack.top() < time) 
+            stack.push(time); // since it will never catch up
+    }
+    return stack.size();
+ }
+  ```
