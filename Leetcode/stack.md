@@ -103,6 +103,38 @@
       return res;
   }
   ```
+- [225. Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/description/) 🟠 MEDIUM 🔵 Stack 🔵 Queue
+
+  ```cpp
+  queue<int> q1;
+  queue<int> q2;
+  
+  void push(int x) {
+      while(!q1.empty()) {
+          q2.push(q1.front());
+          q1.pop();
+      }
+      q1.push(x);
+      while(!q2.empty()){
+          q1.push(q2.front()); 
+          q2.pop();
+      }
+  }
+  
+  int pop() {
+      int top = q1.front();
+      q1.pop();
+      return top;
+  }
+  
+  int top() {
+      return q1.front();
+  }
+  
+  bool empty() {
+      return q1.empty();
+  }
+  ```
 
 ### Mono Stack
 - [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
@@ -180,9 +212,7 @@
     return res;
   }
   ```
-
-### Queue
-- [853. Car Fleet](https://leetcode.com/problems/car-fleet/)
+- [853. Car Fleet](https://leetcode.com/problems/car-fleet/) 🟠 MEDIUM 🔵 Mono Stack
 
   **Time O(N) + Space O(N)**
   ```cpp
@@ -200,5 +230,44 @@
             stack.push(time); // since it will never catch up
     }
     return stack.size();
+  }
+  ```
+### Queue
+- [622. Deisgn Circular Queue](https://leetcode.com/problems/design-circular-queue/description/) 🟠 MEDIUM 🔵 Queue
+  ```cpp
+  vector<int> buffer;
+  int front, rear, size, cap;
+  MyCircularQueue(int k) : buffer(k), front(0), rear(0), size(0), cap(k) {}
+  
+  bool enQueue(int value) {
+      if(size == cap) return false;
+      buffer[rear % cap] = value;
+      rear++;
+      size++;
+      return true;
+  }
+  
+  bool deQueue() {
+      if(size == 0) return false;
+      front++;
+      size--;
+      return true;
+      
+  }
+  
+  int Front() {
+      return size == 0 ? -1 : buffer[front % cap]; // current front
+  }
+  
+  int Rear() {
+      return size == 0 ? -1 : buffer[(rear - 1) % cap]; // rear mean next elemnt spot
+  }
+  
+  bool isEmpty() {
+      return size == 0;
+  }
+  
+  bool isFull() {
+      return size == cap;
   }
   ```
