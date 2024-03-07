@@ -80,22 +80,8 @@
   ```
 - [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) 🟠 MEDIUM 🔵 Stack 🔵 Backtrace
   
-   #### Time Complexity Analysis
-
-  The time complexity of this algorithm primarily depends on the number of valid parentheses combinations, which is catalan number `C_n`. The n-th catalan number is given by the formula:
   
-  ```[C_n = \frac{1}{n+1} \binom{2n}{n}\]```
-  
-  which is asymptotically approximated by:
-  
-  ```\[C_n \approx \frac{4^n}{n^{3/2}\sqrt{\pi}}\]```
-  
-  Hence, the time complexity of the algorithm can be described as `O(4^n / sqrt(n))`, considering the exponential growth of the catalan numbers with respect to `n`. This reflects the nature of the problem as the number of valid combinations      grows exponentially with the increase in the number of pairs `n`.
-  
-  #### Space Complexity
-  
-  The space complexity of the algorithm is also significant as it stores all valid combinations. In the worst case, the space required to store these combinations also grows exponentially, leading to a space complexity of `O(4^n / sqrt(n))`.     Additionally, the recursive call stack's depth will be at most `2n`, contributing a linear factor to the space complexity.
-
+  Time O(4^N / sqrt(N)) + Space O(N) [_Explanation_](https://leetcode.com/problems/generate-parentheses/editorial/)
   ```cpp
   vector<string> res;
   int n;
@@ -121,7 +107,28 @@
 ### Mono Stack
 - [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 - [Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)
-- [Sum of Subarray Minimums (similar to 84)](https://leetcode.com/problems/sum-of-subarray-minimums/)
+- [907. Sum of Subarray Minimums](https://leetcode.com/problems/sum-of-subarray-minimums/) 🟠 MEDIUM 🔵 Mono Stack 
+  
+  **Time O(N) + Space O(N)**
+  ```cpp
+  int sumSubarrayMins(vector<int>& arr) {
+    int MOD = 1000000007;
+    stack<int> stack;
+    long minSum = 0;
+    for(int i = 0; i <= arr.size(); i++){
+        while(!stack.empty() && (i == arr.size() || arr[stack.top()] >= arr[i])){
+            int mid = stack.top(); stack.pop();
+            int leftBound = stack.empty() ? -1 : stack.top();
+            int rightBound = i;
+            long count = (mid - leftBound) * (rightBound - mid) % MOD;
+            minSum += (count * arr[mid]) % MOD;
+            minSum %= MOD;
+        }
+        stack.push(i);
+    }
+    return (int)minSum;
+  }
+  ```
 
 ### Mono Queue
 - [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) 
