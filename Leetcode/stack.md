@@ -129,11 +129,57 @@
     return (int)minSum;
   }
   ```
+- [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) 🟠 MEDIUM 🔵 Mono Stack 
+  ```cpp
+  vector<int> dailyTemperatures(vector<int>& temperatures) {
+    stack<int> stack;
+    vector<int> res(temperatures.size(), 0);
+    for(int curDay = 0; curDay < temperatures.size(); curDay++){
+        while(!stack.empty() && temperatures[stack.top()] < temperatures[curDay]){
+            int prevDay = stack.top(); stack.pop();
+            res[prevDay] = curDay - prevDay;
+        }
+        stack.push(curDay);
+    }
+    return res;
+  }
+  ```
+- [Online Stock Span](https://leetcode.com/problems/online-stock-span/) 🟠 MEDIUM 🔵 Mono Stack
+  
+  **Time O(N) + Space O(N)**
+  ```cpp
+   stack<pair<int, int>> stack;
+   StockSpanner() { }
+   
+   int next(int price) {
+       int cnt = 1;
+       while(!stack.empty() && stack.top().first <= price){
+           cnt += stack.top().second;
+           stack.pop();
+       }
+       stack.push({price, cnt});
+       return cnt;
+   }
+  ```
+- [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) 🟠 MEDIUM 🔵 Mono Stack
 
-### Mono Queue
-- [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) 
-- [Online Stock Span](https://leetcode.com/problems/online-stock-span/) 
-- [Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) 
+   **Time O(N) + Space O(N)**
+  ```cpp
+  vector<int> nextGreaterElements(vector<int>& nums) {
+    stack<int> stack;
+    vector<int> res(nums.size(), -1);
+    int n = nums.size();
+    for(int curIdx = 0; curIdx < n * 2; curIdx++){
+        int curVal = nums[curIdx % n];
+        while(!stack.empty() && nums[stack.top()] < curVal){
+            int prevIdx = stack.top(); stack.pop();
+            res[prevIdx] = curVal;
+        }
+        stack.push(curIdx % n);
+    }
+    return res;
+  }
+  ```
 
 ### Queue
 - [853. Car Fleet](https://leetcode.com/problems/car-fleet/)
@@ -154,5 +200,5 @@
             stack.push(time); // since it will never catch up
     }
     return stack.size();
- }
+  }
   ```
