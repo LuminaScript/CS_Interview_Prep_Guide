@@ -23,6 +23,21 @@
     return left << shift;
   }
   ```
+
+- [136. Single Number](https://leetcode.com/problems/single-number) Medium
+  ```c
+  int singleNumber(int* nums, int numsSize) {
+    uint32_t loner = 0;
+    for(int i = 0; i <= 31; i++){
+        uint32_t bitSum = 0;
+        for(int j = 0; j < numsSize; j++){
+            bitSum += (nums[j] >> i) & 1;
+        }
+        loner |= (bitSum % 2) << i;
+    }
+    return loner;
+  }
+  ```
 - [137. Single Number II](https://leetcode.com/problems/single-number-ii) Medium
   ```c
   int singleNumber(int* nums, int numsSize) {
