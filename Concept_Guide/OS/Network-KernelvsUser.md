@@ -83,6 +83,7 @@ Catelog
           data.i = 10;
       }
       
+      ```
 
     - Enum
 
@@ -197,6 +198,45 @@ Catelog
 - Socket & File/IO interface
 
 ## Network Engineering
+
+- **Questions**:
+
+  - <u>Router vs Gateway</u>
+
+    - **Gateway** : focus on protocol conversion and facilitating communications <u>across</u> different networks, 
+    - **Routers** : focus on data packet forwarding and network traffic management <u>within and between</u> networks.
+
+  - <u>Router vs Switch</u>
+
+    - **Router**: Connects multiple networks and directs data packets between them using IP addresses. It determines the best path for data to travel across networks.	
+    - **Switch**: Connects devices within a single network, using MAC addresses to forward data packets directly to the intended device on the local network.
+
+  - <u>what happens when you type a URL into a web browser</u>
+
+    1. **Browser looks up IP address for the domain**
+
+       - Browser sends a request to the DNS (domain name system) server.
+       - DNS sends back the sever IP address
+
+    2. **Browser sends the HTTP request to the server**
+
+       - **Initiating Communication (Application Layer)**: The user's request is prepared at the application layer using a protocol like HTTPS, which involves formatting the data packet for transport, often including secure encryption through TLS/SSL to ensure data privacy.
+
+       - **Data Encapsulation (Transport Layer)**: The data is segmented (if necessary) and encapsulated with the necessary headers for transport. TCP or UDP protocols are used, depending on the requirements for reliability and speed. TCP provides error correction and sequence management, while UDP is faster but less reliable.
+
+       - **Data Transmission (Network Layer)**: The data packets are sent across the internet, guided by the Internet Protocol (IP). Packets may travel through multiple routers, each making routing decisions to move the packets closer to their destination based on IP addresses.
+         - <u>Packet Transmission in Routers</u>
+           - **Receiving Data Packets**: Routers interface with multiple networks and first receive incoming data packets from one of these networks.
+           - **Examining Packet Headers**: Each data packet contains header information, including the destination IP address. The router examines this header to determine the packet's destination.
+           - **Routing Table Lookup**: The router uses the destination IP address to consult its <u>routing table</u> and find the best next hop towards the packet's destination. Routing tables contain entries for known networks, the directions (or interfaces) in which those networks can be reached, and the distance or metric to those networks, helping the router make efficient routing decisions.
+           - **Forwarding Decision**: forwards the packet to the next network on its journey. This decision is based on algorithms that consider factors such as the <u>number of hops</u>, network congestion, and path reliability.
+           - **Packet Transmission**: The router sends the packet out through the appropriate interface towards its next hop. This process repeats across multiple routers until the packet reaches its final destination.
+
+       - **Physical and Link Layers**: At the lowest levels, the physical and data link layers handle the actual transmission of data over physical networks and the direct connection between devices, using protocols appropriate to the medium (e.g., Ethernet for LANs).
+
+    3. **Server Processing**: The server receives the request and processes it. This might involve load balancing across multiple servers, database queries, or dynamic content generation before the requested document (webpage) is served back to the client.
+
+    4. **Data Reception and Display**: The client's browser receives the data, which is then rendered as a webpage. This may involve additional requests for resources like images, CSS, or JavaScript files to fully assemble the page.
 
 - **Basic**
 
