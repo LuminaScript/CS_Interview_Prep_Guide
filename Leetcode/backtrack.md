@@ -105,3 +105,33 @@
       return backtrack(subSum, k, 0, subsets);
   }
   ```
+
+- [1239. Maximum Length of a Concatenated String with Unique Characters](https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/) 🟠 MEDIUM 🔵 Backtrack
+
+   Time: O(2^N) [N: the length of arr, 2^N possible combinations of strings in the worst case]
+  
+   Space: ```O(N)``` [Max Depths of recursion stacks is N]
+   
+  ```cpp
+  int backtrack(vector<string>& arr, int i, string& mask){
+      if(i >= arr.size()) return 0;
+      string prevmask = mask;
+      bool isValid = true;
+      for(auto c : arr[i]){
+          if(mask[c - 'a'] == '*'){
+              isValid = false;
+              break;
+          }
+          mask[c - 'a'] = '*';
+      }
+  
+      int excludeCur = backtrack(arr, i + 1, prevmask);  
+      int includeCur = isValid ? arr[i].size() + backtrack(arr, i + 1, mask) : excludeCur;
+      
+      return std::max(excludeCur, includeCur);
+  }
+  int maxLength(vector<string>& arr) {
+      string mask = "abcdefghijklmnopqrstuvwxyz";
+      return backtrack(arr, 0, mask);
+  }
+  ```
