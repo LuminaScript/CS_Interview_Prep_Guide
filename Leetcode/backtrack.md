@@ -1,4 +1,4 @@
-- [51. N-Queens](https://leetcode.com/problems/n-queens/)
+- [51. N-Queens](https://leetcode.com/problems/n-queens/) 🔴 HARD 🔵 Backtrack
   
   **Time: ```O(N!)```, Space: ```O(N^2)```**
   ```cpp
@@ -39,7 +39,7 @@
       }
   }
   ```
-- [52. N-Queens](https://leetcode.com/problems/n-queens-ii/)
+- [52. N-Queens](https://leetcode.com/problems/n-queens-ii/) 🔴 HARD 🔵 Backtrack
   
   **Time: ```O(N!)```, Space: ```O(N^2)```**
   ```cpp
