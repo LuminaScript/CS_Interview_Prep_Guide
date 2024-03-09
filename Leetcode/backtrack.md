@@ -73,3 +73,35 @@
       return sols;
   }
   ```
+- [698. Partition to K Equal Sums Subset](https://leetcode.com/problems/partition-to-k-equal-sum-subsets/) 🟠 MEDIUM 🔵 Backtrack
+  ```cpp
+  vector<int> nums;
+  set<int> full;
+  bool backtrack(int subSum, int k, int i, vector<int>& subsets){
+      if(i == nums.size()){
+          for(auto n : subsets)
+              if(subSum != n) return false;
+          return true;
+      }
+      for(int set = 0; set < k; set++){
+          if(subsets[set] + nums[i] <= subSum){
+              subsets[set] += nums[i];
+              if(backtrack(subSum, k, i + 1, subsets)) return true;
+              subsets[set] -= nums[i];
+              if (subsets[set] == 0 || subsets[set] + nums[i] == subSum) break;
+          }
+      }
+      return false;
+  }
+  bool canPartitionKSubsets(vector<int>& nums, int k) {
+      int sum = 0;
+      for(auto n : nums) sum += n;
+
+      if(sum % k != 0) return false;
+      int subSum = sum / k;
+      this->nums = nums;
+
+      vector<int> subsets(k, 0); 
+      return backtrack(subSum, k, 0, subsets);
+  }
+  ```
