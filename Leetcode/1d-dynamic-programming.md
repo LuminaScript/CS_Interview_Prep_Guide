@@ -10,6 +10,30 @@
     return dp[n];
   }
   ```
+- [120. Triangle](https://leetcode.com/problems/triangle/description/) 🟠 MEDIUM 🔵 1-d DP
+  
+   **Time: O(N^2), Space: O(N)**
+  ```cpp
+  int minimumTotal(vector<vector<int>>& triangle) {
+    int n = triangle.size();
+    vector<int> prev(1);
+    prev[0] = triangle[0][0];
+    for(int i = 1; i < n; i++){
+        vector<int> cur(i + 1);
+        for(int j = 0; j <= i; j++){
+            if(j > prev.size() - 1) cur[j] = prev[j - 1] + triangle[i][j];
+            else if(j == 0) cur[j] = prev[j] + triangle[i][j];
+            else cur[j] = min(prev[j], prev[j - 1]) + triangle[i][j];
+        }
+        prev = cur;
+    }
+    int minPathSum = INT_MAX;
+    for(auto n : prev){
+        if(n < minPathSum) minPathSum = n;
+    }
+    return minPathSum;
+  }
+  ```
 - [746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/) 🟢 EASY 🔵 1-d DP
   ```cpp
   int minCostClimbingStairs(vector<int>& cost) {
