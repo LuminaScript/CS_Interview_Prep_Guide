@@ -140,3 +140,48 @@
     return cnt;
   }
   ```
+- [740. Delete and Earn](https://leetcode.com/problems/delete-and-earn)  **```🟠MED```**
+
+  **1) No Sorting** ```Time: O(N + K), Space: O(N)```
+     ```cpp
+     int deleteAndEarn(vector<int>& nums) {
+        int maxNum = 0;
+        unordered_map<int, int> points;
+        for(auto n : nums){
+            points[n] += n;
+            maxNum = max(maxNum, n);
+        }
+  
+        int twoBack = 0; // the max num is 0 -> nothing gain
+        int oneBack = points[1]; // the max num is 1
+        for(int i = 2; i <= maxNum; i++){
+            int temp = oneBack;
+            oneBack = max(twoBack + points[i], oneBack);
+            twoBack = temp;
+        }
+        return oneBack;
+     }
+     ```
+
+  **2) Sort** ```Time: O(NLogN), Space: O(N)```
+    ```cpp
+    int deleteAndEarn(vector<int>& nums) {
+        map<int, int> points; // nums[i], sum;
+        for(int n : nums) points[n] += n;
+
+        int twoBack = 0; // without prev
+        int oneBack = points.begin()->second;
+
+        for (auto p = ++points.begin(); p != points.end(); p++){
+            int cur = p->first;
+            int temp = oneBack;
+            if(points.find(cur - 1) != points.end()){
+                oneBack = max(oneBack, twoBack + p->second);
+            }else{
+                oneBack += p->second;
+            }
+            twoBack = temp;
+        }
+        return oneBack;
+    }
+    ```
