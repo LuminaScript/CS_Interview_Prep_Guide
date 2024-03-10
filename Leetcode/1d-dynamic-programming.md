@@ -10,7 +10,7 @@
     return dp[n];
   }
   ```
-- [120. Triangle](https://leetcode.com/problems/triangle/description/) 🟠 MEDIUM    **```Time: O(N^2), Space: O(N)```**
+- [120. Triangle](https://leetcode.com/problems/triangle/description/) **```🟠MED```**    **```Time: O(N^2), Space: O(N)```**
   
 
   ```cpp
