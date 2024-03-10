@@ -10,9 +10,9 @@
     return dp[n];
   }
   ```
-- [120. Triangle](https://leetcode.com/problems/triangle/description/) 🟠 MEDIUM 🔵 1-d DP
+- [120. Triangle](https://leetcode.com/problems/triangle/description/) 🟠 MEDIUM    **```Time: O(N^2), Space: O(N)```**
   
-   **Time: O(N^2), Space: O(N)**
+
   ```cpp
   int minimumTotal(vector<vector<int>>& triangle) {
     int n = triangle.size();
