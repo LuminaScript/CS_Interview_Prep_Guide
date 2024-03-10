@@ -94,3 +94,25 @@
     return s.substr(ans[0], dist);
   }
   ```
+
+- [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/) 🟠 MEDIUM 🔵 1-d DP
+  
+  > Expand from center
+  
+  **Time: O(N^2), Space: O(1)**
+  ```cpp
+  int countSubstrings(string s) {
+    int cnt = 0, n = s.size();
+    for(int i = 0; i < n; i++){
+        for(int l = i, r = i; l >= 0 && r < n; l--, r++){
+            if(s[l] == s[r]) cnt++;
+            else break;
+        }
+        for(int l = i, r = i + 1; l >= 0 && r < n; l--, r++){
+            if(s[l] == s[r]) cnt++;
+            else break;
+        }           
+    }
+    return cnt;
+  }
+  ```
