@@ -58,3 +58,39 @@
       return max(rob1(nums, 0, n - 2), rob1(nums, 1, n - 1));
   }
   ```
+- [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring) 🟠 MEDIUM 🔵 1-d DP
+  
+  > Expand from center
+  
+  **Time: O(N^2), Space: O(1)**
+  ```cpp
+  int expand(string s, int l, int r){
+    while(l >= 0 && r < s.size()){
+        if(s[l] == s[r]){
+            l--, r++;
+        }else{
+            break;
+        }
+    }
+    return r - l + 1 - 2;
+  }
+  string longestPalindrome(string s) {
+    int ans[2] = {0}, dist = 1;
+    for(int i = 0; i < s.size(); i++){
+        int oddLen = expand(s, i, i);
+        if(oddLen > dist){
+            ans[0] = i - oddLen / 2;
+            ans[1] = i + oddLen / 2;
+            dist = oddLen;
+        }
+
+        int evenLen = expand(s, i, i + 1);
+        if(evenLen > dist){
+            ans[0] = i - evenLen / 2 + 1;
+            ans[1] = i + evenLen / 2;
+            dist = evenLen;
+        }
+    }
+    return s.substr(ans[0], dist);
+  }
+  ```
