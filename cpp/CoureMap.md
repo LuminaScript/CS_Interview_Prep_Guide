@@ -9,3 +9,4 @@ Courses Map
 - **<u>[Database | C++]</u>** CMU 15-445: Database Systems (https://csdiy.wiki/数据库系统/15445/)
 - **<u>[Parallel Computing | C++ ]</u>** CMU 15-418/Stanford CS149: Parallel Computing (https://csdiy.wiki/并行与分布式系统/CS149/)
 
+- **<u>[Computer Architecture | C]</u>** Princeton
